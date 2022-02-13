@@ -30,5 +30,5 @@ vim.g.loaded_netrwPlugin = 1                                     -- Disable 'net
 vim.g.loaded_matchit     = 1                                     -- Disable 'matchit' plugint
 
 -- Load everything else
-require("plugin")
+require("plugins")
 require("colors")
