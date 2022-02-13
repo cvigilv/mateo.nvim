@@ -14,7 +14,7 @@ require('packer').startup(
 	function()
 		use 'wbthomason/packer.nvim'
 		use 'folke/tokyonight.nvim'
-		use 'unblevable/quick-scope'
+		use {'unblevable/quick-scope', config = function() require'config.quick-scope' end,}
 	end,
 
 	config = {
