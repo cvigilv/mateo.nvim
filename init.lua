@@ -22,6 +22,7 @@ vim.opt.softtabstop      = 4                                     -- Tabs are act
 vim.opt.splitbelow       = true                                  -- Horizontal splitting will be automatically placed on the botom
 vim.opt.splitright       = true                                  -- Vertical splitting will be automatically placed on the right
 vim.opt.tabstop          = 4                                     -- Tab of size equal to 4 spaces
+vim.opt.termguicolors    = true                                  -- Use GUI colors
 vim.opt.wrap             = false                                 -- Don't wrap text
 vim.opt.wildmode         = 'longest,list,full'                   -- Completion mode used to showcase options
 vim.opt.list             = true                                  -- See whitespaces in current buffer
