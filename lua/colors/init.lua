@@ -18,25 +18,24 @@ vim.g.tokyonight_style = "night"
 vim.g.tokyonight_sidebars = {"packer", "terminal", "NvimTree"}
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_italic_comments = true
-vim.g.tokyonight_hide_inactive_statusline = true
+vim.g.tokyonight_hide_inactive_statusline = false
 
-if vim.g.tokyonight_style == "day" then
-	execute [[
-		augroup colors_override
-			" `tokyonight`
-			autocmd ColorScheme tokyonight highlight! Normal guibg='#EDF0FC'
-			autocmd ColorScheme tokyonight highlight! link CursorLineNr WarningMsg
-		augroup END
-		]]
-else
-	execute [[
-		augroup colors_override
-			" `tokyonight`
-			autocmd ColorScheme tokyonight highlight! Normal guifg='#EDF0FC'
-			autocmd ColorScheme tokyonight highlight! link CursorLineNr WarningMsg
-		augroup END
-		]]
-end
+execute [[
+	function s:respect_background()
+		let l:bg='set background?'
+		if l:bg == 'dark'
+			highlight! Normal guifg='#EDF0FC'
+		elif l:bg == 'light'
+			highlight! Normal guifg='#1A1B26'
+		endif
+	endfunction
+
+	augroup colors_override
+		" `tokyonight`
+		autocmd ColorScheme tokyonight call s:respect_background()
+		autocmd ColorScheme tokyonight highlight! link CursorLineNr WarningMsg
+	augroup END
+	]]
 
 -- Load colorscheme
 execute "colorscheme tokyonight"
