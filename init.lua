@@ -4,7 +4,7 @@ vim.g.mapleader="<Space>"
 -- General configuration
 vim.opt.autochdir        = true                                  -- Change current working directory to wherever is the file
 vim.opt.clipboard        = "unnamedplus"                         -- Copy paste between vim and everything else
-vim.opt.completeopt      = "menuone,noselect"                    -- Set completeopt to have a better completion experience
+vim.opt.completeopt      = "menu,menuone,noselect"               -- Set completeopt to have a better completion experience
 vim.opt.conceallevel     = 0                                     -- Don't hide formatting characters
 vim.opt.cursorline       = true                                  -- Highlight current line
 vim.opt.fileencoding     = 'UTF-8'                               -- Character encoding for the file in the buffer
@@ -27,8 +27,21 @@ vim.opt.wrap             = false                                 -- Don't wrap t
 vim.opt.wildmode         = 'longest,list,full'                   -- Completion mode used to showcase options
 vim.opt.list             = true                                  -- See whitespaces in current buffer
 vim.opt.listchars        ="trail:∘,nbsp:‼,tab:│ "                -- This whitespaces have an specific marker
-vim.g.loaded_netrwPlugin = 1                                     -- Disable 'netrw' plugin
-vim.g.loaded_matchit     = 1                                     -- Disable 'matchit' plugint
+
+-- Disable some in built plugins completely
+vim.g.loaded_netrw            = 1
+vim.g.loaded_netrwPlugin      = 1
+vim.g.loaded_matchparen       = 1
+vim.g.loaded_matchit          = 1
+vim.g.loaded_2html_plugin     = 1
+vim.g.loaded_getscriptPlugin  = 1
+vim.g.loaded_gzip             = 1
+vim.g.loaded_logipat          = 1
+vim.g.loaded_rrhelper         = 1
+vim.g.loaded_spellfile_plugin = 1
+vim.g.loaded_tarPlugin        = 1
+vim.g.loaded_vimballPlugin    = 1
+vim.g.loaded_zipPlugin        = 1
 
 -- Load everything else
 require("plugins")
