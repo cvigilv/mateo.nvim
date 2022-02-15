@@ -12,9 +12,9 @@ execute [[
 	function s:TokyoNight_bg()
 		let l:bg='set background?'
 		if l:bg == 'dark'
-			highlight! Normal guifg='#EDF0FC'
+			highlight Normal guifg='#EDF0FC'
 		elif l:bg == 'light'
-			highlight! Normal guifg='#1A1B26'
+			highlight Normal guifg='#1A1B26'
 		endif
 	endfunction
 
@@ -23,6 +23,7 @@ execute [[
 		autocmd ColorScheme tokyonight call s:TokyoNight_bg()
 		autocmd ColorScheme tokyonight highligh link CursorLineNr WarningMsg
 	augroup END
+	call s:TokyoNight_bg()
 ]]
 
 execute [[ colorscheme tokyonight ]]
