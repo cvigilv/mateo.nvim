@@ -46,12 +46,6 @@ require('packer').startup(
 				'cvigilv/julia-vim',
 				config = function() require('plugins.setup.julia-vim') end,
 			}
-			use { -- LSP servers
-				'neovim/nvim-lspconfig',
-				requires = {
-					{'williamboman/nvim-lsp-installer'},
-				},
-			}
 			use { -- Completion engine
 				'hrsh7th/nvim-cmp',
 				config = function() require('plugins.setup.nvim-cmp') end,
@@ -66,21 +60,34 @@ require('packer').startup(
 				},
 				event = 'InsertEnter *',
 			}
-			-- use { -- More "special" comments
-			-- 	"folke/todo-comments.nvim",
-			-- 	requires = "nvim-lua/plenary.nvim",
-			-- 	config = function() require("todo-comments").setup({}) end
-			-- }
+			use { -- LSP servers
+				'neovim/nvim-lspconfig',
+				config = function() require('plugins.setup.nvim-lspconfig') end,
+				requires = {
+					{'williamboman/nvim-lsp-installer'},
+				},
+				after = 'nvim-cmp-lsp'
+			}
 			use { -- Align text
-				'tommcdo/vim-lion'
+				'tommcdo/vim-lion',
+				config = function() require('plugins.setup.vim-lion') end,
 			}
 			use { -- Git signs
 				'lewis6991/gitsigns.nvim',
-				requires = 'nvim-lua/plenary.nvim',
 				config = function() require('plugins.setup.gitsigns') end,
+				requires = { 'nvim-lua/plenary.nvim'},
 			}
 			use { -- Better commit buffer
-				'rhysd/committia.vim'
+				'rhysd/committia.vim',
+				config = function() require('plugins.setup.commitia') end,
+			}
+			use { -- Convert Neovim into a Rstudio-like development environment
+				'jalvesaq/Nvim-R',
+				config = function() require('plugins.setup.Nvim-R') end,
+			}
+			use { -- What is mapped to this key?
+				'folke/which-key.nvim',
+				config = function() require('plugins.setup.which-key') end,
 			}
 
 			-- `packer.nvim` bootstrapping
