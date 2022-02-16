@@ -24,6 +24,6 @@ tags
 [._]*.un~
 
 # packer compiled
-packer_compiled.lua
+plugin/packer_compiled.lua
 
 # End of https://www.toptal.com/developers/gitignore/api/vim
