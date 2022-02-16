@@ -110,7 +110,7 @@ require('mini.sessions').setup(
 -- }}}
 -- mini.starter {{{
 local telescope_items = {
-	 { name = "Files",   action = [[ lua require("plugins.setup.telescope").project_files() ]], section = 'Telescope'},
+	 { name = "Files",   action = [[ lua require("plugin.setup.telescope").project_files() ]], section = 'Telescope'},
 	 { name = "Grep",    action = [[ lua require("telescope.builtin").live_grep() ]], section = 'Telescope'},
 	 { name = "Pickers",    action = [[ lua require("telescope.builtin").builtin() ]], section = 'Telescope'},
  }
