@@ -45,5 +45,5 @@ vim.g.loaded_vimballPlugin    = 1
 vim.g.loaded_zipPlugin        = 1
 
 -- Load everything else
-require("plugins")
+require("plugin")
 require("colors")

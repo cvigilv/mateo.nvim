@@ -15,23 +15,23 @@ require('packer').startup(
 			use 'wbthomason/packer.nvim'
 			use { -- Horizontal movement helper
 				'unblevable/quick-scope',
-				config = function() require('plugins.setup.quick-scope') end
+				config = function() require('plugin.setup.quick-scope') end
 			}
 			use { -- Default colorscheme
 				'folke/tokyonight.nvim',
-				config = function() require('plugins.setup.tokyonight') end
+				config = function() require('plugin.setup.tokyonight') end
 			}
 			use { -- Integrate ´tmux´ navigation
 				'numToStr/Navigator.nvim',
-				config = function() require('plugins.setup.Navigator') end
+				config = function() require('plugin.setup.Navigator') end
 			}
 			use { -- Minimal modules
 				'echasnovski/mini.nvim',
-				config = function() require('plugins.setup.mini') end
+				config = function() require('plugin.setup.mini') end
 			}
 			use { -- Fuzzy finder
 				'nvim-telescope/telescope.nvim',
-				config = function() require('plugins.setup.telescope') end,
+				config = function() require('plugin.setup.telescope') end,
 				requires = {
 					{'nvim-lua/plenary.nvim'},
 					{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
@@ -39,16 +39,16 @@ require('packer').startup(
 			}
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
-				config = function() require('plugins.setup.vimtex') end,
+				config = function() require('plugin.setup.vimtex') end,
 				ft = {'tex', 'bib'}
 			}
 			use { -- Julia support
 				'cvigilv/julia-vim',
-				config = function() require('plugins.setup.julia-vim') end,
+				config = function() require('plugin.setup.julia-vim') end,
 			}
 			use { -- Completion engine
 				'hrsh7th/nvim-cmp',
-				config = function() require('plugins.setup.nvim-cmp') end,
+				config = function() require('plugin.setup.nvim-cmp') end,
 				requires = {
 					{'hrsh7th/cmp-nvim-lsp'},
 					{'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp'},
@@ -62,7 +62,7 @@ require('packer').startup(
 			}
 			use { -- LSP servers
 				'neovim/nvim-lspconfig',
-				config = function() require('plugins.setup.nvim-lspconfig') end,
+				config = function() require('plugin.setup.nvim-lspconfig') end,
 				requires = {
 					{'williamboman/nvim-lsp-installer'},
 				},
@@ -70,24 +70,24 @@ require('packer').startup(
 			}
 			use { -- Align text
 				'tommcdo/vim-lion',
-				config = function() require('plugins.setup.vim-lion') end,
+				config = function() require('plugin.setup.vim-lion') end,
 			}
 			use { -- Git signs
 				'lewis6991/gitsigns.nvim',
-				config = function() require('plugins.setup.gitsigns') end,
+				config = function() require('plugin.setup.gitsigns') end,
 				requires = { 'nvim-lua/plenary.nvim'},
 			}
 			use { -- Better commit buffer
 				'rhysd/committia.vim',
-				config = function() require('plugins.setup.commitia') end,
+				config = function() require('plugin.setup.commitia') end,
 			}
 			use { -- Convert Neovim into a Rstudio-like development environment
 				'jalvesaq/Nvim-R',
-				config = function() require('plugins.setup.Nvim-R') end,
+				config = function() require('plugin.setup.Nvim-R') end,
 			}
 			use { -- What is mapped to this key?
 				'folke/which-key.nvim',
-				config = function() require('plugins.setup.which-key') end,
+				config = function() require('plugin.setup.which-key') end,
 			}
 
 			-- `packer.nvim` bootstrapping
