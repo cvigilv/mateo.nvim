@@ -14,7 +14,7 @@ require('packer').startup(
 		function()
 			use 'wbthomason/packer.nvim'
 
-			-- Completion and sources
+			-- Completion and sources {{{
 			use { -- Completion engine
 				'hrsh7th/nvim-cmp',
 				config = function() require('plugin.setup.nvim-cmp') end,
@@ -35,8 +35,8 @@ require('packer').startup(
 					{'williamboman/nvim-lsp-installer'},
 				},
 			}
-
-			-- Quality-of-life
+			-- }}}
+			-- Quality-of-life {{{
 			use { -- Minimal modules
 				'echasnovski/mini.nvim',
 				config = function() require('plugin.setup.mini') end
@@ -57,8 +57,8 @@ require('packer').startup(
 				'tommcdo/vim-lion',
 				config = function() require('plugin.setup.vim-lion') end,
 			}
-
-			-- Add-ons
+			-- }}}
+			-- Add-ons {{{
 			use { -- Fuzzy finder
 				'nvim-telescope/telescope.nvim',
 				config = function() require('plugin.setup.telescope') end,
@@ -75,8 +75,8 @@ require('packer').startup(
 			use { -- Startup timings
 				'dstein64/vim-startuptime',
 			}
-
-			-- Git
+			-- }}}
+			-- Git {{{
 			use { -- Git signs
 				'lewis6991/gitsigns.nvim',
 				config = function() require('plugin.setup.gitsigns') end,
@@ -86,18 +86,19 @@ require('packer').startup(
 				'rhysd/committia.vim',
 				config = function() require('plugin.setup.commitia') end,
 			}
-
-			-- Language specific support
+			-- }}}
+			-- Language specific support {{{
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
 				config = function() require('plugin.setup.vimtex') end,
 			}
-
-			-- Aesthetics
+			-- }}}
+			-- Aesthetics {{{
 			use {
 				'folke/tokyonight.nvim',
 				config = function() require('plugin.setup.tokyonight') end
 			}
+			-- }}}
 
 			-- `packer.nvim` bootstrapping
 			if packer_bootstrap then
