@@ -44,6 +44,9 @@ vim.g.loaded_tarPlugin        = 1
 vim.g.loaded_vimballPlugin    = 1
 vim.g.loaded_zipPlugin        = 1
 
+-- Providers
+vim.g.python3_host_prog = 'python3'
+
 -- Load everything else
 require("plugin")
 require("colors")
