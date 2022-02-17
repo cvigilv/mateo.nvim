@@ -19,7 +19,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers with default setups
--- local servers = require('nvim-lsp-installer').get_installed_servers()
 local servers = {'julials', 'pyright', 'sumneko_lua'}
 for _, server in ipairs(servers) do
 	lspconfig[server].setup(
@@ -32,10 +31,8 @@ end
 
 -- Server specific configuration
 -- Lua {{{
-lspconfig['sumneko_lua'].setup(
+lspconfig.sumneko_lua.setup(
 	{
-		on_attach = on_attach,
-		capabilities = capabilities,
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -45,5 +42,20 @@ lspconfig['sumneko_lua'].setup(
 		}
 	}
 ) -- }}}
-
-vim.cmd("LspStart")
+-- Python {{{
+lspconfig.pyright.setup(
+	{
+		flags = {
+			debounce_text_changes = 150,
+		},
+		settings = {
+			python =  {
+				analysis = {
+					autoSearchPaths = false,
+					useLibraryCodeForTypes = false,
+					diagnosticMode = 'openFilesOnly',
+				}
+			}
+		}
+	}
+)
