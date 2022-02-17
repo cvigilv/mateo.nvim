@@ -35,7 +35,6 @@ require('packer').startup(
 				requires = {
 					{'williamboman/nvim-lsp-installer'},
 				},
-				after = 'nvim-cmp'
 			}
 
 			-- Quality-of-life
@@ -69,6 +68,9 @@ require('packer').startup(
 					{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
 				}
 			}
+			use { -- Startup timings
+				'dstein64/vim-startuptime',
+			}
 
 			-- Git
 			use { -- Git signs
@@ -85,7 +87,6 @@ require('packer').startup(
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
 				config = function() require('plugin.setup.vimtex') end,
-				ft = {'tex', 'bib'}
 			}
 			use { -- Julia support
 				'cvigilv/julia-vim',
