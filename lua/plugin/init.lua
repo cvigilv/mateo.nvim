@@ -27,7 +27,6 @@ require('packer').startup(
 					{'hrsh7th/cmp-cmdline',                 after = 'nvim-cmp'},
 					{'hrsh7th/cmp-omni',                    after = 'nvim-cmp'},
 				},
-				event = 'InsertEnter *',
 			}
 			use { -- LSP servers
 				'neovim/nvim-lspconfig',
