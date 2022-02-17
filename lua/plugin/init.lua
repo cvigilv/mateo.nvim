@@ -67,6 +67,11 @@ require('packer').startup(
 					{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
 				}
 			}
+			use { -- treesitter support
+				'nvim-treesitter/nvim-treesitter',
+				config = function() require('plugin.setup.nvim-treesitter') end,
+				run = ':TSUpdate'
+			}
 			use { -- Startup timings
 				'dstein64/vim-startuptime',
 			}
@@ -86,14 +91,6 @@ require('packer').startup(
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
 				config = function() require('plugin.setup.vimtex') end,
-			}
-			use { -- Julia support
-				'cvigilv/julia-vim',
-				config = function() require('plugin.setup.julia-vim') end,
-			}
-			use { -- Convert Neovim into a Rstudio-like development environment
-				'jalvesaq/Nvim-R',
-				config = function() require('plugin.setup.Nvim-R') end,
 			}
 
 			-- Aesthetics
