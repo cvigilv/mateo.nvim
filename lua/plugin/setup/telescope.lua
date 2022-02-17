@@ -1,19 +1,17 @@
 local execute = vim.cmd
-local themes = require("telescope.themes")
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
-local action_layout = require("telescope.actions.layout")
 
+-- Custom functions {{{
 local M = {}
-
--- Intelligent find files
+-- Intelligent find files {{{
 -- INFO: If in Git repo, showcase only git files, else, show all files
 M.project_files = function(opts)
   local ok = pcall(require("telescope.builtin").git_files, opts)
   if not ok then require("telescope.builtin").find_files(opts) end
 end
-
--- Intelligent previewer
+-- }}}
+-- Intelligent previewer {{{
 -- INFO: Don't preview binary files
 local intelligent_previewer = function(filepath, bufnr, opts)
 	filepath = vim.fn.expand(filepath)
@@ -32,20 +30,21 @@ local intelligent_previewer = function(filepath, bufnr, opts)
 		end
 	}):sync()
 end
-
--- Setup
+-- }}}
+-- }}}
+-- Setup {{{
 require("telescope").setup(
 	{
 		defaults = {
 			prompt_prefix = '? ',
 			selection_prefix = '  ',
 			multi_icon = '!',
-			
+
 			initial_mode = "insert",
 			selection_strategy = "reset",
 			sorting_strategy = "ascending",
 			path_display = { 'truncate = 3', 'smart' },
-				
+
 			layout_strategy = 'bottom_pane',
 			layout_config = {
 				bottom_pane = {
@@ -68,17 +67,16 @@ require("telescope").setup(
 		},
 	}
 )
-
--- Highlighting
+-- }}}
+-- Highlighting {{{
 execute [[
 	highlight clear TelescopeTitle
 	highlight TelescopeTitle gui=bold guibg=#E0AF68 guifg=#16161E
 	highlight TelescopeBorder gui=bold guifg=#2ac3de guibg=#16161E
 ]]
-
--- Load extensions
+-- }}}
+-- Extensions {{{
 require('telescope').load_extension('fzf')
+-- }}}
 
 return M
-
--- vim:foldmethod=marker:ts=4:ft=lua
