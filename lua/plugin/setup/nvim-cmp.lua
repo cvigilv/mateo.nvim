@@ -72,7 +72,6 @@ cmp.setup(
 
 			{ -- Omnifunc
 				name = 'omni',
-				priority = 10,
 				keyword_length = 3,
 				max_item_count = 25
 			},
@@ -81,19 +80,11 @@ cmp.setup(
 				name = 'path',
 				max_item_count = 5,
 			},
-
-			{ -- Buffer
-				name = 'buffer',
-				keyword_length = 5,
-				max_item_count = 10,
-				option = {
-					keyword_length = 3,
-				},
-			},
 		},
 
 		experimental = {
-			ghost_text = true
+			ghost_text = true,
+			native_menu = false
 		}
 	}
 )
