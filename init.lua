@@ -8,6 +8,7 @@ vim.opt.completeopt      = "menu,menuone,noselect"               -- Set complete
 vim.opt.conceallevel     = 0                                     -- Don't hide formatting characters
 vim.opt.cursorline       = true                                  -- Highlight current line
 vim.opt.fileencoding     = 'UTF-8'                               -- Character encoding for the file in the buffer
+vim.opt.foldmethod       = 'marker'                              -- Automatically fold text in markers
 vim.opt.mouse            = "a"                                   -- Activate mouse
 vim.opt.number           = true                                  -- Add line numbering
 vim.opt.relativenumber   = true                                  -- Add relative numbering, this is a must in my opinion
@@ -28,6 +29,7 @@ vim.opt.wrap             = false                                 -- Don't wrap t
 vim.opt.wildmode         = 'longest,list,full'                   -- Completion mode used to showcase options
 vim.opt.list             = true                                  -- See whitespaces in current buffer
 vim.opt.listchars        ="trail:∘,nbsp:‼,tab:│ "                -- This whitespaces have an specific marker
+vim.opt.fillchars        ="fold:┈"                               -- This fill characters have an specific marker
 
 -- Disable some in built plugins completely
 vim.g.loaded_netrw            = 1
