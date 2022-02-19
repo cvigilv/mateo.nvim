@@ -53,6 +53,7 @@ execute [[
 		" Disable module in non-relevant buffers
 		autocmd TermOpen * lua vim.b.minicursorword_disable = true
 		autocmd FileType help lua vim.b.minicursorword_disable = true
+		autocmd FileType tex lua vim.b.minicursorword_disable = true
    augroup END
 ]]
 -- }}}
