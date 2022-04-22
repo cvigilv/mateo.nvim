@@ -115,6 +115,10 @@ require('packer').startup(
 				'folke/tokyonight.nvim',
 				config = function() require('plugin.setup.tokyonight') end
 			}
+			use { -- Better orgmode headers
+				'akinsho/org-bullets.nvim',
+				config = function() require('plugin.setup.org-bullets') end
+			}
 			-- }}}
 
 			-- `packer.nvim` bootstrapping
