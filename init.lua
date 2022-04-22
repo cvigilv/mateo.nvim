@@ -1,5 +1,5 @@
 -- The Almighty Leader (Key)
-vim.g.mapleader="<Space>"
+vim.g.mapleader=","
 
 -- General configuration {{{
 vim.opt.autochdir        = true                                  -- Change current working directory to wherever is the file
