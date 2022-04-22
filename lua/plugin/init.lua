@@ -81,6 +81,13 @@ require('packer').startup(
 			use { -- A high-performance color highlighter for Neovim
 				'norcalli/nvim-colorizer.lua',
 			}
+			use { -- A file explorer for Neovim written in Lua
+				'kyazdani42/nvim-tree.lua',
+				requires = {
+					{'kyazdani42/nvim-web-devicons'}
+				},
+				config = function() require('plugin.setup.nvim-tree') end,
+			}
 			-- }}}
 			-- Git {{{
 			use { -- Git signs
