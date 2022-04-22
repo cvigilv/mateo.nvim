@@ -75,6 +75,9 @@ require('packer').startup(
 			use { -- Startup timings
 				'dstein64/vim-startuptime',
 			}
+			use { -- Speed up loading Lua modules to improve startup time
+				'lewis6991/impatient.nvim',
+			}
 			-- }}}
 			-- Git {{{
 			use { -- Git signs

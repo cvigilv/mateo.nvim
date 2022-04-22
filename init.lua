@@ -1,3 +1,4 @@
+require('impatient').enable_profile()
 -- The Almighty Leader (Key)
 vim.g.mapleader=","
 
