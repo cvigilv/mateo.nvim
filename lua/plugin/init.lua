@@ -78,6 +78,9 @@ require('packer').startup(
 			use { -- Speed up loading Lua modules to improve startup time
 				'lewis6991/impatient.nvim',
 			}
+			use { -- A high-performance color highlighter for Neovim
+				'norcalli/nvim-colorizer.lua',
+			}
 			-- }}}
 			-- Git {{{
 			use { -- Git signs
