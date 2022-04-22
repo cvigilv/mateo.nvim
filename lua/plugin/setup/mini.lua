@@ -1,22 +1,20 @@
-local execute = vim.cmd
-
 -- Disable unused modules {{{
 vim.g.minibase16_disable=true
 vim.g.minibufremove_disable=true
+-- vim.g.minicomment_disable=true
 vim.g.minicompletion_disable=true
+vim.g.minicursorword_disable=true
+vim.g.minifuzzy_disable=true
+vim.g.miniindentscope_disable=true
 vim.g.minijump_disable=true
 vim.g.minimisc_disable=true
 vim.g.minipairs_disable=true
-vim.g.ministatusline_disable=true
-vim.g.minitabline_disable=true
-vim.g.minitrailspace_disable=true
-vim.g.minifuzzy_disable=true
-vim.g.miniindentscope_disable=true
--- vim.g.minicomment_disable=true
--- vim.g.minicursorword_disable=true
 -- vim.g.minisessions_disable=true
 -- vim.g.ministarter_disable=true
--- vim.g.minisurround_disable=true
+vim.g.ministatusline_disable=true
+vim.g.minisurround_disable=true
+vim.g.minitabline_disable=true
+vim.g.minitrailspace_disable=true
 -- }}}
 
 -- Setup ´mini.nvim´ modules
@@ -32,45 +30,6 @@ require('mini.comment').setup(
 	}
 )
 --- }}}
--- mini.indentscope {{{
--- require('mini.indentscope').setup(
--- 	{
--- 		-- Drawing settings.
--- 		draw = {
--- 			delay = 10,
--- 			animation = require('mini.indentscope').gen_animation('linear')
--- 		},
--- 		-- Module mappings.
--- 		mappings = {
--- 			object_scope = '',
--- 			object_scope_with_border = '',
--- 			goto_top = '',
--- 			goto_bottom = '',
--- 		},
--- 		-- Options which control computation of scope.
--- 		options = {
--- 			border = 'top',
--- 			indent_at_cursor = true,
--- 			try_as_border = true,
--- 		},
--- 		-- Character to use as indicator.
--- 		symbol = '│'
--- 	}
--- )
---
--- execute [[
--- 	highlight clear MiniIndentscopePrefix
--- 	highlight link MiniIndentscopeSymbol WarningMsg
--- ]]
---
--- execute [[
--- 	augroup mini.indentscope.behaviour
--- 		" Disable module in non relevant buffer types
--- 		autocmd FileType help lua vim.b.miniindentscope_disable = true
--- 		autocmd TermOpen * lua vim.b.miniindentscope_disable = true
---    augroup END
--- ]]
--- }}}
 -- mini.sessions {{{
 require('mini.sessions').setup(
 	{
