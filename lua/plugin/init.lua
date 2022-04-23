@@ -1,21 +1,20 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
--- Ensure `packer.nvim` is installed on any machine
+-- Ensure `packer.nvim` is installed on any machine {{{
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
 	packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
-
--- `packer.nvim` configuration
+-- }}}
+-- `packer.nvim` configuration {{{
 execute 'packadd packer.nvim'
 require('packer').startup(
 	{
 		function()
 			use 'wbthomason/packer.nvim'
-
 			-- Completion and sources {{{
-			use { -- Completion engine
+			use { -- A completion engine plugin for neovim written in Lua
 				'hrsh7th/nvim-cmp',
 				config = function() require('plugin.setup.nvim-cmp') end,
 				requires = {
@@ -98,7 +97,7 @@ require('packer').startup(
 			}
 			-- }}}
 			-- Git {{{
-			use { -- Git signs
+			use { -- Super fast git decorations implemented purely in lua/teal
 				'lewis6991/gitsigns.nvim',
 				config = function() require('plugin.setup.gitsigns') end,
 				requires = { 'nvim-lua/plenary.nvim'},
@@ -111,7 +110,7 @@ require('packer').startup(
 			-- Language specific support {{{
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
-				config = function() require('plugin.setup.vimtex') end,
+			}
 			use { -- Emacs org-mode
 				'nvim-orgmode/orgmode',
 				config = function() require('plugin.setup.orgmode') end,
@@ -131,7 +130,6 @@ require('packer').startup(
 				config = function() require('plugin.setup.fidget') end
 			}
 			-- }}}
-
 			-- `packer.nvim` bootstrapping
 			if packer_bootstrap then
 				require('packer').sync()
@@ -140,5 +138,6 @@ require('packer').startup(
 		config = { max_jobs = 12 }
 	}
 )
+-- }}}
 
 -- vim:foldmethod=marker:ts=4:ft=lua
