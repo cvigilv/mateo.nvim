@@ -1,6 +1,6 @@
 local whichkey = require("which-key")
 
--- General setup
+-- General setup {{{
 whichkey.setup(
 	{
 		plugins = {
@@ -22,15 +22,13 @@ whichkey.setup(
 				g = true,
 			},
 		},
-
 		operators = {
 			gc = "Comments"
 		},
 		key_labels = {
-			["<leader>"] = "SPC",
-			["<space>"]  = "SPC",
-			["<cr>"]     = "CR↵",
-			["<tab>"]    = "TAB",
+			["<Leader>"] = "SPC",
+			["<CR>"]     = "CR↵",
+			["<Tab>"]    = "TAB",
 		},
 		icons = {
 			breadcrumb = "·",
@@ -46,7 +44,7 @@ whichkey.setup(
 			position = "bottom",
 			margin   = { 1, 0, 1, 0 },
 			padding  = { 2, 2, 2, 2 },
-			winblend = 20
+			winblend = 0
 		},
 		layout = {
 			height  = { min = 4,  max = 25 },
@@ -54,14 +52,14 @@ whichkey.setup(
 			spacing = 3,
 			align   = "center",
 		},
-		ignore_missing = true,
+		ignore_missing = false,
 		show_help = true,
-		triggers = { '<C-w>', 'g', 'z', ']', '[', '\\'},
-		triggers_nowait = {},
+		triggers = { '<C-w>', 'g', 'z', ']', '[', '\\', '<Leader>'},
+		triggers_nowait = {'<Leader>'},
 		triggers_blacklist = {
 			i = { "j", "k" },
 			v = { "j", "k" },
 		},
-    }
+  }
 )
 -- }}}
