@@ -112,6 +112,9 @@ require('packer').startup(
 			use { -- LaTeX editing in Vim
 				'lervag/vimtex',
 				config = function() require('plugin.setup.vimtex') end,
+			use { -- Emacs org-mode
+				'nvim-orgmode/orgmode',
+				config = function() require('plugin.setup.orgmode') end,
 			}
 			-- }}}
 			-- Aesthetics {{{
