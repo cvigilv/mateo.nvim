@@ -119,6 +119,10 @@ require('packer').startup(
 				'akinsho/org-bullets.nvim',
 				config = function() require('plugin.setup.org-bullets') end
 			}
+			use { -- LSP UI progress eye-candy
+				'j-hui/fidget.nvim',
+				config = function() require('plugin.setup.fidget') end
+			}
 			-- }}}
 
 			-- `packer.nvim` bootstrapping
