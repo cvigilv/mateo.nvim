@@ -57,6 +57,10 @@ require('packer').startup(
 				'tommcdo/vim-lion',
 				config = function() require('plugin.setup.vim-lion') end,
 			}
+			use { -- Current-working-directory == Project root
+				'ygm2/rooter.nvim',
+				config = function() require('plugin.setup.rooter') end,
+			}
 			-- }}}
 			-- Add-ons {{{
 			use { -- Fuzzy finder
