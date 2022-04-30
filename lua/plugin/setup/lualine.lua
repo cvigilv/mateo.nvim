@@ -207,7 +207,11 @@ ins_right {
   color = { fg = colors.light_bg }
 }
 ins_right {
-  '%c',
+  function()
+    local r,c = unpack(vim.api.nvim_win_get_cursor(0))
+    local ncols = string.len(vim.api.nvim_get_current_line())
+    return string.format('%d/%d', c+1, ncols)
+  end,
   icon = '∁',
   color = { fg = colors.light_bg }
 }
