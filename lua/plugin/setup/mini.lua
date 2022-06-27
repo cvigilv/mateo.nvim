@@ -55,16 +55,20 @@ starter.setup(
 	{
 		-- Setup
 		autoopen = true,
-		evaluate_single = false,
+		evaluate_single = true,
 		items = {
 			starter.sections.sessions(5, true),
-			starter.sections.recent_files(10, false, false),
-			starter.sections.recent_files(5, true, true),
+			starter.sections.recent_files(10, false, true),
+			starter.sections.recent_files(5, true, false),
 			telescope_items,
 			starter.sections.builtin_actions(),
 		},
-		header = "mateo.nvim - As in \"intelligent\" (chilean slang)",
+		header = "mateo.nvim - As in \"smart guy\" (chilean slang)",
 		query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.]],
+        content_hooks = {
+          starter.gen_hook.adding_bullet("⁞ "),
+          starter.gen_hook.aligning("center","center")
+        }
 	}
 )
 -- }}}
