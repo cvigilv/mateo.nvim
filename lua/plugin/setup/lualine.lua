@@ -53,6 +53,14 @@ local config = {
 }
 -- }}}
 -- Helper functions {{{
+local spacer={
+  function()
+    return ' '
+  end,
+  color = {},
+  padding = { left = 0, right = 1 },
+}
+
 -- Conditionally show some elements of the line
 local conditions = {
   buffer_not_empty = function()
@@ -69,26 +77,40 @@ local conditions = {
 }
 
 -- Inserts a component in lualine_c at left section
-local function ins_left(component)
+local function ins_left(component, keep)
   table.insert(config.sections.lualine_c, component)
+
+  keep = keep or false
+  if(keep) then
+    table.insert(config.inactive_sections.lualine_c, component)
+  else
+    table.insert(config.inactive_sections.lualine_c, spacer)
+  end
 end
 
 -- Inserts a component in lualine_x ot right section
-local function ins_right(component)
+local function ins_right(component, keep)
   table.insert(config.sections.lualine_x, component)
+
+  keep = keep or false
+  if(keep) then
+    table.insert(config.sections.lualine_x, component)
+  else
+    table.insert(config.inactive_sections.lualine_x, spacer)
+  end
 end
 -- }}}
 
 -- Statusline
 -- Left section {{{
 -- Divider {{{
-ins_left {
+ins_left({
   function()
     return '▊'
   end,
   color = { fg = colors.blue }, -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
-}
+}, false)
 -- }}}
 -- Mode component {{{
 ins_left {
@@ -125,11 +147,11 @@ ins_left {
 }
 -- }}}
 -- Filename {{{
-ins_left {
+ins_left({
   'filename',
   file_status = true,
   color = { fg = colors.magenta, gui = 'bold' },
-}
+}, true)
 -- }}}
 -- Git {{{
 ins_left {
@@ -217,13 +239,13 @@ ins_right {
 }
 -- }}}
 -- Divider {{{
-ins_right {
+ins_right({
   function()
     return '▊'
   end,
   color = { fg = colors.blue },
   padding = { left = 1 },
-}
+},false)
 -- }}}
 -- }}}
 
