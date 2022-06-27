@@ -56,6 +56,7 @@ require('packer').startup(
 				'tommcdo/vim-lion',
 				config = function() require('plugin.setup.vim-lion') end,
 			}
+            --- }}}
 			-- Add-ons {{{
 			use { -- Fuzzy finder
 				'nvim-telescope/telescope.nvim',
@@ -111,6 +112,10 @@ require('packer').startup(
 			use {
 				'folke/tokyonight.nvim',
 				config = function() require('plugin.setup.tokyonight') end
+			}
+			use {
+                'Mofiqul/dracula.nvim',
+				config = function() require('plugin.setup.dracula') end
 			}
 			use { -- Better orgmode headers
 				'akinsho/org-bullets.nvim',
