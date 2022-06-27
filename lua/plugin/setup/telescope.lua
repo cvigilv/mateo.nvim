@@ -14,58 +14,58 @@ end
 -- Intelligent previewer {{{
 -- INFO: Don't preview binary files
 local intelligent_previewer = function(filepath, bufnr, opts)
-	filepath = vim.fn.expand(filepath)
-	Job:new({
-		command = "file",
-		args = { "--mime-type", "-b", filepath },
-		on_exit = function(j)
-			local mime_type = vim.split(j:result()[1], "/")[1]
-			if mime_type == "text" then
-				previewers.buffer_previewer_maker(filepath, bufnr, opts)
-			else
-				vim.schedule(function()
-					vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Binary file - Can't preview..." })
-				end)
-			end
-		end
-	}):sync()
+  filepath = vim.fn.expand(filepath)
+  Job:new({
+    command = "file",
+    args = { "--mime-type", "-b", filepath },
+    on_exit = function(j)
+      local mime_type = vim.split(j:result()[1], "/")[1]
+      if mime_type == "text" then
+        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+      else
+        vim.schedule(function()
+          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Binary file - Can't preview..." })
+        end)
+      end
+    end
+  }):sync()
 end
 -- }}}
 -- }}}
 -- Setup {{{
 require("telescope").setup(
-	{
-		defaults = {
-			prompt_prefix = '? ',
-			selection_prefix = '  ',
-			multi_icon = '!',
+  {
+    defaults = {
+      prompt_prefix = '? ',
+      selection_prefix = '  ',
+      multi_icon = '!',
 
-			initial_mode = "insert",
-			selection_strategy = "reset",
-			sorting_strategy = "ascending",
-			path_display = { 'truncate = 3', 'smart' },
+      initial_mode = "insert",
+      selection_strategy = "reset",
+      sorting_strategy = "ascending",
+      path_display = { 'truncate = 3', 'smart' },
 
-			layout_strategy = 'bottom_pane',
-			layout_config = {
-				bottom_pane = {
-					height = 0.3,
-					prompt_position = 'top',
-					preview_width = 0.6,
-				},
-			},
+      layout_strategy = 'bottom_pane',
+      layout_config = {
+        bottom_pane = {
+          height = 0.3,
+          prompt_position = 'top',
+          preview_width = 0.6,
+        },
+      },
 
-			winblend = 10,
-			border = true,
-			borderchars = { " ", "│", " ", " ", " ", " ", " ", " " },
-			buffer_previewer_maker = intelligent_previewer,
-		},
-		pickers = {
-			find_files = { prompt_title = '   Find files   ', },
-			git_files = { prompt_title  = '   Git files   ', },
-			live_grep = { prompt_title  = '   Live Grep   ', },
-			builtin = { prompt_title  = '   Pickers   ', previewer = false},
-		},
-	}
+      winblend = 10,
+      border = true,
+      borderchars = { " ", "│", " ", " ", " ", " ", " ", " " },
+      buffer_previewer_maker = intelligent_previewer,
+    },
+    pickers = {
+      find_files = { prompt_title = '   Find files   ', },
+      git_files = { prompt_title = '   Git files   ', },
+      live_grep = { prompt_title = '   Live Grep   ', },
+      builtin = { prompt_title = '   Pickers   ', previewer = false },
+    },
+  }
 )
 -- }}}
 -- Highlighting {{{

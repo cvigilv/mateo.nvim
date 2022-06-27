@@ -34,7 +34,7 @@ for _, key in pairs(g_keys) do
   vim.api.nvim_set_keymap(
     'n',
     key,
-    'g'..key,
+    'g' .. key,
     { noremap = true, silent = true }
   )
 end

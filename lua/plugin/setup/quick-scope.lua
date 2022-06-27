@@ -1,8 +1,8 @@
 local execute = vim.api.nvim_command
 
 -- Setup
-vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-vim.g.qs_buftype_blacklist = {'terminal', 'nofile', 'NvimTree', 'packer', 'Starter', 'Telescope', 'telescope'}
+vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+vim.g.qs_buftype_blacklist = { 'terminal', 'nofile', 'NvimTree', 'packer', 'Starter', 'Telescope', 'telescope' }
 vim.g.qs_filetype_blacklist = {}
 
 -- Highlight groups overrides
@@ -16,4 +16,3 @@ execute [[
 		autocmd ColorScheme * highlight link QuickScopeSecondary Search
     augroup END
 ]]
-

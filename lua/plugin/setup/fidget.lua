@@ -2,7 +2,7 @@
 require('fidget').setup(
   {
     text = {
-      spinner = {"◐", "◓", "◑", "◒"},
+      spinner = { "◐", "◓", "◑", "◒" },
       done = "●",
       commenced = "Started",
       completed = "Done!",

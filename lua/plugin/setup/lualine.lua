@@ -21,7 +21,7 @@ local colors = {
 local config = {
   options = {
     -- Disable lualine in certain filetypes
-    disabled_filetypes = {"packer", "starter", "NvimTree"},
+    disabled_filetypes = { "packer", "starter", "NvimTree" },
 
     -- Disable sections and component separators
     component_separators = '',
@@ -53,7 +53,7 @@ local config = {
 }
 -- }}}
 -- Helper functions {{{
-local spacer={
+local spacer = {
   function()
     return ' '
   end,
@@ -81,7 +81,7 @@ local function ins_left(component, keep)
   table.insert(config.sections.lualine_c, component)
 
   keep = keep or false
-  if(keep) then
+  if (keep) then
     table.insert(config.inactive_sections.lualine_c, component)
   else
     table.insert(config.inactive_sections.lualine_c, spacer)
@@ -93,12 +93,13 @@ local function ins_right(component, keep)
   table.insert(config.sections.lualine_x, component)
 
   keep = keep or false
-  if(keep) then
+  if (keep) then
     table.insert(config.sections.lualine_x, component)
   else
     table.insert(config.inactive_sections.lualine_x, spacer)
   end
 end
+
 -- }}}
 
 -- Statusline
@@ -186,7 +187,7 @@ ins_left {
 -- Diagnostics {{{
 ins_right {
   'diagnostics',
-  sources = {'nvim_diagnostic'},
+  sources = { 'nvim_diagnostic' },
   symbols = {
     error = 'x',
     warn = '!',
@@ -213,7 +214,7 @@ ins_right {
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return '■ '..client.name..' ■'
+        return '■ ' .. client.name .. ' ■'
       end
     end
     return msg
@@ -230,9 +231,9 @@ ins_right {
 }
 ins_right {
   function()
-    local r,c = unpack(vim.api.nvim_win_get_cursor(0))
+    local r, c = unpack(vim.api.nvim_win_get_cursor(0))
     local ncols = string.len(vim.api.nvim_get_current_line())
-    return string.format('%d/%d', c+1, ncols)
+    return string.format('%d/%d', c + 1, ncols)
   end,
   icon = '∁',
   color = { fg = colors.light_bg }
@@ -245,7 +246,7 @@ ins_right({
   end,
   color = { fg = colors.blue },
   padding = { left = 1 },
-},false)
+}, false)
 -- }}}
 -- }}}
 

@@ -1,9 +1,9 @@
 -- Keymapping
 vim.api.nvim_set_keymap(
-	'n',
-	'<Leader><CR>',
-	':NvimTreeToggle<CR>',
-	{ noremap = true, silent = true }
+  'n',
+  '<Leader><CR>',
+  ':NvimTreeToggle<CR>',
+  { noremap = true, silent = true }
 )
 
 -- Config
@@ -19,7 +19,7 @@ require('nvim-tree').setup({
   update_focused_file = {
     enable = true,
     update_cwd = true,
-    ignore_list = {'help'},
+    ignore_list = { 'help' },
   },
   actions = {
     open_file = {
@@ -38,32 +38,32 @@ require('nvim-tree').setup({
     },
     icons = {
       show = {
-        file=false,
+        file = false,
         git = true,
         folder = true,
         folder_arrow = true
       },
       glyphs = {
         default = "◦",
-        symlink= "◇",
+        symlink = "◇",
         git = {
-          unstaged= "!",
-          staged= "",
-          unmerged= "&",
-          renamed= ">",
-          untracked= "?",
-          deleted= "x",
-          ignored= "◌"
+          unstaged = "!",
+          staged = "",
+          unmerged = "&",
+          renamed = ">",
+          untracked = "?",
+          deleted = "x",
+          ignored = "◌"
         },
         folder = {
-          arrow_open= "▾",
-          arrow_closed= "▸",
-          default= "▸",
-          open= "▾",
-          empty= "▹",
-          empty_open= "▿",
-          symlink= "◇",
-          symlink_open= "◆",
+          arrow_open = "▾",
+          arrow_closed = "▸",
+          default = "▸",
+          open = "▾",
+          empty = "▹",
+          empty_open = "▿",
+          symlink = "◇",
+          symlink_open = "◆",
         }
       },
       symlink_arrow = ' ◆ ',

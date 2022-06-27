@@ -10,15 +10,15 @@ local function create_split(commit_win, ratio)
   local width = vim.api.nvim_win_get_width(commit_win)
   local height = vim.api.nvim_win_get_height(commit_win)
 
-  local split_func=nil
-  local resize_func=nil
-  if(width > vim.o.textwidth*2)
+  local split_func = nil
+  local resize_func = nil
+  if (width > vim.o.textwidth * 2)
   then
-    split_func="vsplit"
-    resize_func="vertical resize "..vim.o.textwidth
+    split_func = "vsplit"
+    resize_func = "vertical resize " .. vim.o.textwidth
   else
-    split_func="split"
-    resize_func="resize "..math.floor(ratio*height)
+    split_func = "split"
+    resize_func = "resize " .. math.floor(ratio * height)
   end
 
   -- Create split
@@ -47,19 +47,19 @@ local function get_diff()
 
   -- Configure `gitdiff` buffer
   vim.api.nvim_buf_set_name(diff_buf, "different :: diff")
-  vim.bo.syntax="diff"
-  vim.bo.buftype="nofile"
-  vim.wo.number=false
-  vim.wo.relativenumber=false
-  vim.wo.cursorline=false
+  vim.bo.syntax = "diff"
+  vim.bo.buftype = "nofile"
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+  vim.wo.cursorline = false
 
   -- Add and clean-up information to buffer
   vim.api.nvim_command("r!git diff -u --cached --no-color --no-ext-diff")
   vim.api.nvim_command([[g/^  (use "git.*/d]])
   vim.api.nvim_command([[g/^$/d]])
-  vim.api.nvim_win_set_cursor(win, {1,0})
+  vim.api.nvim_win_set_cursor(win, { 1, 0 })
   vim.api.nvim_del_current_line()
-  vim.bo.modifiable=false
+  vim.bo.modifiable = false
 
   -- Place original buffer in current window
   vim.api.nvim_win_set_buf(win, buf)
@@ -80,19 +80,19 @@ local function get_status()
 
   -- Configure `gitstatus` buffer
   vim.api.nvim_buf_set_name(status_buf, "different :: status")
-  vim.bo.syntax="gitstatus"
-  vim.bo.buftype="nofile"
-  vim.wo.number=false
-  vim.wo.relativenumber=false
-  vim.wo.cursorline=false
+  vim.bo.syntax = "gitstatus"
+  vim.bo.buftype = "nofile"
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+  vim.wo.cursorline = false
 
   -- Add and clean-up information to buffer
   vim.api.nvim_command("r!git -c color.status=false status -b")
   vim.api.nvim_command([[g/^  (use "git.*/d]])
   vim.api.nvim_command([[g/^$/d]])
-  vim.api.nvim_win_set_cursor(win, {1,0})
+  vim.api.nvim_win_set_cursor(win, { 1, 0 })
   vim.api.nvim_del_current_line()
-  vim.bo.modifiable=false
+  vim.bo.modifiable = false
 
   -- Place original buffer in current window
   vim.api.nvim_win_set_buf(win, buf)
@@ -113,17 +113,17 @@ local function get_log()
 
   -- Configure `gitstatus` buffer
   vim.api.nvim_buf_set_name(log_buf, "different :: log")
-  vim.bo.syntax="gitlog"
-  vim.bo.buftype="nofile"
-  vim.wo.number=false
-  vim.wo.relativenumber=false
-  vim.wo.cursorline=false
+  vim.bo.syntax = "gitlog"
+  vim.bo.buftype = "nofile"
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+  vim.wo.cursorline = false
 
   -- Add and clean-up information to buffer
   vim.api.nvim_command("r!git log --oneline")
-  vim.api.nvim_win_set_cursor(win, {1,0})
+  vim.api.nvim_win_set_cursor(win, { 1, 0 })
   vim.api.nvim_del_current_line()
-  vim.bo.modifiable=false
+  vim.bo.modifiable = false
 
   -- Place original buffer in current window
   vim.api.nvim_win_set_buf(win, buf)
@@ -131,10 +131,9 @@ local function get_log()
   return log_buf
 end
 
-
 local function different()
   -- Constants
-  local ratio=0.3
+  local ratio = 0.3
   local commit_win = vim.api.nvim_get_current_win()
   local commit_buf = vim.api.nvim_get_current_buf()
 
@@ -150,35 +149,34 @@ local function different()
 
   -- Create user commands
   local commands = {
-    DifferentCommit=commit_buf,
-    DifferentDiff=diff_buf,
-    DifferentStatus=status_buf,
-    DifferentLog=log_buf,
+    DifferentCommit = commit_buf,
+    DifferentDiff = diff_buf,
+    DifferentStatus = status_buf,
+    DifferentLog = log_buf,
   }
-  for name,buf in pairs(commands) do
-  vim.api.nvim_create_user_command(
-    name,
-    function() vim.api.nvim_win_set_buf(0, buf) end,
-    {}
-  )
+  for name, buf in pairs(commands) do
+    vim.api.nvim_create_user_command(
+      name,
+      function() vim.api.nvim_win_set_buf(0, buf) end,
+      {}
+    )
   end
 
 end
 
 vim.api.nvim_create_autocmd(
-  {"BufWinEnter"},
+  { "BufWinEnter" },
   {
-    pattern={"COMMIT_EDITMSG", "MERGE_MSG"},
-    callback=different,
+    pattern = { "COMMIT_EDITMSG", "MERGE_MSG" },
+    callback = different,
   }
 )
 
 -- Close `different.nvim` windows if this are the last ones open
 vim.api.nvim_create_autocmd(
-  {"BufEnter"},
+  { "BufEnter" },
   {
-    pattern={"different :: diff", "different :: status", "different :: log"},
-    command='if (winnr("$") == 1) | q | endif'
+    pattern = { "different :: diff", "different :: status", "different :: log" },
+    command = 'if (winnr("$") == 1) | q | endif'
   }
 ) -- }}}
-
