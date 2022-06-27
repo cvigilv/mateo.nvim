@@ -97,10 +97,6 @@ require('packer').startup(
 				config = function() require('plugin.setup.gitsigns') end,
 				requires = { 'nvim-lua/plenary.nvim'},
 			}
-			use { -- Better commit buffer
-				'rhysd/committia.vim',
-				config = function() require('plugin.setup.commitia') end,
-			}
 			-- }}}
 			-- Language specific support {{{
 			use { -- LaTeX editing in Vim
