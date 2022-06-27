@@ -1,34 +1,3 @@
-vim.g.nvim_tree_highlight_opened_files =  1
-vim.g.nvim_tree_add_trailing = 1
-vim.g.nvim_tree_group_empty = 1
-vim.g.nvim_tree_symlink_arrow = ' ◆ '
-vim.g.nvim_tree_respect_buf_cwd = 1
-vim.g.nvim_tree_create_in_closed_folder = 1
-vim.g.nvim_tree_show_icons =  {git = 1, folders = 1,folders_arrows = 1}
-vim.g.nvim_tree_icons = {
-    default = "◦",
-    symlink= "◇",
-    git = {
-      unstaged= "!",
-      staged= "",
-      unmerged= "&",
-      renamed= ">",
-      untracked= "?",
-      deleted= "x",
-      ignored= "◌"
-      },
-    folder = {
-      arrow_open= "▾",
-      arrow_closed= "▸",
-      default= "▸",
-      open= "▾",
-      empty= "▹",
-      empty_open= "▿",
-      symlink= "◇",
-      symlink_open= "◆",
-      }
-    }
-
 -- Keymapping
 vim.api.nvim_set_keymap(
 	'n',
@@ -39,6 +8,8 @@ vim.api.nvim_set_keymap(
 
 -- Config
 require('nvim-tree').setup({
+  create_in_closed_folder = true,
+  respect_buf_cwd = true,
   disable_netrw = true,
   hijack_cursor = true,
   ignore_buffer_on_setup = false,
@@ -59,9 +30,44 @@ require('nvim-tree').setup({
     width = 50,
   },
   renderer = {
+    highlight_opened_files = 'icon',
+    add_trailing = true,
+    group_empty = true,
     indent_markers = {
       enable = true,
     },
+    icons = {
+      show = {
+        file=false,
+        git = true,
+        folder = true,
+        folder_arrow = true
+      },
+      glyphs = {
+        default = "◦",
+        symlink= "◇",
+        git = {
+          unstaged= "!",
+          staged= "",
+          unmerged= "&",
+          renamed= ">",
+          untracked= "?",
+          deleted= "x",
+          ignored= "◌"
+        },
+        folder = {
+          arrow_open= "▾",
+          arrow_closed= "▸",
+          default= "▸",
+          open= "▾",
+          empty= "▹",
+          empty_open= "▿",
+          symlink= "◇",
+          symlink_open= "◆",
+        }
+      },
+      symlink_arrow = ' ◆ ',
+    }
   },
   git = {
     timeout = 500,
