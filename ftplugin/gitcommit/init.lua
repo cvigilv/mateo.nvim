@@ -162,6 +162,33 @@ local function different()
     )
   end
 
+  local different_cycle = {
+    diff_buf,
+    status_buf,
+    log_buf,
+  }
+  local cycle_id = 1
+
+  vim.api.nvim_set_keymap(
+    "n", "<S-Tab>", "", {
+      noremap = true,
+        callback = function()
+        -- get `different` command to run
+        local different_buf = different_cycle[cycle_id]
+
+        -- cycle picker
+        cycle_id = cycle_id + 1
+        if cycle_id > 3 then
+          cycle_id = 1
+        end
+
+        -- run `different` command
+        vim.api.nvim_win_set_buf(diff_win, different_buf)
+
+      end,
+      desc = 'Cycle through Different modes'
+    }
+  )
 end
 
 vim.api.nvim_create_autocmd(
@@ -179,4 +206,5 @@ vim.api.nvim_create_autocmd(
     pattern = { "different :: diff", "different :: status", "different :: log" },
     command = 'if (winnr("$") == 1) | q | endif'
   }
-) -- }}}
+)
+-- }}}
