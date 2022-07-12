@@ -20,6 +20,8 @@ require('packer').startup(
         config = function() require('plugin.setup.nvim-cmp') end,
         requires = {
           { 'hrsh7th/cmp-nvim-lsp' },
+          { 'hrsh7th/cmp-vsnip' },
+          { 'hrsh7th/vim-vsnip' },
           { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
           { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
           { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },

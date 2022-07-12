@@ -27,3 +27,5 @@ tags
 plugin/packer_compiled.lua
 
 # End of https://www.toptal.com/developers/gitignore/api/vim
+
+*.so
