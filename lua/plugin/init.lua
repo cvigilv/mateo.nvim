@@ -118,6 +118,10 @@ require('packer').startup(
         'Mofiqul/dracula.nvim',
         config = function() require('plugin.setup.dracula') end
       }
+      use {
+        'rebelot/kanagawa.nvim',
+        config = function() require('plugin.setup.kanagawa') end
+      }
       use { -- Better orgmode headers
         'akinsho/org-bullets.nvim',
         config = function() require('plugin.setup.org-bullets') end
