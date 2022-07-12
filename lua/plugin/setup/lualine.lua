@@ -21,7 +21,7 @@ local colors = {
 local config = {
   options = {
     -- Disable lualine in certain filetypes
-    disabled_filetypes = { "packer", "starter", "NvimTree" },
+    disabled_filetypes = { "packer", "starter" },
 
     -- Disable sections and component separators
     component_separators = '',
@@ -59,21 +59,6 @@ local spacer = {
   end,
   color = {},
   padding = { left = 0, right = 1 },
-}
-
--- Conditionally show some elements of the line
-local conditions = {
-  buffer_not_empty = function()
-    return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-  end,
-  hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
-  end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end,
 }
 
 -- Inserts a component in lualine_c at left section
@@ -159,6 +144,7 @@ ins_left {
   'branch',
   icon = '⎇',
   color = { fg = colors.violet },
+  cond = function () return vim.fn.winwidth(0) > 70 end
 }
 ins_left {
   'diff',
@@ -172,15 +158,17 @@ ins_left {
     modified = { fg = colors.orange },
     removed = { fg = colors.red },
   },
-  cond = conditions.hide_in_width, -- hide if statusline is small
+  cond = function () return vim.fn.winwidth(0) > 70 end
 }
 -- }}}
 -- }}}
 -- Mid section {{{
 ins_left {
   function()
-    return '%='
+    return '%=mateo.nvim '
   end,
+  color = { fg = colors.light_bg },
+  cond = function() return vim.fn.winwidth(0) > 120 end
 }
 -- }}}
 -- Right section {{{
@@ -200,6 +188,7 @@ ins_right {
     color_info = { fg = colors.cyan },
     color_hint = { fg = colors.cyan },
   },
+  cond = function () return vim.fn.winwidth(0) > 55 end
 }
 -- }}}
 -- LSP {{{
@@ -221,22 +210,25 @@ ins_right {
   end,
   icon = '',
   color = { fg = colors.fg },
+  cond = function() return vim.fn.winwidth(0) > 55 end
 }
 -- }}}
 -- Cursor location {{{
 ins_right {
   '%l/%L',
   icon = 'ℓ',
-  color = { fg = colors.light_bg }
+  color = { fg = colors.light_bg },
+  cond = function() return vim.fn.winwidth(0) > 120 end
 }
 ins_right {
   function()
-    local r, c = unpack(vim.api.nvim_win_get_cursor(0))
+    local _, c = unpack(vim.api.nvim_win_get_cursor(0))
     local ncols = string.len(vim.api.nvim_get_current_line())
     return string.format('%d/%d', c + 1, ncols)
   end,
   icon = '∁',
-  color = { fg = colors.light_bg }
+  color = { fg = colors.light_bg },
+  cond = function() return vim.fn.winwidth(0) > 80 end
 }
 -- }}}
 -- Divider {{{
