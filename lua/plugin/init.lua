@@ -90,6 +90,10 @@ require('packer').startup(
         },
         config = function() require('plugin.setup.nvim-tree') end,
       }
+      use { -- All in one project management.
+        'ahmedkhalf/project.nvim',
+        config = function() require('plugin.setup.project') end,
+      }
       use { -- A blazing fast and easy to configure Neovim statusline written in Lua
         'nvim-lualine/lualine.nvim',
         config = function() require('plugin.setup.lualine') end,
