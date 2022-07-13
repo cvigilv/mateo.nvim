@@ -30,7 +30,7 @@ vim.opt.wrap                 = false -- Don't wrap text
 vim.opt.wildmode             = 'longest,list,full' -- Completion mode used to showcase options
 vim.opt.list                 = true -- See whitespaces in current buffer
 vim.opt.listchars            = "trail:∘,nbsp:‼,tab:│ " -- This whitespaces have an specific marker
-vim.opt.fillchars            = "fold:┈" -- This fill characters have an specific marker
+vim.opt.fillchars            = "fold:┈,vert:▌" -- This fill characters have an specific marker
 -- }}}
 -- Disable some in built plugins completely {{{
 vim.g.loaded_netrw           = 1
@@ -50,5 +50,4 @@ vim.g.python3_host_prog      = 'python3'
 
 -- Load everything else
 require("plugin")
-require("colors")
 require("autocommands")

@@ -1,10 +1,10 @@
 -- Keymapping
-vim.api.nvim_set_keymap(
-  'n',
-  '<Leader><CR>',
-  ':NvimTreeToggle<CR>',
-  { noremap = true, silent = true }
-)
+local wk = require("which-key")
+wk.register({
+  ['<leader>'] = {
+    ['<CR>'] = { '<CMD>NvimTreeToggle<CR>', 'File tree', noremap = true, silent = true }
+  }
+})
 
 -- Config
 require('nvim-tree').setup({
@@ -16,6 +16,7 @@ require('nvim-tree').setup({
   open_on_setup = true,
   open_on_setup_file = false,
   open_on_tab = true,
+  update_cwd = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
@@ -27,7 +28,7 @@ require('nvim-tree').setup({
     },
   },
   view = {
-    width = 50,
+    width = 36,
   },
   renderer = {
     highlight_opened_files = 'icon',
@@ -40,7 +41,7 @@ require('nvim-tree').setup({
       show = {
         file = false,
         git = true,
-        folder = true,
+        folder = false,
         folder_arrow = true
       },
       glyphs = {
@@ -58,18 +59,19 @@ require('nvim-tree').setup({
         folder = {
           arrow_open = "▾",
           arrow_closed = "▸",
-          default = "▸",
-          open = "▾",
+          default = "○",
+          open = "●",
           empty = "▹",
           empty_open = "▿",
           symlink = "◇",
           symlink_open = "◆",
         }
       },
-      symlink_arrow = ' ◆ ',
+      symlink_arrow = " ◇ ",
     }
   },
   git = {
     timeout = 500,
   },
+  filters = { custom = { "^.git$", "^.gitignore$" } }
 })
