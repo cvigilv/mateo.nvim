@@ -8,7 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     install_path })
 end
 -- }}}
--- `packer.nvim` configuration {{{
+-- `packer.nvim` configuration
 execute 'packadd packer.nvim'
 require('packer').startup(
   {
@@ -20,8 +20,6 @@ require('packer').startup(
         config = function() require('plugin.setup.nvim-cmp') end,
         requires = {
           { 'hrsh7th/cmp-nvim-lsp' },
-          { 'hrsh7th/cmp-vsnip' },
-          { 'hrsh7th/vim-vsnip' },
           { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
           { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
           { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
@@ -36,6 +34,10 @@ require('packer').startup(
         requires = {
           { 'williamboman/nvim-lsp-installer' },
         },
+      }
+      use { -- Snippet engine written in Lua
+        'L3MON4D3/LuaSnip',
+        config = require("plugin.setup.luasnip")
       }
       -- }}}
       -- Quality-of-life {{{
@@ -133,6 +135,10 @@ require('packer').startup(
         'j-hui/fidget.nvim',
         config = function() require('plugin.setup.fidget') end
       }
+      use { -- LSP UI progress eye-candy
+        'lukas-reineke/virt-column.nvim',
+        config = function() require('plugin.setup.virt-column') end
+      }
       -- }}}
       -- `packer.nvim` bootstrapping
       if packer_bootstrap then
@@ -142,4 +148,3 @@ require('packer').startup(
     config = { max_jobs = 12 }
   }
 )
--- }}}

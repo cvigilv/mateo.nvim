@@ -10,7 +10,7 @@ local view = {
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   window = {
@@ -26,45 +26,15 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   sources = cmp.config.sources({
-    { -- Neovim Lua
-      name = 'nvim_lua',
-      max_item_count = 10,
-      view = view,
-    },
-
-    { -- Snips
-      name = 'vsnip',
-      max_item_count = 5,
-      view = view,
-    },
-
-    { -- LSP
-      name = 'nvim_lsp',
-      keyword_length = 1,
-      max_item_count = 25,
-      view = view,
-    },
-
-    { -- LSP signatures
-      name = 'nvim_lsp_signature_help',
-      max_item_count = 5,
-      view = view,
-    },
-
-    { -- Omnifunc
-      name = 'omni',
-      keyword_length = 3,
-      max_item_count = 25,
-      view = view,
-    },
-
-    { -- Path
-      name = 'path',
-      max_item_count = 5,
-      view = view,
-    },
-  }),
-})
+      { name = 'nvim_lsp' },
+      { name = 'nvim_lua' },
+      { name = 'luasnip' },
+      { name = 'omni' },
+      { name = 'path' }
+    }, {
+      { name = 'buffer', keyword_length=5},
+    })
+  })
 
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
