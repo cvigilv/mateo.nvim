@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd(
         light_bg = "#24283B",
       }
 
-      execute [[ highligh link CursorLineNr WarningMsg ]]
+      execute [[ highlight link CursorLineNr WarningMsg ]]
       execute("highlight Normal guibg = " .. colors['bg'])
       execute("highlight NormalNC guibg = " .. colors['bg'])
       -- execute("highlight VertSplit guifg = " .. colors['bg'] .. ", guibg = " .. colors['dark_bg'])
