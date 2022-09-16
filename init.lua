@@ -51,3 +51,4 @@ vim.g.python3_host_prog      = 'python3'
 -- Load everything else
 require("plugin")
 require("autocommands")
+require("keymaps")
