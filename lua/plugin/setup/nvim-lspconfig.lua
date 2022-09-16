@@ -40,7 +40,7 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Julia {{{
-require'lspconfig'.julials.setup{
+require 'lspconfig'.julials.setup{
     on_new_config = function(new_config, _)
         local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
         if require'lspconfig'.util.path.is_file(julia) then
@@ -52,7 +52,7 @@ require'lspconfig'.julials.setup{
 }
 -- }}}
 -- Python {{{
-require('lspconfig')['pyright'].setup(
+require 'lspconfig'.pyright.setup(
   {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -69,7 +69,7 @@ require('lspconfig')['pyright'].setup(
 )
 -- }}}
 -- Bash {{{
-require('lspconfig')['bashls'].setup(
+require 'lspconfig'.bashls.setup(
   {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -77,7 +77,7 @@ require('lspconfig')['bashls'].setup(
 )
 -- }}}
 -- Lua {{{
-require('lspconfig')['sumneko_lua'].setup(
+require 'lspconfig'.sumneko_lua.setup(
   {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -90,3 +90,11 @@ require('lspconfig')['sumneko_lua'].setup(
     }
   }
 ) -- }}}
+-- Markdown {{{
+require 'lspconfig'.marksman.setup(
+  {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+)
+-- }}}
