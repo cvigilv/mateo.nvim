@@ -1,4 +1,6 @@
 -- Disable unused modules {{{
+-- vim.g.miniai_disable = true
+-- vim.g.minialign_disable = true
 vim.g.minibase16_disable = true
 vim.g.minibufremove_disable = true
 -- vim.g.minicomment_disable=true
