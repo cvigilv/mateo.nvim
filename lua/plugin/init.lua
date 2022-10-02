@@ -57,10 +57,6 @@ require('packer').startup(
         'unblevable/quick-scope',
         config = function() require('plugin.setup.quick-scope') end
       }
-      use { -- Align text
-        'tommcdo/vim-lion',
-        config = function() require('plugin.setup.vim-lion') end,
-      }
       use { -- Distraction-free writing
         'folke/zen-mode.nvim',
         config = function() require('plugin.setup.zen-mode') end,
