@@ -1,4 +1,4 @@
 local execute = vim.cmd
 
-execute [[ tnoremap <Esc> <C-\><C-n> ]]
-execute [[ noremap <leader>gf :e <cfile><CR> ]]
+vim.api.nvim_set_keymap("t", "<leader><Esc>", "<C-\\><C-n>", { noremap=true })
+vim.api.nvim_set_keymap("t", "<leader>gf", ":e <cfile><CR>", { noremap=true })
