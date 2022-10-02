@@ -61,6 +61,10 @@ require('packer').startup(
         'tommcdo/vim-lion',
         config = function() require('plugin.setup.vim-lion') end,
       }
+      use { -- Distraction-free writing
+        'folke/zen-mode.nvim',
+        config = function() require('plugin.setup.zen-mode') end,
+      }
       --- }}}
       -- Add-ons {{{
       use { -- Fuzzy finder
@@ -96,6 +100,10 @@ require('packer').startup(
       use { -- A blazing fast and easy to configure Neovim statusline written in Lua
         'nvim-lualine/lualine.nvim',
         config = function() require('plugin.setup.lualine') end,
+      }
+      use { -- Preview Markdown documents in browser
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
       }
       -- }}}
       -- Git {{{
