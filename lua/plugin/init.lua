@@ -37,7 +37,7 @@ require('packer').startup(
       }
       use { -- Snippet engine written in Lua
         'L3MON4D3/LuaSnip',
-        config = require("plugin.setup.luasnip")
+        config = function() require("plugin.setup.luasnip") end
       }
       -- }}}
       -- Quality-of-life {{{
