@@ -78,5 +78,19 @@ execute [[
 -- Extensions {{{
 require('telescope').load_extension('fzf')
 -- }}}
+-- Mappings {{{
+local wk = require("which-key")
+wk.register({
+  ['<leader>'] = {
+    ["t"] = {
+      name = "+telescope",
+      g = { "<CMD>Telescope live_grep<CR>", "Live Grep", noremap = true, silent = true },
+      f = { "<CMD>Telescope find_files<CR>", "All files", noremap = true, silent = true },
+      F = { "<CMD>Telescope git_files<CR>", "Git files", noremap = true, silent = true },
+      p = { "<CMD>Telescope <CR>", "Pickers", noremap = true, silent = true },
+    }
+  },
+})
+-- }}}
 
 return M
