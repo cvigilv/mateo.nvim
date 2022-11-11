@@ -14,9 +14,10 @@ under my own opinions of what's best or what I like more in this setup.
 
 ## What will this repo contain?
 
-I need, as a minimum value product, the following for Julia Language development:
+I need, as a minimum viable product, the following for Julia Language development:
 
 - Better Neovim defaults
+- Package management
 - Highlighting
 - LSP
 - Autocompletion & snippets
