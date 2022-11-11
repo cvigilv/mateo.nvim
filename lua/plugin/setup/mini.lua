@@ -38,10 +38,8 @@ require('mini.sessions').setup(
     -- Setup
     autoread  = false,
     autowrite = true,
-    -- directory = '../../../sessions',
-    -- file      = 'Session.vim',
     force     = { read = false, write = true, delete = false },
-    verbose   = { read = true, write = true, delete = true },
+    verbose   = { read = false, write = true, delete = true },
   }
 )
 -- }}}
@@ -60,8 +58,8 @@ starter.setup(
     evaluate_single = true,
     items = {
       starter.sections.sessions(5, true),
-      starter.sections.recent_files(10, false, true),
       starter.sections.recent_files(5, true, false),
+      starter.sections.recent_files(5, false, true),
       telescope_items,
       starter.sections.builtin_actions(),
     },
