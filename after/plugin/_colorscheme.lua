@@ -1,3 +1,3 @@
 local execute = vim.api.nvim_command
 
-execute [[ colorscheme kanagawa ]]
+execute [[ colorscheme dracula ]]
