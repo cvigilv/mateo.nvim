@@ -64,6 +64,11 @@ return require('packer').startup(function(use)
     'echasnovski/mini.nvim',
     config = function() require('mateo.packages.config.mini') end
   }
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function() require('mateo.packages.config.gitsigns') end
+  }
+
   if packer_bootstrap then
     require('packer').sync()
     warn("PackerSync is running, restart after the process is done!")
