@@ -56,6 +56,10 @@ return require('packer').startup(function(use)
     config = function() require('mateo.packages.config.fidget') end
   }
 
+  use {
+    'axvr/zepl.vim',
+    setup = function() require('mateo.packages.config.repl') end,
+  }
   if packer_bootstrap then
     require('packer').sync()
     warn("PackerSync is running, restart after the process is done!")
