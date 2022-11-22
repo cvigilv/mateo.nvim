@@ -60,6 +60,10 @@ return require('packer').startup(function(use)
     'axvr/zepl.vim',
     setup = function() require('mateo.packages.config.repl') end,
   }
+  use {
+    'echasnovski/mini.nvim',
+    config = function() require('mateo.packages.config.mini') end
+  }
   if packer_bootstrap then
     require('packer').sync()
     warn("PackerSync is running, restart after the process is done!")
