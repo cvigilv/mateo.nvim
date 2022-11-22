@@ -17,7 +17,16 @@ local packer_bootstrap = ensure_packer()
 -- to `https://github.com/wbthomason/packer.nvim`
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'Mofiqul/dracula.nvim'
+
+  use {
+    'folke/tokyonight.nvim',
+    config = function() require('mateo.packages.config.tokyonight') end,
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    config = function() require('mateo.packages.config.treesitter') end,
+    run = { 'TSUpdate' }
+  }
 
   if packer_bootstrap then
     require('packer').sync()

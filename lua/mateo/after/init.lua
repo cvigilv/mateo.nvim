@@ -1,1 +1,2 @@
-vim.cmd[[colorscheme dracula]]
+-- Colorscheme
+vim.cmd[[colorscheme tokyonight-storm]]
