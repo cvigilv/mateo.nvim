@@ -28,6 +28,34 @@ return require('packer').startup(function(use)
     run = { 'TSUpdate' }
   }
 
+  use {
+    'neovim/nvim-lspconfig',
+    config = function() require('mateo.packages.config.lsp') end,
+    requires = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    }
+  }
+  use {
+    'hrsh7th/nvim-cmp',
+    config = function() require('mateo.packages.config.cmp') end,
+    requires = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help'},
+      { 'hrsh7th/cmp-nvim-lua'},
+      { 'hrsh7th/cmp-buffer'},
+      { 'hrsh7th/cmp-path'},
+      { 'hrsh7th/cmp-cmdline'},
+      { 'hrsh7th/cmp-omni'},
+      { 'hrsh7th/vim-vsnip' },
+      { 'hrsh7th/cmp-vsnip' },
+    },
+  }
+  use {
+    'j-hui/fidget.nvim',
+    config = function() require('mateo.packages.config.fidget') end
+  }
+
   if packer_bootstrap then
     require('packer').sync()
     warn("PackerSync is running, restart after the process is done!")
