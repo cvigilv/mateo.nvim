@@ -10,9 +10,11 @@ local function _scandir(directory, pattern)
 end
 
 M._defaults = {
-  patterns = { "*.jl", "README.md" },
-  directory = "/home/carlos/.config/nvim/skeletons/",
+  patterns = { },
+  directory = vim.fs.normalize("~/.config/nvim/skeletons/"),
 }
+
+M._template_inserted = {}
 
 M.select = function(templates)
   if templates == nil then
@@ -30,37 +32,31 @@ M.select = function(templates)
   return templates[selection]
 end
 
-M.get = function(pattern, kind)
-  local templates = _scandir(M._defaults.directory, pattern)
-  if vim.tbl_isempty(templates) then
-    return nil
-  end
+M.get = function(pattern)
+  -- get all templates available for pattern
+  local templates = _scandir(vim.fs.normalize(M._defaults.directory), pattern)
+  if vim.tbl_isempty(templates) then return nil end
 
+  -- create table with template types for pattern
   local types = {}
-  if kind == "extension" then
-    for _, skeleton in pairs(templates) do
-      local l = vim.fs.basename(skeleton)
-      local t = vim.split(l, ".", { plain = true, trimempty = true })[2]
+  for _, template in pairs(templates) do
+    local _file = vim.fs.basename(template)
+    local _type = vim.split(_file, ".", { plain = true, trimempty = true })[2]
 
-      if "*." .. t == pattern then
-        t = "default"
-      end
-
-      types[t] = skeleton
+    if vim.tbl_contains(M._defaults.patterns, _file) then
+      _type = _file
+    elseif "*." .. _type == pattern then
+      _type = "default"
     end
-  elseif kind == "file" then
-    types["default"] = templates[1]
-  end
 
+    types[_type] = template
+  end
+  table.sort(types)
   return types
 end
 
-M.create = function()
-end
-
-M.insert = function(pattern, kind)
-  print(pattern)
-  local templates = M.get(pattern, kind)
+M.insert = function(pattern)
+  local templates = M.get(pattern)
   local file = M.select(templates)
 
   if file ~= nil then
@@ -78,7 +74,8 @@ M.setup = function(opts)
 
   -- create autocommands for skeleton insertion
   local group = vim.api.nvim_create_augroup(
-    "esqueleto", { clear = true }
+    "esqueleto",
+    { clear = true }
   )
   vim.api.nvim_create_autocmd(
     "BufNewFile",
@@ -86,13 +83,22 @@ M.setup = function(opts)
       group = group,
       desc = "Insert skeleton",
       pattern = M._defaults.patterns,
+      -- once = true,
       callback = function()
-        -- match either filename or extension. Filename has priority
-        local filename = vim.fs.basename(vim.fn.expand("<amatch>"))
-        if vim.tbl_contains(M._defaults.patterns, filename) then
-          M.insert(filename, "file")
-        else
-          M.insert("*" .. filename:match("^.+(%..+)$"), "extension")
+        -- only prompt if template hasn't been inserted
+        local filename = vim.fn.expand("<amatch>")
+        if not M._template_inserted[filename] then
+          local filebase = vim.fs.basename(filename)
+          local fileextension = "*" .. filebase:match("^.+(%..+)$")
+
+          -- match either filename or extension. Filename has priority
+          if vim.tbl_contains(M._defaults.patterns, filebase) then
+            M.insert(filebase)
+          elseif vim.tbl_contains(M._defaults.patterns, fileextension) then
+            M.insert(fileextension)
+          end
+
+          M._template_inserted[filename] = true
         end
       end
     }
