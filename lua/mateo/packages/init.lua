@@ -71,9 +71,11 @@ return require('packer').startup(function(use)
 
   -- personal
   use {
-    '/home/carlos/documents/git/mateo.nvim/lua/mateo/personal/esqueleto.nvim',
+    '/home/carlos/documents/git/esqueleto.nvim',
     config = function() require('mateo.packages.config.esqueleto') end
   }
+  use '/home/carlos/documents/git/diferente.nvim'
+
   if packer_bootstrap then
     require('packer').sync()
     warn("PackerSync is running, restart after the process is done!")
