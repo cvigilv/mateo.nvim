@@ -28,29 +28,40 @@ return require('packer').startup(function(use)
     run = { 'TSUpdate' }
   }
 
+  -- LSP
   use {
-    'neovim/nvim-lspconfig',
-    config = function() require('mateo.packages.config.lsp') end,
+    'VonHeikemen/lsp-zero.nvim',
     requires = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    }
-  }
-  use {
-    'hrsh7th/nvim-cmp',
-    config = function() require('mateo.packages.config.cmp') end,
-    requires = {
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help'},
-      { 'hrsh7th/cmp-nvim-lua'},
-      { 'hrsh7th/cmp-buffer'},
-      { 'hrsh7th/cmp-path'},
-      { 'hrsh7th/cmp-cmdline'},
-      { 'hrsh7th/cmp-omni'},
-      { 'hrsh7th/vim-vsnip' },
-      { 'hrsh7th/cmp-vsnip' },
+      { 'hrsh7th/cmp-nvim-lua' },
+
+      -- Additional autocompletion
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/cmp-omni' },
+      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
+
+      -- Snippets
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
+
+      -- Misc
+      'j-hui/fidget.nvim',
     },
+    config = function() require('mateo.packages.config.lsp') end
   }
+
   use {
     'j-hui/fidget.nvim',
     config = function() require('mateo.packages.config.fidget') end

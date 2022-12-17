@@ -1,53 +1,70 @@
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-	-- Mappings.
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-	vim.keymap.set('n', '<leader>wl', function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
-	vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+local lsp = require("lsp-zero")
 
-	-- Diagnostics mappings.
-	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
-	vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
-end
+lsp.preset("recommended")
 
--- Setup mason
-require("mason").setup()
-require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "julials", "bashls", "marksman", "pyright" },
+-- LSP servers to install
+lsp.ensure_installed({
+  "sumneko_lua",
+  "julials",
+  "bashls",
+  "marksman",
+  "pyright",
 })
 
+-- Better sign symbols
+lsp.set_preferences({
+  sign_icons = {
+    error = 'x',
+    warn = '!',
+    hint = '*',
+    info = '?'
+  }
+})
 
--- Setup LSP servers
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-for _, server in pairs({ "sumneko_lua", "julials", "bashls", "marksman", "pyright" }) do
-	require('lspconfig')[server].setup({
-		on_attach = on_attach,
-		capabilities = capabilities
-	})
-end
+-- nvim-cmp configuration
+local cmp = require("cmp")
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
+lsp.setup_nvim_cmp({
+  borders = {},
+  mappings = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+    ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-w>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-s>'] = cmp.mapping.scroll_docs(4),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-c>'] = cmp.mapping.abort(),
+  },
+  sources = {
+    { name = 'nvim_lua' },
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'buffer', keyword_length = 5 },
+    { name = 'omni' },
+    { name = 'path' },
+    { name = 'git' },
+  }
+})
 
-require('lspconfig')["sumneko_lua"].setup({
-	settings = { Lua = {
-			diagnostics = {
-				globals = { 'vim', 'use' }
-			}
-		}
-	}
+lsp.setup()
+
+-- Add LSP initialization symbol
+require('fidget').setup({
+  text = {
+    spinner = { "◐", "◓", "◑", "◒" },
+    done = "●",
+    commenced = "Started",
+    completed = "Done!",
+  },
+  timer = {
+    spinner_rate = 50,
+    fidget_decay = 1000,
+    task_decay = 10000,
+  },
+  window = {
+    relative = "win",
+    blend = 0,
+    zindex = nil,
+  },
 })
