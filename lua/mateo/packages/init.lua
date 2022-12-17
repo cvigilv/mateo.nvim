@@ -18,10 +18,12 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  -- Highlighting
   use {
     'folke/tokyonight.nvim',
     config = function() require('mateo.packages.config.tokyonight') end,
   }
+  use 'nyoom-engineering/oxocarbon.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
     config = function() require('mateo.packages.config.treesitter') end,
