@@ -64,19 +64,32 @@ return require('packer').startup(function(use)
     config = function() require('mateo.packages.config.lsp') end
   }
 
-  use {
-    'j-hui/fidget.nvim',
-    config = function() require('mateo.packages.config.fidget') end
-  }
-
-  use {
-    'axvr/zepl.vim',
-    setup = function() require('mateo.packages.config.repl') end,
-  }
+  -- Quality of Life
   use {
     'echasnovski/mini.nvim',
     config = function() require('mateo.packages.config.mini') end
   }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    config = function() require('mateo.packages.config.tree') end,
+  }
+  use {
+    'ahmedkhalf/project.nvim',
+    config = function() require('mateo.packages.config.project') end,
+  }
+  use {
+    'unblevable/quick-scope',
+    setup = function() require('mateo.packages.config.quickscope') end
+  }
+  use 'folke/zen-mode.nvim'
+
+  -- LaTeX
+  use {
+    'lervag/vimtex',
+    setup = function() require('mateo.packages.config.vimtex') end
+  }
+
+  -- Git
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('mateo.packages.config.gitsigns') end
