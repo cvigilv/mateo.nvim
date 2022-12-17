@@ -26,6 +26,9 @@ tags
 # packer compiled
 plugin/packer_compiled.lua
 
+# spell
+spell/
+
 # End of https://www.toptal.com/developers/gitignore/api/vim
 
 *.so
