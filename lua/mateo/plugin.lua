@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-omni',
-      { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
+      { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
 
       -- Snippets
       'L3MON4D3/LuaSnip',
@@ -65,6 +65,7 @@ return require('packer').startup(function(use)
   use 'echasnovski/mini.nvim'
   -- use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
+  use { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'numToStr/Navigator.nvim'
 
   -- Navigation
@@ -80,6 +81,6 @@ return require('packer').startup(function(use)
 
   if packer_bootstrap then
     require('packer').sync()
-    warn("PackerSync is running, restart after the process is done!")
+    warn('PackerSync is running, restart after the process is done!')
   end
 end)
