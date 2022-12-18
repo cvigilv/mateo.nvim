@@ -85,10 +85,7 @@ return require('packer').startup(function(use)
   use 'folke/zen-mode.nvim'
 
   -- LaTeX
-  use {
-    'lervag/vimtex',
-    setup = function() require('mateo.packages.config.vimtex') end
-  }
+  use 'lervag/vimtex'
 
   -- Git
   use {
