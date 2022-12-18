@@ -47,6 +47,28 @@ lsp.setup_nvim_cmp({
   }
 })
 
+-- language specific customization
+lsp.configure('pyright', {
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = false,
+        useLibraryCodeForTypes = false,
+        diagnosticMode = 'openFilesOnly',
+      }
+    }
+  }
+})
+lsp.configure('sumneko_lua', {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim', 'use' }
+      }
+    }
+  }
+})
+
 lsp.setup()
 
 -- Add LSP initialization symbol
