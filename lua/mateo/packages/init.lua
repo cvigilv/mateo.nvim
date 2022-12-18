@@ -65,6 +65,7 @@ return require('packer').startup(function(use)
   }
 
   -- Quality of Life
+  use 'mbbill/undotree'
   use {
     'echasnovski/mini.nvim',
     config = function() require('mateo.packages.config.mini') end
