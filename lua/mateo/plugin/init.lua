@@ -18,50 +18,45 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  -- Highlighting
-  use {
-    'folke/tokyonight.nvim',
-    config = function() require('mateo.plugin.config.tokyonight') end,
-  }
+  -- UI
+  use 'folke/tokyonight.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    config = function() require('mateo.plugin.config.treesitter') end,
-    run = { 'TSUpdate' }
-  }
+
+  --Syntax
+  use 'nvim-treesitter/nvim-treesitter'
+  use 'lervag/vimtex'
 
   -- LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
+      'neovim/nvim-lspconfig',
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
 
       -- Additional autocompletion
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'hrsh7th/cmp-omni' },
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-omni',
       { "petertriho/cmp-git", requires = "nvim-lua/plenary.nvim" },
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
+      'L3MON4D3/LuaSnip',
+      'rafamadriz/friendly-snippets',
 
       -- Misc
       'j-hui/fidget.nvim',
-    },
-    config = function() require('mateo.plugin.config.lsp') end
+    }
   }
 
   -- Quality of Life
@@ -70,20 +65,14 @@ return require('packer').startup(function(use)
   use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
 
-  -- Navigation 
+  -- Navigation
   use 'kyazdani42/nvim-tree.lua'
   use 'ahmedkhalf/project.nvim'
 
-  -- LaTeX
-  use 'lervag/vimtex'
-
   -- Git
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function() require('mateo.plugin.config.gitsigns') end
-  }
+  use 'lewis6991/gitsigns.nvim'
 
-  -- personal
+  -- Personal
   use '/home/carlos/documents/git/esqueleto.nvim'
   use '/home/carlos/documents/git/diferente.nvim'
 

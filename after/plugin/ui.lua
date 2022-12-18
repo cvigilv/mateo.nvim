@@ -1,3 +1,5 @@
+-- colorscheme {{{
+vim.opt.background = "dark"
 require("tokyonight").setup({
   style = "storm",
   light_style = "day",
@@ -24,3 +26,5 @@ require("tokyonight").setup({
 
   on_highlights = function(highlights, colors) end,
 })
+vim.cmd[[colorscheme tokyonight-night]]
+-- }}}
