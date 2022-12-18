@@ -84,10 +84,7 @@ return require('packer').startup(function(use)
   }
 
   -- personal
-  use {
-    '/home/carlos/documents/git/esqueleto.nvim',
-    config = function() require('mateo.packages.config.esqueleto') end
-  }
+  use '/home/carlos/documents/git/esqueleto.nvim'
   use '/home/carlos/documents/git/diferente.nvim'
 
   if packer_bootstrap then
