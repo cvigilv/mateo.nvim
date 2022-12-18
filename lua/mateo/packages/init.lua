@@ -70,19 +70,9 @@ return require('packer').startup(function(use)
   use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
 
-  use {
-    'kyazdani42/nvim-tree.lua',
-    config = function() require('mateo.packages.config.tree') end,
-  }
-  use {
-    'ahmedkhalf/project.nvim',
-    config = function() require('mateo.packages.config.project') end,
-  }
-  use {
-    'unblevable/quick-scope',
-    setup = function() require('mateo.packages.config.quickscope') end
-  }
-  use 'folke/zen-mode.nvim'
+  -- Navigation 
+  use 'kyazdani42/nvim-tree.lua'
+  use 'ahmedkhalf/project.nvim'
 
   -- LaTeX
   use 'lervag/vimtex'

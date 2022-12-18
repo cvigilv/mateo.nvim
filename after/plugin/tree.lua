@@ -1,4 +1,4 @@
--- Config
+-- nvim-tree {{{
 require('nvim-tree').setup({
   respect_buf_cwd = true,
   disable_netrw = true,
@@ -72,7 +72,13 @@ vim.api.nvim_set_keymap(
   "<leader><CR>",
   "<CMD>NvimTreeToggle<CR>",
   {
-    noremap=true,
-    silent=true
+    noremap = true,
+    silent = true
   }
 )
+-- }}}
+-- project {{{
+require("project_nvim").setup({
+  silent_chdir = true,
+})
+-- }}}
