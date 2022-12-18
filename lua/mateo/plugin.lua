@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
   -- UI
   use 'folke/tokyonight.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
+  use 'nvim-lualine/lualine.nvim'
 
   --Syntax
   use 'nvim-treesitter/nvim-treesitter'
@@ -62,7 +63,7 @@ return require('packer').startup(function(use)
   -- Quality of Life
   use 'mbbill/undotree'
   use 'echasnovski/mini.nvim'
-  use 'unblevable/quick-scope'
+  -- use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
 
   -- Navigation
