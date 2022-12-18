@@ -98,7 +98,7 @@ vim.cmd [[
 -- undotree {{{
 vim.keymap.set(
   "n",
-  "<F5>",
+  "<leader>u",
   ":UndotreeToggle<CR>",
   { silent = true, noremap = true }
 )
