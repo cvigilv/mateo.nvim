@@ -61,6 +61,7 @@ return require('packer').startup(function(use)
   }
 
   -- Quality of Life
+  use 'lewis6991/impatient.nvim'
   use 'mbbill/undotree'
   use 'echasnovski/mini.nvim'
   -- use 'unblevable/quick-scope'
