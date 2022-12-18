@@ -65,6 +65,7 @@ return require('packer').startup(function(use)
   use 'echasnovski/mini.nvim'
   -- use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
+  use 'numToStr/Navigator.nvim'
 
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'
