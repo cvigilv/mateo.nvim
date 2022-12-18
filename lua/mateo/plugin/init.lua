@@ -21,12 +21,12 @@ return require('packer').startup(function(use)
   -- Highlighting
   use {
     'folke/tokyonight.nvim',
-    config = function() require('mateo.packages.config.tokyonight') end,
+    config = function() require('mateo.plugin.config.tokyonight') end,
   }
   use 'nyoom-engineering/oxocarbon.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
-    config = function() require('mateo.packages.config.treesitter') end,
+    config = function() require('mateo.plugin.config.treesitter') end,
     run = { 'TSUpdate' }
   }
 
@@ -61,7 +61,7 @@ return require('packer').startup(function(use)
       -- Misc
       'j-hui/fidget.nvim',
     },
-    config = function() require('mateo.packages.config.lsp') end
+    config = function() require('mateo.plugin.config.lsp') end
   }
 
   -- Quality of Life
@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
   -- Git
   use {
     'lewis6991/gitsigns.nvim',
-    config = function() require('mateo.packages.config.gitsigns') end
+    config = function() require('mateo.plugin.config.gitsigns') end
   }
 
   -- personal

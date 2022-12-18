@@ -1,4 +1,4 @@
 require("mateo.defaults")
-require("mateo.packages")
+require("mateo.plugin")
 require("mateo.keys")
 require("mateo.autocommands")
