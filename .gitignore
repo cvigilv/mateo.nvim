@@ -26,8 +26,9 @@ tags
 # packer compiled
 plugin/packer_compiled.lua
 
-# spell
+# misc
 spell/
+undodir/
 
 # End of https://www.toptal.com/developers/gitignore/api/vim
 
