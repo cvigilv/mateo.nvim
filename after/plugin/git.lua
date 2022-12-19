@@ -39,4 +39,59 @@ require('gitsigns').setup {
     enable = false
   },
 }
+
+-- Keymaps
+vim.keymap.set(
+  "n",
+  "<leader>gs",
+  function() require('gitsigns').stage_hunk() end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "v",
+  "<leader>gs",
+  function()
+    require('gitsigns').stage_hunk(
+    {vim.fn.line("v"),vim.fn.line(".")}
+    )
+  end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gr",
+  function() require('gitsigns').undo_stage_hunk() end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "v",
+  "<leader>gr",
+  function()
+    require('gitsigns').undo_stage_hunk(
+    {vim.fn.line("v"),vim.fn.line(".")}
+    )
+  end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gd",
+  function()
+    require('gitsigns').toggle_deleted()
+    require('gitsigns').toggle_linehl()
+  end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gn",
+  function() require('gitsigns').next_hunk() end,
+  { noremap = true, silent = true }
+)
+vim.keymap.set(
+  "n",
+  "<leader>gp",
+  function() require('gitsigns').prev_hunk() end,
+  { noremap = true, silent = true }
+)
 -- }}}
