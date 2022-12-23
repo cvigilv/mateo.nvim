@@ -1,3 +1,6 @@
+-- diferente {{{
+require("diferente").setup({})
+-- }}}
 -- gitsigns {{{
 require('gitsigns').setup {
   signs = {
