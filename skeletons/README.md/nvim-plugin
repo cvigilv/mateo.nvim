@@ -1,0 +1,56 @@
+# name
+
+pun
+
+## What is `name`?
+
+![Preview](https://i.imgur.com/)
+
+Small description
+
+## Installation
+
+Install `` with your preferred package manager:
+
+[vim-plug](https://github.com/junegunn/vim-plug)
+
+```vim
+# Stable
+Plug 'cvigilv/'
+
+# Development (lastest)
+Plug 'cvigilv/esqueleto.nvim', { 'branch': 'develop'}
+```
+
+[packer](https://github.com/wbthomason/packer.nvim)
+
+```lua
+-- Stable
+use 'cvigilv/'
+
+-- Development (lastest)
+use {'cvigilv/', branch = 'develop'}
+```
+
+## Usage & configuration
+
+In order to configure `` and use it, the following should be present in
+your `init.lua`:
+```lua
+require("namw").setup(
+    {
+
+    }
+)
+```
+For more information, refer to docs (`:h namw`).
+
+## Contributing
+
+Pull requests are welcomed for improvement of tool and community templates.
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/).
+Create a branch, add commits, and 
+[open a pull request](https://github.com/cvigilv/name.nvim/compare/).
+
+Please [open an issue](https://github.com/cvigilv/name.nvim/issues/new) for
+support.
