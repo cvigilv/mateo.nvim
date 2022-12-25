@@ -134,7 +134,7 @@ require("telescope").setup(
         },
       },
 
-      winblend = 10,
+      winblend = 0,
       border = true,
       borderchars = { " ", "│", " ", " ", " ", " ", " ", " " },
       buffer_previewer_maker = intelligent_previewer,
