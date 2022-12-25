@@ -153,7 +153,7 @@ local left = {
     padding = { left = 1, right = 1 },
   },
   { -- Filename
-    'filename',
+    '%F',
     color = { fg = colors.light_fg, gui = 'bold' },
     padding = { left = 0, right = 1 },
   },
