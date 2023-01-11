@@ -66,7 +66,7 @@ return require('packer').startup(function(use)
   use 'lewis6991/impatient.nvim'
   use 'mbbill/undotree'
   use 'echasnovski/mini.nvim'
-  -- use 'unblevable/quick-scope'
+  use 'unblevable/quick-scope'
   use 'folke/zen-mode.nvim'
   use { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'numToStr/Navigator.nvim'
