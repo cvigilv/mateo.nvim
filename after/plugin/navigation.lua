@@ -153,4 +153,3 @@ execute [[
 	highlight TelescopeTitle gui=bold guibg=#E0AF68 guifg=#16161E
 	highlight TelescopeBorder gui=bold guifg=#2ac3de guibg=#16161E
 ]]
--- }}}
