@@ -24,7 +24,7 @@ require("tokyonight").setup({
     colors.border = '#121317'
   end,
 })
-vim.cmd [[colorscheme tokyonight-night]]
+vim.cmd [[colorscheme tokyonight]]
 -- }}}
 -- statusline {{{
 local lualine = require('lualine')
