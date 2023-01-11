@@ -1,5 +1,6 @@
 -- esqueleto {{{
 require("esqueleto").setup({
+  fancy_prompt = true,
   patterns = {
     -- File
     "README.md",
@@ -8,9 +9,12 @@ require("esqueleto").setup({
     "julia",
     "sh",
     "markdown",
-    "python"
+    "python",
+    "tex",
   },
-  directory = "/home/carlos/.config/nvim/skeletons/"
+  directories = {
+    "/home/carlos/.config/nvim/skeletons/",
+  }
 })
 -- }}}
 -- mini {{{
