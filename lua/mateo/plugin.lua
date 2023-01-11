@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
 
   -- UI
   use 'folke/tokyonight.nvim'
+  use 'EdenEast/nightfox.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
   use 'nvim-lualine/lualine.nvim'
 
@@ -61,6 +62,7 @@ return require('packer').startup(function(use)
   }
 
   -- Quality of Life
+  use 'nvim-lua/plenary.nvim'
   use 'lewis6991/impatient.nvim'
   use 'mbbill/undotree'
   use 'echasnovski/mini.nvim'
@@ -77,8 +79,8 @@ return require('packer').startup(function(use)
   use 'lewis6991/gitsigns.nvim'
 
   -- Personal
-  use '/home/carlos/documents/git/esqueleto.nvim'
-  use '/home/carlos/documents/git/diferente.nvim'
+  use '/home/carlos/git/esqueleto.nvim'
+  use '/home/carlos/git/diferente.nvim'
 
   if packer_bootstrap then
     require('packer').sync()
