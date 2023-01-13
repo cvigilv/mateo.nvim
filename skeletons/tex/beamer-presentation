@@ -1,0 +1,25 @@
+\documentclass{beamer}
+
+% Preamble {{{
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme{spruce}
+
+\usepackage{amsmath}
+% }}}
+% Title page {{{
+\title{}
+\author{Carlos Vigil Vásquez}
+\institute{}
+\date{\today}
+% }}}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{}{}
+\end{frame}
+
+\end{document}
