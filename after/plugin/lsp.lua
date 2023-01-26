@@ -71,6 +71,8 @@ lsp.configure('sumneko_lua', {
 })
 
 lsp.setup()
+vim.keymap.set("n", "<M-k>", function() vim.lsp.buf.signature_help() end, { noremap = true, silent = true })
+vim.keymap.set("n", "<C-f>", function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true })
 
 -- Add LSP initialization symbol
 require('fidget').setup({
