@@ -110,7 +110,7 @@ vim.keymap.set(
 -- zenmode {{{
 vim.keymap.set(
   "n",
-  "<leader>z",
+  "<leader>Z",
   ":ZenMode<CR>",
   { silent = true, noremap = true }
 )
