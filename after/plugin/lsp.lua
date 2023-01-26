@@ -13,6 +13,7 @@ lsp.ensure_installed({
 
 -- Better sign symbols
 lsp.set_preferences({
+  set_lsp_keymaps = { omit = { '<C-k>' } },
   sign_icons = {
     error = 'x',
     warn = '!',
