@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
   --Syntax
   use 'nvim-treesitter/nvim-treesitter'
   use 'lervag/vimtex'
+  use 'nvim-orgmode/orgmode'
 
   -- LSP
   use {
