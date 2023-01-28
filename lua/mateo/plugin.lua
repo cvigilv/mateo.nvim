@@ -20,9 +20,9 @@ return require('packer').startup(function(use)
 
   -- UI
   use 'folke/tokyonight.nvim'
-  use 'EdenEast/nightfox.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
   use 'nvim-lualine/lualine.nvim'
+  use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
   use 'folke/which-key.nvim'
 
   --Syntax
