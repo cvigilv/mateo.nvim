@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
   use 'EdenEast/nightfox.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
   use 'nvim-lualine/lualine.nvim'
+  use 'folke/which-key.nvim'
 
   --Syntax
   use 'nvim-treesitter/nvim-treesitter'
