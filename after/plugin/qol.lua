@@ -104,7 +104,7 @@ vim.keymap.set(
   "n",
   "<leader>u",
   ":UndotreeToggle<CR>",
-  { silent = true, noremap = true }
+  { silent = true, noremap = true, desc = "Undo tree"}
 )
 -- }}}
 -- whichkey {{{
@@ -189,7 +189,7 @@ vim.keymap.set(
   "n",
   "<leader>Z",
   ":ZenMode<CR>",
-  { silent = true, noremap = true }
+  { silent = true, noremap = true, desc = "Zen Mode"}
 )
 -- }}}
 -- misc {{{
