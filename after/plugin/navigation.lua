@@ -152,8 +152,7 @@ execute [[
 ]]
 
 -- Keymaps
-vim.keymap.set("n", ",ff", "<CMD>Telescope find_files<CR>", {silent = true, noremap = true, desc = "Find files"})
-vim.keymap.set("n", ",fp", M.project_files, {silent = true, noremap = true, desc = "Project files"})
+vim.keymap.set("n", ",ff", M.project_files, {silent = true, noremap = true, desc = "Find files"})
 vim.keymap.set("n", ",fg", "<CMD>Telescope live_grep<CR>", {silent = true, noremap = true, desc = "Live grep"})
 vim.keymap.set("n", ",fb", "<CMD>Telescope buffers<CR>", {silent = true, noremap = true, desc = "Buffers"})
 vim.keymap.set("n", ",fd", "<CMD>Telescope diagnostics<CR>", {silent = true, noremap = true, desc = "LSP diagnostics"})
