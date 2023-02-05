@@ -37,6 +37,14 @@ require('github-theme').setup(
     keyword_style = 'bold',
   }
 )
+
+-- Tint
+require("tint").setup(
+  {
+    tint = -95,
+  }
+)
+
 vim.cmd [[colorscheme github_dark_default]]
 -- }}}
 -- statusline {{{

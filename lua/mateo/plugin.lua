@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
   use 'nvim-lualine/lualine.nvim'
   use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
   use 'folke/which-key.nvim'
+  use 'levouh/tint.nvim'
 
   --Syntax
   use 'nvim-treesitter/nvim-treesitter'
