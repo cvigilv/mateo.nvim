@@ -24,6 +24,19 @@ require("tokyonight").setup({
     colors.border = '#121317'
   end,
 })
+
+-- GitHub
+require('github-theme').setup(
+  {
+    colors = {},
+    dark_float = true,
+    sidebars = { "qf", "help", "packer", "terminal", "NvimTree" },
+    transparent = false,
+    comment_style = "italic",
+    function_style = 'bold',
+    keyword_style = 'bold',
+  }
+)
 vim.cmd [[colorscheme github_dark_default]]
 -- }}}
 -- statusline {{{
