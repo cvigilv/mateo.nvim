@@ -3,9 +3,6 @@ require('nvim-tree').setup({
   respect_buf_cwd = true,
   disable_netrw = true,
   hijack_cursor = true,
-  ignore_buffer_on_setup = false,
-  open_on_setup = true,
-  open_on_setup_file = false,
   open_on_tab = true,
   update_cwd = true,
   update_focused_file = {
