@@ -1,5 +1,7 @@
 -- colorscheme {{{
 vim.opt.background = "dark"
+
+-- TokyoNight
 require("tokyonight").setup({
   style = "night",
   light_style = "day",
@@ -53,10 +55,8 @@ local lualine = require('lualine')
 -- General configuration
 -- Color table
 local colors = {
-  bg       = '#1a1b26',
-  fg       = '#f1f1f1',
-  light_bg = '#464d72',
-  light_fg = '#3c3c3c',
+  fg       = vim.api.nvim_eval('synIDattr(synIDtrans(hlID("Normal")), "fg#")'),
+  bg       = vim.api.nvim_eval('synIDattr(synIDtrans(hlID("Normal")), "bg#")'),
   yellow   = '#ECBE7B',
   cyan     = '#008080',
   darkblue = '#081633',
@@ -72,19 +72,36 @@ local colors = {
 local config = {
   options = {
     -- Disable lualine in certain filetypes
-    disabled_filetypes = { "packer", "starter", "help", "NvimTree" },
+    disabled_filetypes = { "packer", "starter" },
 
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
     theme = {
       normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.light_fg, bg = colors.bg } },
+      inactive = { c = { fg = colors.fg, bg = colors.bg } },
     },
   },
   sections = nil,
   inactive_sections = nil,
 }
+
+local ignore_filetype = { 'help', 'NvimTree', 'orgagenda', 'quickfix', 'loclist', 'packer', 'starter' }
+local condition = function()
+  local current_filetype = vim.bo.filetype
+
+  if vim.fn.winwidth(0) < 70 then
+    return false
+  end
+
+  for _, ignored in pairs(ignore_filetype) do
+    if current_filetype == ignored then
+      return false
+    end
+  end
+
+  return true
+end
 
 local sections = {
   lualine_a = {},
@@ -93,8 +110,23 @@ local sections = {
     { -- Git branch
       'branch',
       icon = '⎇',
-      padding = { left = 5, right = 2 },
-      cond = function() return vim.fn.winwidth(0) > 70 end
+      padding = { left = 2, right = 1 },
+      cond = condition
+    },
+    { -- Git diff
+      'diff',
+      symbols = {
+        added = '+',
+        modified = '~',
+        removed = '-'
+      },
+      diff_color = {
+        added = { fg = colors.green },
+        modified = { fg = colors.orange },
+        removed = { fg = colors.red },
+      },
+      padding = { left = 0, right = 2 },
+      cond = condition,
     },
 
     { -- Center section
@@ -106,10 +138,10 @@ local sections = {
       '%r%t',
       padding = { left = 1, right = 1 },
     },
-
+  },
+  lualine_x = {
     { -- LSP diagnostics
       'diagnostics',
-      icon = '∘',
       sources = { 'nvim_diagnostic' },
       symbols = {
         error = 'x',
@@ -123,12 +155,9 @@ local sections = {
         color_info = { fg = colors.cyan },
         color_hint = { fg = colors.cyan },
       },
-      padding = { left = 0, right = 1 },
+      padding = { left = 2, right = 1 },
+      cond = condition,
     },
-
-
-  },
-  lualine_x = {
     { -- LSP attached
       function()
         local msg = ''
@@ -146,8 +175,8 @@ local sections = {
         return msg
       end,
       icon = '⌕',
-      padding = { left = 2, right = 5 },
-      cond = function() return vim.fn.winwidth(0) > 55 end
+      padding = { left = 1, right = 2 },
+      cond = condition,
     },
   },
   lualine_y = {},
