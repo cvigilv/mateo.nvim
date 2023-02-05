@@ -48,7 +48,6 @@ require('mini.sessions').setup(
   }
 )
 
--- mini.starter
 require('mini.starter').setup(
   {
     -- Setup
@@ -56,9 +55,8 @@ require('mini.starter').setup(
     evaluate_single = true,
     items = {
       require('mini.starter').sections.sessions(5, true),
-      require('mini.starter').sections.recent_files(5, true, false),
-      require('mini.starter').sections.recent_files(5, false, true),
       require('mini.starter').sections.builtin_actions(),
+      require('mini.starter').sections.telescope(),
     },
     header = "mateo.nvim - As in \"smart guy\" (chilean slang)",
     query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.]],
