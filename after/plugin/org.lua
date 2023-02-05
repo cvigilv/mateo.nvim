@@ -42,6 +42,7 @@ require('orgmode').setup(
     org_indent_mode = 'noindent',
     org_blank_before_new_entry = { heading = false, plain_list_item = false },
     org_hide_emphasis_markers = true,
+    org_hide_leading_stars = true,
 
     -- Agenda
     org_agenda_skip_scheduled_if_done = true,
@@ -69,16 +70,44 @@ require('orgmode').setup(
 
     -- Notifications
     notifications = { enabled = true },
+
+    -- Settings
+    mappings = {
+      org = {
+        org_meta_return = "<S-CR>",
+      },
+    }
   }
 )
 
-require('org-bullets').setup {
-  concealcursor = false,
-  symbols = {
-    headlines = { '○', '◌', '◍', '◎', '●', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗', '◙' },
-  }
-}
-
-vim.cmd [[ syntax match Normal '\[#A\]' conceal cchar=Ⓐ  ]]
-vim.cmd [[ syntax match Normal '\[#B\]' conceal cchar=Ⓑ  ]]
-vim.cmd [[ syntax match Normal '\[#C\]' conceal cchar=Ⓒ  ]]
+-- Colors
+vim.cmd [[
+    function! s:orgmode_colors() abort
+    hi link OrgTSTimestampActive OrgTSComment
+    hi link OrgTSTimestampInactive OrgTSComment
+    " hi OrgTSBullet
+    " hi OrgTSPropertyDrawer
+    " hi OrgTSDrawer
+    hi link OrgTSTag DiffChanged
+    hi link OrgTSPlan OrgTSComment
+    " hi OrgTSComment
+    hi link OrgTSLatex DiffAdd
+    " hi OrgTSDirective
+    " hi OrgTSCheckbox
+    " hi OrgTSCheckboxChecked
+    " hi OrgTSCheckboxHalfChecked
+    " hi OrgTSCheckboxUnchecked
+    " hi OrgTSHeadlineLevel1
+    " hi OrgTSHeadlineLevel2
+    " hi OrgTSHeadlineLevel3
+    " hi OrgTSHeadlineLevel4
+    " hi OrgTSHeadlineLevel5
+    " hi OrgTSHeadlineLevel6
+    " hi OrgTSHeadlineLevel7
+    " hi OrgTSHeadlineLevel8
+    hi link OrgAgendaDeadline SpecialChar
+    hi link OrgAgendaScheduled Constant
+    hi link OrgAgendaScheduledPast SpecialChar
+    endfunction
+    autocmd ColorScheme * call s:orgmode_colors()
+]]

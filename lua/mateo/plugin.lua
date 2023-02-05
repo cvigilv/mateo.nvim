@@ -29,7 +29,6 @@ return require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter'
   use 'lervag/vimtex'
   use 'nvim-orgmode/orgmode'
-  use 'akinsho/org-bullets.nvim'
 
   -- LSP
   use {
