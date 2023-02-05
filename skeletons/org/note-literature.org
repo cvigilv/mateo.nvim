@@ -1,0 +1,9 @@
+:PROPERTIES:
+:ID:
+:UID:
+:ISBN:
+:YEAR:
+:AUTHOR:
+:LINK:
+:ZKTYPE: literature
+:END:

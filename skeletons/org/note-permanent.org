@@ -1,0 +1,8 @@
+:PROPERTIES:
+:UID:
+:ID:
+:ZKTYPE: permanent
+:END:
+
+#+TITLE:
+#+TAGS:

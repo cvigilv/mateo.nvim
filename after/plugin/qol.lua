@@ -11,6 +11,7 @@ require("esqueleto").setup({
     "markdown",
     "python",
     "tex",
+    "org",
   },
   directories = {
     "/home/carlos/.config/nvim/skeletons/",
