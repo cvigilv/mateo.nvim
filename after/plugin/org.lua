@@ -4,7 +4,10 @@ require('orgmode').setup(
     -- Sources
     org_agenda_files = {
       '/home/carlos/zk/inbox/agenda.org',
+      '/home/carlos/zk/inbox/events.org',
+      '/home/carlos/zk/inbox/recurring.org',
       '/home/carlos/zk/inbox/birthdays.org',
+      '/home/carlos/zk/journaling/journal.org',
     },
 
     -- Quality-of-life
@@ -48,7 +51,6 @@ require('orgmode').setup(
     org_agenda_skip_scheduled_if_done = true,
     org_agenda_skip_deadline_if_done = true,
     org_agenda_span = 'month',
-    org_tags_column = 0,
     win_split_mode = 'auto',
     org_todo_keywords = {
       'TODO(t)',
