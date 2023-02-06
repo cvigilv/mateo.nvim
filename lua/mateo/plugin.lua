@@ -73,6 +73,7 @@ return require('packer').startup(function(use)
   use 'folke/zen-mode.nvim'
   use { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'numToStr/Navigator.nvim'
+  use 'jpalardy/vim-slime'
 
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'
