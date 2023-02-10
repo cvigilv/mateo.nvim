@@ -1,6 +1,6 @@
 -- esqueleto {{{
 require("esqueleto").setup({
-  fancy_prompt = true,
+  prompt = 'ivy',
   patterns = {
     -- File
     "README.md",
@@ -11,7 +11,7 @@ require("esqueleto").setup({
     "markdown",
     "python",
     "tex",
-    "org",
+    -- "org",
   },
   directories = {
     "/home/carlos/.config/nvim/skeletons/",
