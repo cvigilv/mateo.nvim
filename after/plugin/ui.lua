@@ -86,7 +86,7 @@ local config = {
   inactive_sections = nil,
 }
 
-local ignore_filetype = { 'help', 'NvimTree', 'orgagenda', 'quickfix', 'loclist', 'packer', 'starter' }
+local ignore_filetype = { 'help', 'NvimTree', 'orgagenda', 'quickfix', 'loclist', 'packer', 'starter', 'esqueleto.ivy.selection' }
 local condition = function()
   local current_filetype = vim.bo.filetype
 
@@ -273,4 +273,8 @@ wk.register(
     [",z"] = { name = "+zettelkastan" },
   }
 )
+-- }}}
+-- misc {{{
+-- Highlight any text after virtual column 90
+vim.cmd("match ErrorMsg '\\%>90v.\\+'")
 -- }}}
