@@ -7,20 +7,22 @@ require('orgmode').setup(
       '/home/carlos/zk/inbox/events.org',
       '/home/carlos/zk/inbox/recurring.org',
       '/home/carlos/zk/inbox/birthdays.org',
+      '/home/carlos/zk/inbox/refile.org',
       '/home/carlos/zk/journaling/journal.org',
     },
+    org_default_notes_file = '/home/carlos/zk/inbox/refile.org',
 
     -- Quality-of-life
     org_agenda_templates = {
       i = {
         description = 'Ideas',
         template = '* %?\n%u',
-        target = '~/zk/inbox/ideas.org',
+        target = '~/zk/inbox/refile.org',
       },
       c = {
         description = 'Code',
         template = '* %?\n%u\n%a',
-        target = '~/zk/inbox/code.org',
+        target = '~/zk/inbox/refile.org',
       },
       t = 'Task',
       te = {
