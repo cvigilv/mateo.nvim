@@ -4,7 +4,8 @@ lsp.preset("recommended")
 
 -- LSP servers to install
 lsp.ensure_installed({
-  "sumneko_lua",
+  -- "sumneko_lua",
+  "lua_ls",
   "julials",
   "bashls",
   "marksman",
@@ -60,7 +61,7 @@ lsp.configure('pyright', {
     }
   }
 })
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
   settings = {
     Lua = {
       diagnostics = {
