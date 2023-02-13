@@ -5,10 +5,13 @@ require('nvim-treesitter.configs').setup({
     "julia",
     "lua",
     "markdown",
+    "markdown_inline",
   },
-  highlight = { enable = true },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "markdown", "org" },
+  },
   incremental_selection = { enable = true },
   indent = { enable = true },
-  additional_vim_regex_highlighting = {'org'},
 })
 -- }}}
