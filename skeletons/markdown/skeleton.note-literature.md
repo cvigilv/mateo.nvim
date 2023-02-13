@@ -1,12 +1,9 @@
 ---
 title:
-name:
+author:
 doi:
 year:
-author:
-tags: 
-type: literature-note
+tags:
+  - "literature-note"
 ---
-
-# TITLE
 

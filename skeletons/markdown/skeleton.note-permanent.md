@@ -1,0 +1,4 @@
+---
+tags:
+  - "permanent-note"
+---
