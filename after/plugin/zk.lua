@@ -5,11 +5,36 @@ local merge = function(a, b)
   return c
 end
 
+require('obsidian').setup(
+  {
+    dir = "~/zk",
+    completion = {
+      nvim_cmp = true,
+    },
+    note_id_func = function(title)
+      if title ~= nil then
+        return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+      else
+        return string.char(math.random(65, 90))
+      end
+    end,
+    notes_subdir = "inbox",
+  }
+)
+
+vim.keymap.set(
+  "n",
+  ",zg",
+  "<CMD>ObsidianFollowLink<CR>",
+  { noremap = true }
+)
+
 -- Zettelkasten paths
-local inbox = vim.fn.expand("~/zk") -- Fleeting notes
-local journal = vim.fn.expand(inbox .. "/journaling") -- Journal notes
-local archive = vim.fn.expand(inbox .. "/archive") -- Permanent notes
-local reference = vim.fn.expand(inbox .. "/reference") -- Literature notes
+local zk = vim.fn.expand("~/zk")
+local fleeting = vim.fn.expand(zk .. "/inbox")
+local permanent = vim.fn.expand(zk .. "/archive")
+local literature = vim.fn.expand(zk .. "/reference")
+local media = vim.fn.expand(zk .. "/media")
 
 -- Zettelkasten-specific functions
 -- local get_links = function()
@@ -60,7 +85,7 @@ local zk_theme = function(opts)
 end
 
 local find_notes = function()
-  require("telescope.builtin").find_files(zk_theme({ cwd = inbox, }))
+  require("telescope.builtin").find_files(zk_theme({ cwd = zk, }))
 end
 
 local find_journals = function()
@@ -76,7 +101,7 @@ local find_permanent = function()
 end
 
 local search_notes = function()
-  require("telescope.builtin").live_grep(zk_theme({ cwd = inbox, }))
+  require("telescope.builtin").live_grep(zk_theme({ cwd = zk, }))
 end
 
 local search_journals = function()
