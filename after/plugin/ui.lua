@@ -8,23 +8,68 @@ require("tokyonight").setup({
   transparent = false,
   terminal_colors = false,
   styles = {
-    comments = { italic = false },
-    keywords = { italic = false },
-    functions = { italic = false },
-    variables = { italic = false },
+    comments = { bold = false, italic = false },
+    keywords = { bold = true, italic = false },
+    functions = { bold = true, italic = false },
+    variables = { bold = false, italic = false },
     sidebars = "dark",
     floats = "dark",
   },
-  sidebars = { "qf", "help", "packer", "terminal", "NvimTree" },
-  day_brightness = 0.05,
+  sidebars = {
+    "qf",
+    "help",
+    "packer",
+    "terminal",
+    "NvimTree",
+    "loclist",
+    "starter",
+    "orgagenda",
+    'esqueleto.ivy.selection',
+  },
+  day_brightness = 0.1,
   hide_inactive_statusline = false,
   dim_inactive = false,
   lualine_bold = true,
 
   on_colors = function(colors)
-    colors.fg = '#EDF0FC'
-    colors.border = '#121317'
+    colors.fg = '#F5F5F5'
+    colors.bg = '#121217'
+    colors.bg_dark = '#09090C'
+    colors.bg_float = "#09090C"
+    colors.bg_popup = "#09090C"
+    colors.bg_sidebar = "#09090C"
+    colors.bg_statusline = "#121217"
   end,
+
+  on_highlights = function(highlights, colors)
+    -- Assign colors
+    local added_fg = "#80e080"
+    local added_bg = "#237f3f"
+    local added2bg = "#1B492B"
+    local changed_fg = "#c0b05f"
+    local changed_bg = "#8a7a00"
+    local changed2bg = "#4E460C"
+    local deleted_fg = "#ff9095"
+    local deleted_bg = "#b81a1f"
+    local deleted2bg = "#65161B"
+    local ignored_fg = "#2fafef"
+    local ignored_bg = "#1f2f8f"
+    local ignored2bg = "#192153"
+
+    -- Assign highlights
+    local _diff_added = { bg = added2bg, fg = added_fg }
+    local _diff_changed = { bg = changed2bg, fg = changed_fg }
+    local _diff_deleted = { bg = deleted2bg, fg = deleted_fg }
+    local _diff_ignored = { bg = ignored2bg, fg = ignored_fg }
+
+    -- Setup highlight
+    highlights.DiffAdd = _diff_added
+    highlights.DiffChange = _diff_changed
+    highlights.DiffDelete = _diff_deleted
+    highlights.GitSignsAdd = _diff_added
+    highlights.GitSignsChange = _diff_changed
+    highlights.GitSignsDelete = _diff_deleted
+  end
 })
 
 -- GitHub
@@ -32,7 +77,16 @@ require('github-theme').setup(
   {
     colors = {},
     dark_float = true,
-    sidebars = { "qf", "help", "packer", "terminal", "NvimTree" },
+    sidebars = {
+      "qf",
+      "help",
+      "packer",
+      "terminal",
+      "NvimTree",
+      "loclist",
+      "starter",
+      "orgagenda"
+    },
     transparent = false,
     comment_style = "italic",
     function_style = 'bold',
@@ -40,14 +94,7 @@ require('github-theme').setup(
   }
 )
 
--- Tint
-require("tint").setup(
-  {
-    tint = -95,
-  }
-)
-
-vim.cmd [[colorscheme github_dark_default]]
+vim.cmd("colorscheme tokyonight-night")
 -- }}}
 -- statusline {{{
 local lualine = require('lualine')
@@ -86,7 +133,8 @@ local config = {
   inactive_sections = nil,
 }
 
-local ignore_filetype = { 'help', 'NvimTree', 'orgagenda', 'quickfix', 'loclist', 'packer', 'starter', 'esqueleto.ivy.selection' }
+local ignore_filetype = { 'help', 'NvimTree', 'orgagenda', 'quickfix', 'loclist', 'packer', 'starter',
+  'esqueleto.ivy.selection' }
 local condition = function()
   local current_filetype = vim.bo.filetype
 
