@@ -25,6 +25,7 @@ return require('packer').startup(function(use)
   use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
   use 'folke/which-key.nvim'
   use 'levouh/tint.nvim'
+  use 'ishan9299/modus-theme-vim'
 
   --Syntax
   use 'nvim-treesitter/nvim-treesitter'
@@ -74,6 +75,8 @@ return require('packer').startup(function(use)
   use { 'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'numToStr/Navigator.nvim'
   use 'jpalardy/vim-slime'
+  use 'epwalsh/obsidian.nvim'
+  use 'norcalli/nvim-colorizer.lua'
 
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'
