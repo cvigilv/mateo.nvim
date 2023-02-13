@@ -3,45 +3,29 @@ require('orgmode').setup(
   {
     -- Sources
     org_agenda_files = {
-      '/home/carlos/zk/inbox/agenda.org',
-      '/home/carlos/zk/inbox/events.org',
-      '/home/carlos/zk/inbox/recurring.org',
-      '/home/carlos/zk/inbox/birthdays.org',
-      '/home/carlos/zk/inbox/refile.org',
-      '/home/carlos/zk/journaling/journal.org',
+      '/home/carlos/agenda/agenda.org',
+      '/home/carlos/agenda/refile.org',
+      '/home/carlos/agenda/journal.org',
+      '/home/carlos/agenda/calendar/*',
     },
-    org_default_notes_file = '/home/carlos/zk/inbox/refile.org',
+    org_default_notes_file = '/home/carlos/agenda/refile.org',
 
     -- Quality-of-life
     org_agenda_templates = {
-      i = {
-        description = 'Ideas',
-        template = '* %?\n%u',
-        target = '~/zk/inbox/refile.org',
-      },
       c = {
-        description = 'Code',
-        template = '* %?\n%u\n%a',
-        target = '~/zk/inbox/refile.org',
+        description = 'Capture',
+        template = '* %?\n%u',
+        target = '~/zk/agenda/refile.org',
       },
-      t = 'Task',
-      te = {
-        description = 'Event',
-        template = '** [#A] %?\nSCHEDULED: %t',
-        target = '~/zk/inbox/agenda.org',
-        headline = 'event'
+      a = {
+        description = 'Agenda',
+        template = '* %?\n%t',
+        target = '~/zk/agenda/agenda.org',
       },
-      to = {
-        description = 'One-time task',
-        template = '** %?\nSCHEDULED: %t',
-        target = '~/zk/inbox/agenda.org',
-        headline = 'one-time'
-      },
-      tr = {
-        description = 'Recurrent task',
-        template = '** %?\nSCHEDULED: %t',
-        target = '~/zk/inbox/agenda.org',
-        headline = 'recurring'
+      j = {
+        description = 'Journal',
+        template = '** %?',
+        target = '~/zk/agenda/journal.org',
       },
     },
     org_indent_mode = 'noindent',
@@ -55,13 +39,9 @@ require('orgmode').setup(
     org_agenda_span = 'month',
     win_split_mode = 'auto',
     org_todo_keywords = {
-      'TODO(t)',
-      'DOING(.)',
-      'WAITING(w)',
-      'DELEGATED(e)',
+      'TODO(t)', 'DOING(.)', 'WAITING(w)',
       '|',
-      'DONE(d)',
-      'CANCELED(x)'
+      'DELEGATED(e)', 'DONE(d)', 'CANCELED(x)'
     },
     org_todo_keyword_faces = {
       TODO = ':foreground #ec5f67',
