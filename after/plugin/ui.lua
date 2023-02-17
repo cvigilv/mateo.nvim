@@ -183,7 +183,7 @@ local sections = {
     },
 
     { -- Filename
-      '%r%t',
+      '%r%t%m',
       padding = { left = 1, right = 1 },
     },
   },
