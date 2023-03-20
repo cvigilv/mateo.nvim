@@ -323,6 +323,4 @@ wk.register(
 )
 -- }}}
 -- misc {{{
--- Highlight any text after virtual column 90
-vim.cmd("match ErrorMsg '\\%>90v.\\+'")
 -- }}}
