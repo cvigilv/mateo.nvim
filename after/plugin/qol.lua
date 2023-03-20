@@ -1,3 +1,6 @@
+-- auto-hlsearch {{{
+require("auto-hlsearch").setup()
+-- }}}
 -- esqueleto {{{
 require("esqueleto").setup({
   prompt = 'ivy',

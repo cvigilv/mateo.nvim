@@ -82,6 +82,7 @@ return require('packer').startup(function(use)
   use 'jpalardy/vim-slime'
   use 'epwalsh/obsidian.nvim'
   use 'norcalli/nvim-colorizer.lua'
+  use { "asiryk/auto-hlsearch.nvim", tag = "1.1.0" }
 
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'
