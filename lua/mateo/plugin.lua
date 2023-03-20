@@ -22,7 +22,7 @@ return require('packer').startup(function(use)
   use 'folke/tokyonight.nvim'
   use 'nyoom-engineering/oxocarbon.nvim'
   use 'nvim-lualine/lualine.nvim'
-  use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
+  use({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
   use 'folke/which-key.nvim'
   use 'levouh/tint.nvim'
   use 'ishan9299/modus-theme-vim'
