@@ -32,9 +32,9 @@ lsp.setup_nvim_cmp({
   mappings = {
     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
     ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-w>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-s>'] = cmp.mapping.scroll_docs(4),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-P>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-N>'] = cmp.mapping.scroll_docs(4),
+    ['<C-s>'] = cmp.mapping.confirm({ select = true }),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-c>'] = cmp.mapping.abort(),
   },
