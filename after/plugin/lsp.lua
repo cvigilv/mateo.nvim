@@ -76,7 +76,12 @@ lsp.configure('julials', {
     if require 'lspconfig'.util.path.is_file(julia) then
       new_config.cmd[1] = julia
     end
-  end
+  end,
+  root_dir = function(fname)
+    local util = require('lspconfig.util')
+    return util.root_pattern 'Project.toml' (fname) or util.find_git_ancestor(fname) or
+        util.path.dirname(fname)
+  end,
 })
 
 lsp.setup()
