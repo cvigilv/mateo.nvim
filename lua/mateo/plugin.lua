@@ -65,6 +65,10 @@ return require('packer').startup(function(use)
       'Maan2003/lsp_lines.nvim'
     }
   }
+  use {
+    'kosayoda/nvim-lightbulb',
+    requires = 'antoinemadec/FixCursorHold.nvim',
+  }
 
   -- Quality of Life
   use 'nvim-lua/plenary.nvim'

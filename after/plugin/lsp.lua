@@ -124,3 +124,4 @@ require('fidget').setup({
     zindex = nil,
   },
 })
+require('nvim-lightbulb').setup({autocmd = {enabled = true}})
