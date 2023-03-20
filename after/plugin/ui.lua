@@ -33,12 +33,12 @@ require("tokyonight").setup({
 
   on_colors = function(colors)
     colors.fg = '#F5F5F5'
-    colors.bg = '#121217'
-    colors.bg_dark = '#09090C'
-    colors.bg_float = "#09090C"
-    colors.bg_popup = "#09090C"
-    colors.bg_sidebar = "#09090C"
-    colors.bg_statusline = "#121217"
+    colors.bg = '#09090C'
+    colors.bg_dark = '#020207'
+    colors.bg_float = '#020207'
+    colors.bg_popup = '#020207'
+    colors.bg_sidebar = '#020207'
+    colors.bg_statusline = "#09090C"
   end,
 
   on_highlights = function(highlights, colors)
@@ -69,6 +69,8 @@ require("tokyonight").setup({
     highlights.GitSignsAdd = _diff_added
     highlights.GitSignsChange = _diff_changed
     highlights.GitSignsDelete = _diff_deleted
+    highlights.WinBorder = { fg = '#F5F5F5', bg = '#09090C'}
+    highlights.WinSeparator = { fg = '#F5F5F5', bg = '#09090C'}
   end
 })
 
