@@ -84,6 +84,7 @@ vim.keymap.set("n", "<M-k>", function() vim.lsp.buf.signature_help() end, { nore
 vim.keymap.set("n", "<C-f>", function() vim.lsp.buf.format({ async = true }) end, { noremap = true, silent = true })
 
 -- Diagnostics configuration
+require("lsp_lines").setup()
 vim.diagnostic.config({
   virtual_text = false,
   signs = true,
@@ -99,6 +100,7 @@ vim.diagnostic.config({
     prefix = '',
   },
 })
+vim.keymap.set("n", "<Leader>d", require("lsp_lines").toggle, { desc = "Toggle diagnostics" })
 
 -- Add LSP initialization symbol
 require('fidget').setup({

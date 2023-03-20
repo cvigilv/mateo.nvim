@@ -62,6 +62,7 @@ return require('packer').startup(function(use)
 
       -- Misc
       'j-hui/fidget.nvim',
+      'Maan2003/lsp_lines.nvim'
     }
   }
 
