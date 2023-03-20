@@ -42,8 +42,6 @@ lsp.setup_nvim_cmp({
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'buffer', keyword_length = 5 },
-    { name = 'omni' },
     { name = 'path' },
     { name = 'git' },
   }
