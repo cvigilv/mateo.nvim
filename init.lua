@@ -1,2 +1,4 @@
-pcall(require, "impatient")
-require("mateo")
+require("settings")
+require("pkg-manager")
+require("keymaps")
+require("autocommands")
