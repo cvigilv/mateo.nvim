@@ -92,7 +92,7 @@ return require('packer').startup(function(use)
   -- Navigation
   use 'kyazdani42/nvim-tree.lua'
   use 'ahmedkhalf/project.nvim'
-
+  use 'dstein64/vim-startuptime'
   -- Git
   use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
