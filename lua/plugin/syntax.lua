@@ -75,7 +75,7 @@ return {
           -- Agenda
           org_agenda_skip_scheduled_if_done = true,
           org_agenda_skip_deadline_if_done = true,
-          org_agenda_span = 'week',
+          org_agenda_span = 'month',
           win_split_mode = 'auto',
           org_todo_keywords = {
             'TODO(t)', 'DOING(.)', 'WAITING(w)',
