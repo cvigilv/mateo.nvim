@@ -53,12 +53,6 @@ return {
       -- Keymaps
       vim.keymap.set(
         "n",
-        "<leader>gs",
-        "<CMD>G<CR>",
-        { noremap = true, silent = true, desc = "Open Fugitive" }
-      )
-      vim.keymap.set(
-        "n",
         "<leader>ga",
         function() require('gitsigns').stage_hunk() end,
         { noremap = true, silent = true, desc = "Stage hunk" }
