@@ -137,7 +137,6 @@ return {
   -- vimtex {{{
   {
     'lervag/vimtex',
-    ft = 'latex',
     init = function()
       vim.g.vimtex_enabled               = 1
       vim.g.vimtex_complete_enabled      = 1
