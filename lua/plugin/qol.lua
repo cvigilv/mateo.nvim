@@ -20,6 +20,7 @@ return {
     },
     config = function()
       require("esqueleto").setup({
+        autouse = false,
         prompt = 'ivy',
         patterns = {
           -- File
