@@ -160,24 +160,21 @@ return {
             prompt_prefix = '? ',
             selection_prefix = '  ',
             multi_icon = '!',
-
             initial_mode = "insert",
             selection_strategy = "reset",
             sorting_strategy = "ascending",
             path_display = { 'truncate = 3', 'smart' },
-
             layout_strategy = 'bottom_pane',
             layout_config = {
               bottom_pane = {
-                height = 0.3,
+                height = 0.4,
                 prompt_position = 'top',
                 preview_width = 0.6,
               },
             },
-
             winblend = 0,
             border = true,
-            borderchars = { " ", "│", " ", " ", " ", " ", " ", " " },
+            borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
             buffer_previewer_maker = intelligent_previewer,
           },
           pickers = {
@@ -190,9 +187,11 @@ return {
       )
       -- Highlighting
       execute [[
-        highlight clear TelescopeTitle
-        highlight TelescopeTitle gui=bold guibg=#E0AF68 guifg=#16161E
-        highlight TelescopeBorder gui=bold guifg=#2ac3de guibg=#16161E
+        highlight TelescopeTitle         gui=bold   guibg=#F5F5F5 guifg=#020207
+        highlight TelescopeBorder                   guifg=#F5F5F5 guibg=#020207
+        highlight TelescopeNormal                   guifg=#F5F5F5 guibg=#09090C
+        highlight TelescopePromptNormal             guifg=#F5F5F5 guibg=#020207
+        highlight TelescopePreviewNormal            guifg=#F5F5F5 guibg=#020207
       ]]
 
       -- Keymaps
@@ -200,7 +199,7 @@ return {
       vim.keymap.set("n", ",fg", "<CMD>Telescope live_grep<CR>", { silent = true, noremap = true, desc = "Live grep" })
       vim.keymap.set("n", ",fb", "<CMD>Telescope buffers<CR>", { silent = true, noremap = true, desc = "Buffers" })
       vim.keymap.set("n", ",fd", "<CMD>Telescope diagnostics<CR>",
-        { silent = true, noremap = true, desc = "LSP diagnostics" })
+      { silent = true, noremap = true, desc = "LSP diagnostics" })
     end
   }, -- }}}
 }
