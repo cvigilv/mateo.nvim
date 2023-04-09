@@ -26,6 +26,7 @@
   "nvim-treesitter": { "branch": "master", "commit": "871f5665d92d59a369cf916e9aa4d321d466f1e3" },
   "obsidian.nvim": { "branch": "main", "commit": "e1c4658cc6530a8d2f393451f68bd9e6366173b9" },
   "orgmode": { "branch": "master", "commit": "070f7588629b956bba17d9892e6fa15bf19a2260" },
+  "overlength.nvim": { "branch": "master", "commit": "3715b66d10ae0a68667e50c650c2ef3e5ab9f1e7" },
   "plenary.nvim": { "branch": "master", "commit": "253d34830709d690f013daf2853a9d21ad7accab" },
   "quick-scope": { "branch": "master", "commit": "a147fe0b180479249a6770eac332e2cd8f35b673" },
   "telescope.nvim": { "branch": "master", "commit": "942fe5faef47b21241e970551eba407bc10d9547" },
