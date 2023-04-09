@@ -2,7 +2,7 @@ return {
   -- auto-hlsearch {{{
   {
     "asiryk/auto-hlsearch.nvim",
-    keys =  { "/", "?", "*", "#", "n", "N" },
+    keys = { "/", "?", "*", "#", "n", "N" },
     tag = "1.1.0",
     config = true
   },
