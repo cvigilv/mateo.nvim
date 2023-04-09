@@ -7,36 +7,6 @@ return {
     config = true
   },
   -- }}}
-  -- dial {{{
-  {
-    "lcheylus/overlength.nvim",
-    event = "VeryLazy",
-    config = function()
-      require('overlength').setup({
-        enabled = true,
-        ctermbg = 'darkred',
-        bg = '#65161B',
-        textwidth_mode = 2,
-        default_overlength = 80,
-        grace_length = 1,
-        highlight_to_eol = true,
-        disable_ft = {
-          'NvimTree',
-          'Telescope',
-          'WhichKey',
-          'esqueleto.ivy.selection',
-          'help',
-          'loclist',
-          'orgagenda',
-          'packer',
-          'qf',
-          'starter',
-          'terminal',
-        },
-      })
-    end
-  },
-  -- }}}
   -- esqueleto {{{
   {
     dir = '/home/carlos/git/esqueleto.nvim',
@@ -121,6 +91,36 @@ return {
           }
         }
       )
+    end
+  },
+  -- }}}
+  -- overlength {{{
+  {
+    "lcheylus/overlength.nvim",
+    event = "VeryLazy",
+    config = function()
+      require('overlength').setup({
+        enabled = true,
+        ctermbg = 'darkred',
+        bg = '#65161B',
+        textwidth_mode = 2,
+        default_overlength = 80,
+        grace_length = 1,
+        highlight_to_eol = true,
+        disable_ft = {
+          'NvimTree',
+          'Telescope',
+          'WhichKey',
+          'esqueleto.ivy.selection',
+          'help',
+          'loclist',
+          'orgagenda',
+          'packer',
+          'qf',
+          'starter',
+          'terminal',
+        },
+      })
     end
   },
   -- }}}
