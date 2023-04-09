@@ -97,20 +97,20 @@ return {
   -- overlength {{{
   {
     "lcheylus/overlength.nvim",
-    event = "VeryLazy",
     config = function()
       require('overlength').setup({
         enabled = true,
         ctermbg = 'darkred',
         bg = '#65161B',
-        textwidth_mode = 2,
-        default_overlength = 80,
+        textwidth_mode = 1,
+        default_overlength = 96,
         grace_length = 1,
         highlight_to_eol = true,
         disable_ft = {
           'NvimTree',
           'Telescope',
           'WhichKey',
+          'MiniStarter',
           'esqueleto.ivy.selection',
           'help',
           'loclist',
