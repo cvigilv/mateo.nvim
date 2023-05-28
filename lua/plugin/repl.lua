@@ -20,7 +20,7 @@ return {
       vim.g.slime_paste_file = vim.api.nvim_eval('tempname()')
       vim.g.slime_default_config = {
         socket_name = "default",
-        target_pane = "{last}"
+        target_pane = "{right-of}"
       }
       vim.g.slime_bracketed_paste = true
     end
