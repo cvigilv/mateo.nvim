@@ -1,4 +1,8 @@
 return {
+  -- nvim-luapad {{{
+  {
+    'rafcamlet/nvim-luapad',
+  }, -- }}}
   -- vim-slime {{{
   {
     'jpalardy/vim-slime',
