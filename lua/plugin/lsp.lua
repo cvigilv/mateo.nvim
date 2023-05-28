@@ -46,6 +46,7 @@ return {
 
 			-- Better sign symbols
 			lsp.set_preferences({
+        float_border = { '🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏' },
 				set_lsp_keymaps = { omit = { "<C-k>" } },
 				sign_icons = {
 					error = "x",
@@ -60,7 +61,13 @@ return {
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 			lsp.setup_nvim_cmp({
-				borders = {},
+				completion = {
+          border = { '🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏' },
+          scrollbar = false,
+        },
+				documentation = {
+          border = { '🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏' },
+        },
 				mappings = {
 					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 					["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
