@@ -1,11 +1,15 @@
 return {
   -- colorscheme {{{
   {
-    'folke/tokyonight.nvim',
+    "folke/tokyonight.nvim",
+    dependencies = "rktjmp/lush.nvim",
     config = function()
-      require('tokyonight').setup({
-        style = 'night',
-        light_style = 'day',
+      local lush = require("lush")
+      local hsl = lush.hsl
+
+      require("tokyonight").setup({
+        style = "night",
+        light_style = "day",
         transparent = false,
         terminal_colors = false,
         styles = {
@@ -13,67 +17,65 @@ return {
           keywords = { bold = true, italic = false },
           functions = { bold = true, italic = false },
           variables = { bold = false, italic = false },
-          sidebars = 'dark',
-          floats = 'dark',
+          sidebars = "dark",
+          floats = "dark",
         },
         sidebars = {
-          'qf',
-          'help',
-          'packer',
-          'terminal',
-          'NvimTree',
-          'loclist',
-          'starter',
-          'orgagenda',
-          'esqueleto.ivy.selection',
+          "qf",
+          "help",
+          "packer",
+          "terminal",
+          "NvimTree",
+          "loclist",
+          "starter",
+          "orgagenda",
+          "esqueleto.ivy.selection",
         },
         day_brightness = 0.1,
         hide_inactive_statusline = false,
         dim_inactive = false,
         lualine_bold = true,
         on_colors = function(colors)
-          colors.fg = '#F5F5F5'
-          colors.bg = '#09090C'
-          colors.bg_dark = '#020207'
-          colors.bg_float = '#020207'
-          colors.bg_popup = '#020207'
-          colors.bg_sidebar = '#020207'
-          colors.bg_statusline = '#09090C'
+          colors.fg = "#F5F5F5"
+          colors.bg = "#09090C"
+          colors.bg_dark = "#020207"
+          colors.bg_float = "#020207"
+          colors.bg_popup = "#020207"
+          colors.bg_sidebar = "#020207"
+          colors.bg_statusline = "#09090C"
         end,
         on_highlights = function(highlights, colors)
           -- Assign colors
-          local added_fg = '#80e080'
-          local added_bg = '#237f3f'
-          local added2bg = '#1B492B'
-          local changed_fg = '#c0b05f'
-          local changed_bg = '#8a7a00'
-          local changed2bg = '#4E460C'
-          local deleted_fg = '#ff9095'
-          local deleted_bg = '#b81a1f'
-          local deleted2bg = '#65161B'
-          local ignored_fg = '#2fafef'
-          local ignored_bg = '#1f2f8f'
-          local ignored2bg = '#192153'
+          local fg = hsl("#F5F5F5")
+          local bg = hsl("#09090C")
+          local added_fg = "#80e080"
+          local added_bg = "#1B492B"
+          local changed_fg = "#c0b05f"
+          local changed_bg = "#4E460C"
+          local deleted_fg = "#ff9095"
+          local deleted_bg = "#65161B"
 
           -- Assign highlights
-          local _diff_added = { bg = added2bg, fg = added_fg }
-          local _diff_changed = { bg = changed2bg, fg = changed_fg }
-          local _diff_deleted = { bg = deleted2bg, fg = deleted_fg }
-          local _diff_ignored = { bg = ignored2bg, fg = ignored_fg }
+          local _diff_added = { bg = added_bg, fg = added_fg }
+          local _diff_changed = { bg = changed_bg, fg = changed_fg }
+          local _diff_deleted = { bg = deleted_bg, fg = deleted_fg }
 
           -- Setup highlight
+          highlights.ColorColumn = { fg = fg.hex, bg = bg.li(20).hex }
+          highlights.CursorLineNr = { fg = fg.li(10).hex }
+          highlights.CursorLine = { bg = bg.li(5).sa(15).hex }
           highlights.DiffAdd = _diff_added
           highlights.DiffChange = _diff_changed
           highlights.DiffDelete = _diff_deleted
           highlights.GitSignsAdd = _diff_added
           highlights.GitSignsChange = _diff_changed
           highlights.GitSignsDelete = _diff_deleted
-          highlights.WinBorder = { fg = '#F5F5F5', bg = '#09090C' }
-          highlights.WinSeparator = { fg = '#F5F5F5', bg = '#09090C' }
-        end
+          highlights.WinBorder = { fg = fg.hex, bg = bg.hex }
+          highlights.WinSeparator = { fg = fg.hex, bg = bg.hex }
+        end,
       })
-      vim.cmd('colorscheme tokyonight-night')
-    end
+      vim.cmd("colorscheme tokyonight-night")
+    end,
   },
   -- {
   --   'projekt0n/github-nvim-theme',
@@ -279,94 +281,90 @@ return {
   -- }}}
   -- which-key {{{
   {
-    'folke/which-key.nvim',
+    "folke/which-key.nvim",
     event = "VeryLazy",
     config = function()
-      local wk = require('which-key')
-      wk.setup(
-        {
-          plugins = {
-            marks = true,       -- shows a list of your marks on ' and `
-            registers = true,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-            spelling = {
-              enabled = false,  -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-              suggestions = 20, -- how many suggestions should be shown in the list?
-            },
-            -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-            -- No actual key bindings are created
-            presets = {
-              operators = false,   -- adds help for operators like d, y, ... and registers them for motion / text object completion
-              motions = false,     -- adds help for motions
-              text_objects = true, -- help for text objects triggered after entering an operator
-              windows = true,      -- default bindings on <c-w>
-              nav = true,          -- misc bindings to work with windows
-              z = true,            -- bindings for folds, spelling and others prefixed with z
-              g = true,            -- bindings for prefixed with g
-            },
+      local wk = require("which-key")
+      wk.setup({
+        plugins = {
+          marks = true, -- shows a list of your marks on ' and `
+          registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          spelling = {
+            enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 20, -- how many suggestions should be shown in the list?
           },
-          -- add operators that will trigger motion and text object completion
-          -- to enable all native operators, set the preset / operators plugin above
-          operators = { gc = "Comments" },
-          key_labels = {
-            ["<space>"] = "⎵ ",
-            ["<Space>"] = "⎵ ",
-            ["<cr>"] = "⏎ ",
-            ["<CR>"] = "⏎ ",
-            ["<Tab>"] = "⭾ ",
-            ["<tab>"] = "⭾ ",
-            ["<M>"] = "TAB",
+          -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+          -- No actual key bindings are created
+          presets = {
+            operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            motions = false, -- adds help for motions
+            text_objects = true, -- help for text objects triggered after entering an operator
+            windows = true, -- default bindings on <c-w>
+            nav = true,    -- misc bindings to work with windows
+            z = true,      -- bindings for folds, spelling and others prefixed with z
+            g = true,      -- bindings for prefixed with g
           },
-          icons = {
-            breadcrumb = "!", -- symbol used in the command line area that shows your active key combo
-            separator = "→", -- symbol used between a key and it's label
-            group = "+",      -- symbol prepended to a group
-          },
-          popup_mappings = {
-            scroll_down = '<c-d>', -- binding to scroll down inside the popup
-            scroll_up = '<c-u>',   -- binding to scroll up inside the popup
-          },
-          window = {
-            border = "none",          -- none, single, double, shadow
-            position = "bottom",      -- bottom, top
-            margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
-            padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-            winblend = 0
-          },
-          layout = {
-            height = { min = 4, max = 25 },                                             -- min and max height of the columns
-            width = { min = 20, max = 50 },                                             -- min and max width of the columns
-            spacing = 3,                                                                -- spacing between columns
-            align = "center",                                                           -- align columns left, center or right
-          },
-          ignore_missing = false,                                                       -- enable this to hide mappings for which you didn't specify a label
-          hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-          show_help = true,                                                             -- show help message on the command line when the popup is visible
-          show_keys = true,                                                             -- show the currently pressed key and its label as a message in the command line
-          triggers = "auto",                                                            -- automatically setup triggers
-          triggers_blacklist = {
-            -- list of mode / prefixes that should never be hooked by WhichKey
-            -- this is mostly relevant for key maps that start with a native binding
-            -- most people should not need to change this
-            i = { "j", "k" },
-            v = { "j", "k" },
-          },
-          -- disable the WhichKey popup for certain buf types and file types.
-          -- Disabled by deafult for Telescope
-          disable = {
-            buftypes = {},
-            filetypes = { "TelescopePrompt" },
-          },
-        }
-      )
+        },
+        -- add operators that will trigger motion and text object completion
+        -- to enable all native operators, set the preset / operators plugin above
+        operators = { gc = "Comments" },
+        key_labels = {
+          ["<space>"] = "⎵ ",
+          ["<Space>"] = "⎵ ",
+          ["<cr>"] = "⏎ ",
+          ["<CR>"] = "⏎ ",
+          ["<Tab>"] = "⭾ ",
+          ["<tab>"] = "⭾ ",
+          ["<M>"] = "TAB",
+        },
+        icons = {
+          breadcrumb = "!", -- symbol used in the command line area that shows your active key combo
+          separator = "→", -- symbol used between a key and it's label
+          group = "+", -- symbol prepended to a group
+        },
+        popup_mappings = {
+          scroll_down = "<c-d>", -- binding to scroll down inside the popup
+          scroll_up = "<c-u>", -- binding to scroll up inside the popup
+        },
+        window = {
+          border = "none",     -- none, single, double, shadow
+          position = "bottom", -- bottom, top
+          margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+          padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+          winblend = 0,
+        },
+        layout = {
+          height = { min = 4, max = 25 },                                         -- min and max height of the columns
+          width = { min = 20, max = 50 },                                         -- min and max width of the columns
+          spacing = 3,                                                            -- spacing between columns
+          align = "center",                                                       -- align columns left, center or right
+        },
+        ignore_missing = false,                                                   -- enable this to hide mappings for which you didn't specify a label
+        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+        show_help = true,                                                         -- show help message on the command line when the popup is visible
+        show_keys = true,                                                         -- show the currently pressed key and its label as a message in the command line
+        triggers = "auto",                                                        -- automatically setup triggers
+        triggers_blacklist = {
+          -- list of mode / prefixes that should never be hooked by WhichKey
+          -- this is mostly relevant for key maps that start with a native binding
+          -- most people should not need to change this
+          i = { "j", "k" },
+          v = { "j", "k" },
+        },
+        -- disable the WhichKey popup for certain buf types and file types.
+        -- Disabled by deafult for Telescope
+        disable = {
+          buftypes = {},
+          filetypes = { "TelescopePrompt" },
+        },
+      })
 
-      wk.register(
-        {
-          [",f"] = { name = "+finder" },
-          [",g"] = { name = "+git" },
-          [",o"] = { name = "+orgmode" },
-          [",z"] = { name = "+zettelkastan" },
-        }
-      )
-    end
+      wk.register({
+        [",f"] = { name = "+finder" },
+        [",g"] = { name = "+git" },
+        [",o"] = { name = "+orgmode" },
+        [",z"] = { name = "+zettelkastan" },
+      })
+    end,
   }, -- }}}
 }
