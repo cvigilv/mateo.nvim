@@ -1,5 +1,0 @@
----
-tags:
-  - "fleeting-note"
-  - "todo"
----
