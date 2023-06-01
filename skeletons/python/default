@@ -1,6 +1,7 @@
-def main():
+#!/usr/bin/env python3
 
-	return None
+def main():
+    return None
 
 if __name__ == "__main__":
-	main()
+    main()
