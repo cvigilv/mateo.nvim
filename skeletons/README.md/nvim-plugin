@@ -18,8 +18,8 @@ Install `` with your preferred package manager:
 # Stable
 Plug 'cvigilv/'
 
-# Development (lastest)
-Plug 'cvigilv/esqueleto.nvim', { 'branch': 'develop'}
+# Development (latest)
+Plug 'cvigilv/name.nvim', { 'branch': 'develop'}
 ```
 
 [packer](https://github.com/wbthomason/packer.nvim)
@@ -28,7 +28,7 @@ Plug 'cvigilv/esqueleto.nvim', { 'branch': 'develop'}
 -- Stable
 use 'cvigilv/'
 
--- Development (lastest)
+-- Development (latest)
 use {'cvigilv/', branch = 'develop'}
 ```
 
@@ -37,13 +37,13 @@ use {'cvigilv/', branch = 'develop'}
 In order to configure `` and use it, the following should be present in
 your `init.lua`:
 ```lua
-require("namw").setup(
+require("name").setup(
     {
 
     }
 )
 ```
-For more information, refer to docs (`:h namw`).
+For more information, refer to docs (`:h name`).
 
 ## Contributing
 
