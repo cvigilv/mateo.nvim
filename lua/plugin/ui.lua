@@ -76,33 +76,7 @@ return {
       })
       vim.cmd("colorscheme tokyonight-night")
     end,
-  },
-  -- {
-  --   'projekt0n/github-nvim-theme',
-  --   tag = 'v0.0.7',
-  --   config = function()
-  --     require('github-theme').setup(
-  --       {
-  --         dark_float = true,
-  --         sidebars = {
-  --           'qf',
-  --           'help',
-  --           'packer',
-  --           'terminal',
-  --           'NvimTree',
-  --           'loclist',
-  --           'starter',
-  --           'orgagenda',
-  --           'esqueleto.ivy.selection',
-  --         },
-  --         transparent = false,
-  --         comment_style = "italic",
-  --         function_style = 'bold',
-  --         keyword_style = 'bold',
-  --       }
-  --     )
-  --   end,
-  -- }, -- }}}
+  }, -- }}}
   -- statusline {{{
   {
     "nvim-lualine/lualine.nvim",
