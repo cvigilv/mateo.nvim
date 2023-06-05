@@ -80,7 +80,7 @@ return {
   -- statusline {{{
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = "rktjmp/lush.nvim",
+    dependencies = {"rktjmp/lush.nvim", "lewis6991/gitsigns.nvim"},
     config = function()
       local lualine = require("lualine")
       local lush = require("lush")
@@ -142,7 +142,7 @@ return {
 
           -- Configure theme
           theme = {
-            normal = { c = { fg = colors.fg.hex, bg = colors.bg.sa(10).li(5).hex } },
+            normal = { c = { fg = colors.fg.hex, bg = colors.bg.darken(100).sa(10).li(5).hex } },
             inactive = { c = { fg = colors.fg.hex, bg = colors.bg.hex } },
           },
         },
@@ -157,46 +157,76 @@ return {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {
-          {
-            -- Filename
+          { -- Filename    }{{{
             "filename",
+            color = { fg = hsl(colors.yellow).saturation(100).hex },
             padding = { left = 2, right = 1 },
+          }, --}}}
+          { -- Root        }{{{
+            function()
+              local path = vim.loop.cwd() .. "/.git"
+              local ok, _ = vim.loop.fs_stat(path)
+              if not ok then
+                return vim.fn.getcwd()
+              end
+              return vim.fs.basename(vim.b.gitsigns_status_dict["root"])
+            end,
+            icon = "@",
+            color = { fg = colors.fg.darken(30).hex },
+            padding = { left = 0, right = 0 },
           },
-        },
+        }, --}}}
         lualine_x = {
-          {
-            -- Git branch
-            "branch",
+          { -- Git branch  }{{{
+            function()
+              local path = vim.loop.cwd() .. "/.git"
+              local ok, _ = vim.loop.fs_stat(path)
+              if not ok then
+                return "n/a"
+              end
+              return vim.b.gitsigns_status_dict["head"]
+            end,
             icon = "⎇",
             padding = { left = 0, right = 0 },
             color = { fg = colors.fg.darken(20).hex },
             cond = condition,
-          },
-          {
-            -- Git diff
-            "diff",
-            symbols = {
-              added = "+",
-              modified = "~",
-              removed = "-",
-            },
-            diff_color = {
-              added = { fg = colors.green },
-              modified = { fg = colors.orange },
-              removed = { fg = colors.red },
-            },
+          }, --}}}
+          { -- Git added   } {{{
+            function()
+              return "+"..vim.b.gitsigns_status_dict["added"]
+            end,
             padding = { left = 1, right = 0 },
+            color = { fg = colors.green },
             cond = condition,
-          },
-          {
+          }, --}}}
+          { -- Git changed } {{{
+            function()
+              return "~"..vim.b.gitsigns_status_dict["changed"]
+            end,
+            padding = { left = 1, right = 0 },
+            color = { fg = colors.orange },
+            cond = condition,
+          }, --}}}
+          { -- Git removed } {{{
+            function()
+              if vim.b.gitsigns_status_dict["removed"] then
+                return "-"..vim.b.gitsigns_status_dict["removed"]
+              else
+                return "(not tracked)"
+              end
+            end,
+            padding = { left = 1, right = 0 },
+            color = { fg = colors.red },
+            cond = condition,
+          }, --}}}
+          { -- Spacer      }{{{
             function()
               return "∘"
             end,
             padding = { left = 1, right = 1 },
             cond = condition,
-          },
-          {
-            -- LSP attached
+          }, --}}}
+          { -- LSP         }{{{
             function()
               local msg = "⚙ "
               local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -204,7 +234,7 @@ return {
 
               -- Return nothing if no LSP server
               if next(clients) == nil then
-                return ""
+                return msg .. "n/a"
               end
 
               -- return non-"null-ls" servers
@@ -224,9 +254,8 @@ return {
             color = { fg = colors.fg.darken(20).hex },
             padding = { left = 0, right = 0 },
             cond = condition,
-          },
-          {
-            -- LSP diagnostics
+          }, --}}}
+          { -- Diagnostics }{{{
             "diagnostics",
             sources = { "nvim_lsp", "nvim_diagnostic" },
             symbols = { error = "x", warn = "!", info = "?", hint = "*" },
@@ -238,16 +267,63 @@ return {
             },
             always_visible = true,
             update_in_insert = true,
-            padding = { left = 1, right = 2 },
+            padding = { left = 1, right = 0 },
+            cond = function()
+              if condition() then
+                return condition()
+              elseif (vim.tbl_count(vim.lsp.get_active_clients()) > 0) then
+                return false
+              end
+            end,
+          }, --}}}
+          { -- Spacer      }{{{
+            function()
+              return "  "
+            end,
+            padding = { left = 0, right = 0 },
             cond = condition,
+          }, --}}}
+          { -- Mode        }{{{
+            function()
+              return string.upper(vim.fn.mode())
+            end,
+            color = function()
+              -- auto change color according to neovims mode
+              local mode_color = {
+                n = colors.red,
+                i = colors.green,
+                v = colors.blue,
+                [''] = colors.blue,
+                V = colors.blue,
+                c = colors.magenta,
+                no = colors.red,
+                s = colors.orange,
+                S = colors.orange,
+                [''] = colors.orange,
+                ic = colors.yellow,
+                R = colors.violet,
+                Rv = colors.violet,
+                cv = colors.red,
+                ce = colors.red,
+                r = colors.cyan,
+                rm = colors.cyan,
+                ['r?'] = colors.cyan,
+                ['!'] = colors.red,
+                t = colors.red,
+              }
+              return { fg = colors.bg.hex, bg = mode_color[vim.fn.mode()] }
+            end,
+            padding = { left = 1, right = 1 },
+          }, --}}}
           },
-        },
         lualine_y = {},
         lualine_z = {},
       }
 
       config.sections = sections
-      config.inactive_sections = sections
+      config.inactive_sections = vim.deepcopy(sections)
+
+      config.inactive_sections.lualine_c[1].color = { fg = colors.fg.hex }
 
       lualine.setup(config)
     end,
