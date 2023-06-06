@@ -184,93 +184,6 @@ return {
     config = function()
       local null_ls = require("null-ls")
 
-      local jldocstring = {
-        method = null_ls.methods.CODE_ACTION,
-        filetypes = { "julia" },
-        generator = {
-          fn = function(context)
-            local fstring = vim.api.nvim_get_current_line()
-            local _, _, argtype = string.find(fstring, "where {(.*)}")
-
-            -- Extract type from abstract typing
-            local argmapper = {}
-            if argtype then
-              for _, s in ipairs(vim.split(argtype, ",")) do
-                local kv = vim.split(s, "<:")
-                argmapper[kv[1]] = kv[2]
-              end
-            end
-            vim.print(argmapper)
-
-            -- Extract arguments from function
-            local _, _, funcname = string.find(fstring, "function (.*)")
-            local _, _, args = string.find(fstring, "function .*%((.*)%)")
-            local fargs = {}
-            if args then
-              vim.print(args)
-              vim.print(vim.split(args, ","))
-              for _, s in ipairs(vim.split(args, ",")) do
-                local ftype = nil
-                if string.find(s, "=") then
-                  local _, _, argname, type, default = string.find(s, "(.*)::(.*)=(.*)")
-                  if vim.tbl_contains(argmapper, type) then
-                    ftype = argmapper[type]
-                  end
-                  table.insert(
-                    fargs,
-                    string.format("- `%s::%s` : (default = %s)", argname, ftype, default)
-                  )
-                else
-                  local _, _, argname, type = string.find(s, "(.*)::(.*)")
-                  if vim.tbl_contains(argmapper, type) then
-                    ftype = argmapper[type]
-                  end
-                  table.insert(fargs, string.format("- `%s::%s` : ", argname, ftype))
-                end
-              end
-            end
-            vim.print(fargs)
-
-            local docstring = {
-              '"""',
-              "  " .. funcname,
-              "",
-              "Brief description of intended functionality",
-              "",
-              "# Arguments",
-              "",
-              "# Example",
-              "```jldoctest",
-              "```",
-              "",
-              "# Extended help",
-              "Longer description of intended functionality",
-              "",
-              "# References",
-              "",
-              '"""',
-            }
-            for i, farg in ipairs(fargs) do
-              table.insert(docstring, 6 + i, farg)
-            end
-
-            return {
-              {
-                title = "Generate jldocstring",
-                action = function()
-                  vim.api.nvim_buf_set_lines(
-                    context.bufnr,
-                    context.lsp_params.range.start.line,
-                    context.lsp_params.range.start.line,
-                    false,
-                    docstring
-                  )
-                end,
-              },
-            }
-          end,
-        },
-      }
 
       null_ls.setup({
         sources = {
@@ -287,7 +200,7 @@ return {
           null_ls.builtins.code_actions.shellcheck,
 
           -- Julia
-          jldocstring,
+          require("misc.lsp.julia").generate_jldocstring,
 
           -- JSON
           null_ls.builtins.formatting.fixjson,
