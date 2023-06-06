@@ -187,9 +187,9 @@ return {
       )
       -- Highlighting
       execute [[
-        highlight TelescopeTitle         gui=bold   guibg=#F5F5F5 guifg=#020207
-        highlight TelescopeBorder                   guifg=#F5F5F5 guibg=#020207
-        highlight TelescopeNormal                   guifg=#F5F5F5 guibg=#09090C
+        highlight TelescopeTitle         gui=bold   guibg=#1F1F36 guifg=#f5f5f5
+        highlight TelescopeBorder                   guifg=#1F1F36 guibg=#020207
+        highlight TelescopeNormal                   guifg=#F5F5F5 guibg=#020207
         highlight TelescopePromptNormal             guifg=#F5F5F5 guibg=#020207
         highlight TelescopePreviewNormal            guifg=#F5F5F5 guibg=#020207
       ]]
