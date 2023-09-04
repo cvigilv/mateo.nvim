@@ -1,8 +1,9 @@
 return {
   -- colorscheme {{{
-  {
+  { -- tokyonight {{{
     "folke/tokyonight.nvim",
     dependencies = "rktjmp/lush.nvim",
+    priority = 10000,
     config = function()
       local lush = require("lush")
       local hsl = lush.hsl
@@ -61,7 +62,7 @@ return {
           local _diff_deleted = { bg = deleted_bg, fg = deleted_fg }
 
           -- Setup highlight
-          highlights.ColorColumn = { fg = fg.hex, bg = bg.li(20).hex }
+          highlights.ColorColumn = { fg = fg.hex, bg = bg.li(5).sa(15).hex }
           highlights.CursorLineNr = { fg = fg.li(10).hex }
           highlights.CursorLine = { bg = bg.li(5).sa(15).hex }
           highlights.DiffAdd = _diff_added
@@ -74,13 +75,79 @@ return {
           highlights.WinSeparator = { fg = fg.hex, bg = bg.hex }
         end,
       })
-      vim.cmd("colorscheme tokyonight-night")
+      -- vim.cmd("colorscheme tokyonight-night")
     end,
   }, -- }}}
+  { -- deepwhite {{{
+    "Verf/deepwhite.nvim",
+    priority = 10000,
+    dependencies = "rktjmp/lush.nvim",
+    config = function()
+      require("deepwhite").setup({
+        low_blue_light = true,
+      })
+
+      vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+        pattern = { "deepwhite" },
+        callback = function()
+          -- Highlight group override
+          local lush = require("lush")
+          local hsl = lush.hsl
+
+          local ok, hl = pcall(vim.api.nvim_get_hl_by_name, "Normal", true)
+          if ok then
+            local fg = hsl(string.format("#%06x", hl["foreground"])).hex
+            local bg = hsl(string.format("#%06x", hl["background"])).hex
+
+            local added_fg = hsl("#1b492b").hex
+            local changed_fg = hsl("#4e460c").hex
+            local deleted_fg = hsl("#65161b").hex
+            local added_bg = hsl("#80e080").li(50).sa(25).hex
+            local changed_bg = hsl("#c0b05f").li(50).sa(25).hex
+            local deleted_bg = hsl("#ff9095").li(50).sa(25).hex
+
+            -- Assign highlights
+            local _diff_added = { guibg = added_bg, guifg = added_fg }
+            local _diff_changed = { guibg = changed_bg, guifg = changed_fg }
+            local _diff_deleted = { guibg = deleted_bg, guifg = deleted_fg }
+
+            -- Setup highlight
+            local highlights = {}
+            highlights.DiffAdd = _diff_added
+            highlights.DiffChange = _diff_changed
+            highlights.DiffDelete = _diff_deleted
+            highlights.GitSignsAdd = _diff_added
+            highlights.GitSignsChange = _diff_changed
+            highlights.GitSignsDelete = _diff_deleted
+            highlights.WinBorder = { guifg = fg, guibg = bg }
+            highlights.WinSeparator = { guifg = fg, guibg = bg }
+
+            for k, v in pairs(highlights) do
+              local hlstr = {}
+              for g, hex in pairs(v) do
+                table.insert(hlstr, g .. "=" .. hex)
+              end
+              hlstr = "hi! " .. k .. " " .. table.concat(hlstr, " ")
+              vim.cmd(hlstr)
+            end
+
+            local links = {}
+            links.EndOfBuffer = "ColorColumn"
+
+            for k, v in pairs(links) do
+              vim.cmd("hi! link " .. k .. " " .. v)
+            end
+          end
+        end,
+      })
+      vim.cmd("colorscheme deepwhite")
+    end,
+  }, --}}}
+  -- }}}
   -- statusline {{{
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = {"rktjmp/lush.nvim", "lewis6991/gitsigns.nvim"},
+    dependencies = { "rktjmp/lush.nvim", "lewis6991/gitsigns.nvim" },
     config = function()
       local lualine = require("lualine")
       local lush = require("lush")
@@ -193,7 +260,7 @@ return {
           }, --}}}
           { -- Git added   } {{{
             function()
-              return "+"..vim.b.gitsigns_status_dict["added"]
+              return "+" .. vim.b.gitsigns_status_dict["added"]
             end,
             padding = { left = 1, right = 0 },
             color = { fg = colors.green },
@@ -201,7 +268,7 @@ return {
           }, --}}}
           { -- Git changed } {{{
             function()
-              return "~"..vim.b.gitsigns_status_dict["changed"]
+              return "~" .. vim.b.gitsigns_status_dict["changed"]
             end,
             padding = { left = 1, right = 0 },
             color = { fg = colors.orange },
@@ -210,7 +277,7 @@ return {
           { -- Git removed } {{{
             function()
               if vim.b.gitsigns_status_dict["removed"] then
-                return "-"..vim.b.gitsigns_status_dict["removed"]
+                return "-" .. vim.b.gitsigns_status_dict["removed"]
               else
                 return "(not tracked)"
               end
@@ -271,7 +338,7 @@ return {
             cond = function()
               if condition() then
                 return condition()
-              elseif (vim.tbl_count(vim.lsp.get_active_clients()) > 0) then
+              elseif vim.tbl_count(vim.lsp.get_active_clients()) > 0 then
                 return false
               end
             end,
@@ -293,13 +360,13 @@ return {
                 n = colors.red,
                 i = colors.green,
                 v = colors.blue,
-                [''] = colors.blue,
+                [""] = colors.blue,
                 V = colors.blue,
                 c = colors.magenta,
                 no = colors.red,
                 s = colors.orange,
                 S = colors.orange,
-                [''] = colors.orange,
+                [""] = colors.orange,
                 ic = colors.yellow,
                 R = colors.violet,
                 Rv = colors.violet,
@@ -307,15 +374,15 @@ return {
                 ce = colors.red,
                 r = colors.cyan,
                 rm = colors.cyan,
-                ['r?'] = colors.cyan,
-                ['!'] = colors.red,
+                ["r?"] = colors.cyan,
+                ["!"] = colors.red,
                 t = colors.red,
               }
               return { fg = colors.bg.hex, bg = mode_color[vim.fn.mode()] }
             end,
             padding = { left = 1, right = 1 },
           }, --}}}
-          },
+        },
         lualine_y = {},
         lualine_z = {},
       }

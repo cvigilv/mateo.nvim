@@ -25,10 +25,6 @@ return {
       -- Snippets
       "L3MON4D3/LuaSnip",
       "rafamadriz/friendly-snippets",
-
-      -- Misc
-      "j-hui/fidget.nvim",
-      "Maan2003/lsp_lines.nvim",
     },
     config = function()
       local lsp = require("lsp-zero")
@@ -131,8 +127,13 @@ return {
       vim.keymap.set("n", "<C-f>", function()
         vim.lsp.buf.format({ async = true })
       end, { noremap = true, silent = true })
-
-      -- Add LSP initialization symbol
+    end,
+  }, -- }}}
+    -- fidget.nvim {{{
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    config = function()
       require("fidget").setup({
         text = {
           spinner = { "◐", "◓", "◑", "◒" },
@@ -183,7 +184,6 @@ return {
     dependencies = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" },
     config = function()
       local null_ls = require("null-ls")
-
 
       null_ls.setup({
         sources = {

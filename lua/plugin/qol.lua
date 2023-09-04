@@ -26,14 +26,6 @@ return {
   -- esqueleto {{{
   {
     dir = '/home/carlos/git/esqueleto.nvim',
-    ft = {
-      "text",
-      "julia",
-      "sh",
-      "markdown",
-      "python",
-      "tex",
-    },
     config = function()
       require("esqueleto").setup({
         autouse = false,
@@ -47,6 +39,7 @@ return {
           "sh",
           "markdown",
           "python",
+          "latex",
           "tex",
         },
         directories = {
@@ -128,15 +121,24 @@ return {
   -- }}}
   -- overlength {{{
   {
-    "lcheylus/overlength.nvim",
+    dir = "/home/carlos/git/overlength.nvim/",
+    priority = 1000,
+    -- "lcheylus/overlength.nvim",
     config = function()
       require('overlength').setup({
         enabled = true,
-        ctermbg = 'darkred',
-        bg = '#65161B',
-        textwidth_mode = 1,
+        colors = {
+          ctermfg = "",
+          ctermbg = "",
+          foreground = "#FF0000",
+          background = string.format(
+            '#%06x',
+            vim.api.nvim_get_hl_by_name('ColorColumn', true)["background"]
+            )
+        },
+        textwidth_mode = 0,
         default_overlength = 96,
-        grace_length = 1,
+        grace_length = 0,
         highlight_to_eol = true,
         disable_ft = {
           'NvimTree',

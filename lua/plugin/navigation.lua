@@ -142,7 +142,7 @@ return {
         default_file_explorer = true,
         restore_win_options = true,
         skip_confirm_for_simple_edits = false,
-        delete_to_trash = true,
+        delete_to_trash = false,
         prompt_save_on_select_new_entry = true,
         keymaps = {
           ["g?"] = "actions.show_help",
