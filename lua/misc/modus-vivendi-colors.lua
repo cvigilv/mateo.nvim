@@ -1,4 +1,6 @@
-local modus_vivendi_colors = {
+M = {}
+
+M.colors = {
   ["bg-main"] = "#000000",
   ["bg-dim"] = "#1e1e1e",
   ["fg-main"] = "#ffffff",
@@ -116,3 +118,5 @@ local modus_vivendi_colors = {
   ["fg-removed"] = "#ffbfbf",
   ["fg-removed-intense"] = "#ff9095",
 }
+
+return M
