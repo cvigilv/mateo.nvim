@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+#title      : 
+#description: 
+#author     : ${gh-user}
+#date       : ${date}
+#version    : ${date}a
+#notes      : 
+#copyright  : Copyright (C) ${year} ${gh-user}  (${gh-email})
+#license    : Permission to copy and modify is granted under the MIT license
+
+import argparse
+
+__VERSION__ = ${data}a
+__AUTHOR__ = ${gh-user}
+__TITLE__ = ""
+
+def main(parser=argparse.ArgumentParser()):
+    print(__TITLE__)
+    parser.add_argument(
+        "-v", "--version", action="store_true", help="Shows the app version."
+    )
+    parser.add_argument(
+        "-n", "--long-name", type=int, required=False, help="Parameter help string"
+    )
+
+    args = parser.parse_args()
+
+    if args.version:
+        print(f"v{__VERSION__} - Authored by: {__AUTHOR__}")
+
+    return 1
+
+if __name__ == "__main__":
+    main()
