@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#title      : 
+#title      : ${filename}
 #description: 
 #author     : ${gh-user}
 #date       : ${date}
@@ -8,8 +8,8 @@
 #copyright  : Copyright (C) ${year} ${gh-user}  (${gh-email})
 #license    : Permission to copy and modify is granted under the MIT license
 
-__VERSION__ = ${data}a
-__TITLE__ = ""
+__VERSION__ = "${date}a"
+__TITLE__ = "${filename}"
 
 def main():
     return None
