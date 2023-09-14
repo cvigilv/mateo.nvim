@@ -29,7 +29,7 @@ return {
     config = function()
       require('obsidian').setup(
         {
-          dir = "~/zk",
+          dir = os.getenv("ZETTELDIR"),
           completion = {
             nvim_cmp = true,
           },
@@ -52,7 +52,7 @@ return {
       )
 
       -- Zettelkasten paths
-      local zk = vim.fn.expand("~/zk")
+      local zk = vim.fn.expand(os.getenv("ZETTELDIR"))
       local media = vim.fn.expand(zk .. "/media")
 
       -- Zettelkasten-specific functions

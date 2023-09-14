@@ -44,28 +44,28 @@ return {
         {
           -- Sources
           org_agenda_files = {
-            '/home/carlos/agenda/agenda.org',
-            '/home/carlos/agenda/refile.org',
-            '/home/carlos/agenda/journal.org',
-            '/home/carlos/agenda/calendar/*',
+            os.getenv("ORGDIR") .. 'agenda.org',
+            os.getenv("ORGDIR") .. 'refile.org',
+            os.getenv("ORGDIR") .. 'journal.org',
+            os.getenv("ORGDIR") .. 'calendar/*',
           },
-          org_default_notes_file = '/home/carlos/agenda/refile.org',
+          org_default_notes_file = os.getenv("ORGDIR") .. 'refile.org',
           -- Quality-of-life
           org_agenda_templates = {
             c = {
               description = 'Capture',
               template = '* %?\n%u',
-              target = '~/zk/agenda/refile.org',
+              target = os.getenv("ORGDIR") .. 'refile.org',
             },
             a = {
               description = 'Agenda',
               template = '* %?\n%t',
-              target = '~/zk/agenda/agenda.org',
+              target = os.getenv("ORGDIR") .. 'agenda.org',
             },
             j = {
               description = 'Journal',
               template = '** %?',
-              target = '~/zk/agenda/journal.org',
+              target = os.getenv("ORGDIR") .. 'journal.org',
             },
           },
           org_indent_mode = 'noindent',

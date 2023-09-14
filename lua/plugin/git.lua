@@ -1,7 +1,7 @@
 return {
   -- diferente {{{
   {
-    dir = "/home/carlos/git/diferente.nvim/",
+    dir = os.getenv("GITDIR") .. "/diferente.nvim",
     ft = 'gitcommit',
     config = true,
   }, -- }}}

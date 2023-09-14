@@ -25,7 +25,7 @@ return {
   -- }}}
   -- esqueleto {{{
   {
-    dir = '/home/carlos/git/esqueleto.nvim',
+    dir = os.getenv("GITDIR") .. "/esqueleto.nvim",
     config = function()
       require("esqueleto").setup({
         autouse = false,
@@ -43,7 +43,7 @@ return {
           "tex",
         },
         directories = {
-          "/home/carlos/.config/nvim/skeletons/",
+          os.getenv("GITDIR") .. "/mateo.nvim/skeletons",
         }
       })
     end
@@ -121,9 +121,8 @@ return {
   -- }}}
   -- overlength {{{
   {
-    dir = "/home/carlos/git/overlength.nvim/",
+    dir = os.getenv("GITDIR") .. "/overlength.nvim",
     priority = 1000,
-    -- "lcheylus/overlength.nvim",
     config = function()
       require('overlength').setup({
         enabled = true,
