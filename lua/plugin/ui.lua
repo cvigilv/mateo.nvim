@@ -154,9 +154,17 @@ return {
       local hsl = lush.hsluv
 
       -- General configuration
+      local ok, hl = pcall(vim.api.nvim_get_hl_by_name, "Normal", true)
+      local fg = hsl("#F5F5F5")
+      local bg = hsl("#09090C")
+      if ok and vim.o.background == "light" then
+        fg = hsl(string.format("#%06x", hl["foreground"]))
+        bg = hsl(string.format("#%06x", hl["background"]))
+      end
+
       local colors = {
-        fg = hsl("#F5F5F5"),
-        bg = hsl("#09090C"),
+        fg = fg,
+        bg = bg,
         yellow = "#ECBE7B",
         cyan = "#008080",
         darkblue = "#081633",
@@ -209,7 +217,7 @@ return {
 
           -- Configure theme
           theme = {
-            normal = { c = { fg = colors.fg.hex, bg = colors.bg.darken(100).sa(10).li(5).hex } },
+            normal = { c = { fg = colors.fg.hex, bg = colors.bg.darken(5).hex } },
             inactive = { c = { fg = colors.fg.hex, bg = colors.bg.hex } },
           },
         },
@@ -226,8 +234,8 @@ return {
         lualine_c = {
           { -- Filename    }{{{
             "filename",
-            color = { fg = hsl(colors.yellow).saturation(100).hex },
-            padding = { left = 2, right = 1 },
+            color = { bg = hsl(colors.yellow).hex },
+            padding = { left = 2, right = 2 },
           }, --}}}
           { -- Root        }{{{
             function()
@@ -238,7 +246,7 @@ return {
               end
               return vim.fs.basename(vim.b.gitsigns_status_dict["root"])
             end,
-            icon = "@",
+            icon = "",
             color = { fg = colors.fg.darken(30).hex },
             padding = { left = 0, right = 0 },
           },
@@ -253,8 +261,8 @@ return {
               end
               return vim.b.gitsigns_status_dict["head"]
             end,
-            icon = "⎇",
-            padding = { left = 0, right = 0 },
+            icon = "⎇ ",
+            padding = { left = 1, right = 1 },
             color = { fg = colors.fg.darken(20).hex },
             cond = condition,
           }, --}}}
@@ -262,16 +270,16 @@ return {
             function()
               return "+" .. vim.b.gitsigns_status_dict["added"]
             end,
-            padding = { left = 1, right = 0 },
-            color = { fg = colors.green },
+            padding = { left = 1, right = 1 },
+            color = { bg = colors.green },
             cond = condition,
           }, --}}}
           { -- Git changed } {{{
             function()
               return "~" .. vim.b.gitsigns_status_dict["changed"]
             end,
-            padding = { left = 1, right = 0 },
-            color = { fg = colors.orange },
+            padding = { left = 1, right = 1 },
+            color = { bg = colors.orange },
             cond = condition,
           }, --}}}
           { -- Git removed } {{{
@@ -282,13 +290,13 @@ return {
                 return "(not tracked)"
               end
             end,
-            padding = { left = 1, right = 0 },
-            color = { fg = colors.red },
+            padding = { left = 1, right = 1 },
+            color = { bg = colors.red },
             cond = condition,
           }, --}}}
           { -- Spacer      }{{{
             function()
-              return "∘"
+              return " "
             end,
             padding = { left = 1, right = 1 },
             cond = condition,
@@ -319,7 +327,7 @@ return {
               return msg
             end,
             color = { fg = colors.fg.darken(20).hex },
-            padding = { left = 0, right = 0 },
+            padding = { left = 0, right = 1 },
             cond = condition,
           }, --}}}
           { -- Diagnostics }{{{
@@ -327,14 +335,14 @@ return {
             sources = { "nvim_lsp", "nvim_diagnostic" },
             symbols = { error = "x", warn = "!", info = "?", hint = "*" },
             diagnostics_color = {
-              color_error = { fg = colors.red },
-              color_warn = { fg = colors.yellow },
-              color_info = { fg = colors.cyan },
-              color_hint = { fg = colors.cyan },
+              error = { fg = colors.bg.hex, bg = colors.red    },
+              warn  = { fg = colors.bg.hex, bg = colors.yellow },
+              info  = { fg = colors.bg.hex, bg = colors.cyan   },
+              hint  = { fg = colors.bg.hex, bg = colors.green   },
             },
             always_visible = true,
             update_in_insert = true,
-            padding = { left = 1, right = 0 },
+            padding = { left = 1, right = 1 },
             cond = function()
               if condition() then
                 return condition()
@@ -469,7 +477,7 @@ return {
           v = { "j", "k" },
         },
         -- disable the WhichKey popup for certain buf types and file types.
-        -- Disabled by deafult for Telescope
+        -- Disabled by default for Telescope
         disable = {
           buftypes = {},
           filetypes = { "TelescopePrompt" },
