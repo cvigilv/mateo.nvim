@@ -27,18 +27,38 @@ return {
       "rafamadriz/friendly-snippets",
     },
     config = function()
+      -- Ensure language servers, DAPs, formatters, and linters are installed
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+          ensure_installed = {
+            -- General purpose
+            -- "codespell",
+
+            -- Lua
+            "lua_ls",
+            -- "stylua",
+
+            -- Julia
+            "julials",
+
+            -- Bash
+            "bashls",
+
+            -- Markdown
+            "marksman",
+
+            -- Python
+            "pyright",
+            -- "black",
+            -- "isort",
+            -- "pylint",
+          },
+        }
+      )
+
+      -- Setup LSP manager
       local lsp = require("lsp-zero")
-
       lsp.preset("recommended")
-
-      -- LSP servers to install
-      lsp.ensure_installed({
-        "lua_ls",
-        "julials",
-        "bashls",
-        "marksman",
-        "pyright",
-      })
 
       -- Better sign symbols
       lsp.set_preferences({
@@ -129,7 +149,7 @@ return {
       end, { noremap = true, silent = true })
     end,
   }, -- }}}
-    -- fidget.nvim {{{
+  -- fidget.nvim {{{
   {
     "j-hui/fidget.nvim",
     tag = "legacy",
@@ -206,9 +226,9 @@ return {
           null_ls.builtins.formatting.fixjson,
 
           -- General
-          null_ls.builtins.diagnostics.codespell,
-          null_ls.builtins.diagnostics.proselint,
-          null_ls.builtins.diagnostics.write_good,
+          -- null_ls.builtins.diagnostics.codespell,
+          -- null_ls.builtins.diagnostics.proselint,
+          -- null_ls.builtins.diagnostics.write_good,
         },
         debug = true,
       })
