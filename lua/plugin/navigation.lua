@@ -139,19 +139,19 @@ return {
         keymaps = {
           ["g?"] = "actions.show_help",
           ["<CR>"] = "actions.select",
-          ["<C-S>"] = "actions.select_vsplit",
-          ["<C-s>"] = "actions.select_split",
+          ["|"] = "actions.select_vsplit",
+          ["-"] = "actions.select_split",
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = "actions.close",
           ["<C-r>"] = "actions.refresh",
-          ["-"] = "actions.parent",
+          ["."] = "actions.parent",
           ["_"] = "actions.open_cwd",
           ["`"] = "actions.cd",
           ["g."] = "actions.toggle_hidden",
         },
         -- Set to false to disable all of the above keymaps
-        use_default_keymaps = true,
+        use_default_keymaps = false,
       })
 
       vim.keymap.set("n", "<leader><CR>", require("oil").open, {
