@@ -17,6 +17,7 @@ require("lazy").setup(
   "plugin",
   {
     ui = {
+      border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
       icons = {
         cmd = "⌘",
         config = "🛠",
