@@ -79,7 +79,7 @@ return {
       lsp.setup_nvim_cmp({
         completion = {
           border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
-          scrollbar = false,
+          scrollbar = true,
         },
         documentation = {
           border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
