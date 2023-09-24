@@ -1,10 +1,13 @@
+---
+id: "${filename}"
+aliases: []
+tags: ["idea"]
+---
 # 
 
-**Question:**
+**Idea:**
 
 **Evidence:**
-
-**Conclusions**:
 
 ---
 
@@ -18,4 +21,4 @@
 - **What is opposite to X?**
 
 ## Tags
-
+#idea 
