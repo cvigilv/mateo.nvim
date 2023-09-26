@@ -1,9 +1,6 @@
----
-id: "${filename}"
-aliases: []
-tags: ["literature"]
----
 # 
+
+#literature
 
 
 
@@ -17,6 +14,3 @@ tags: ["literature"]
 - **Where can X lead to?**
 - **What is similar to X?**
 - **What is opposite to X?**
-
-## Tags
-#literature

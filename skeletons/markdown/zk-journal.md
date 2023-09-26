@@ -1,21 +1,10 @@
----
-id: "${filename}"
-aliases: []
-tags: ["journal"]
----
-# ${filename}
-## ToDo
+# ${year}/${month}/${day} - ${date}
+
+#journal #
 
 ---
+## Usefull links
 
-## References
--
-
-## Compass
-- **Where does X come from?**
-- **Where can X lead to?**
-- **What is similar to X?**
-- **What is opposite to X?**
-
-## Tags
-#journal
+- [Previous entry]()
+- [Next entry]()
+- [Month entries]()

@@ -1,9 +1,6 @@
----
-id: "${filename}"
-aliases: []
-tags: ["idea"]
----
 # 
+
+#idea 
 
 **Idea:**
 
@@ -19,6 +16,3 @@ tags: ["idea"]
 - **Where can X lead to?**
 - **What is similar to X?**
 - **What is opposite to X?**
-
-## Tags
-#idea 
