@@ -1,6 +1,6 @@
 -- Conceal
 vim.opt.suffixesadd = ".md"
-vim.opt.conceallevel = 3
+vim.opt.conceallevel = 0
 vim.opt.concealcursor = "nc"
 
 -- Tabulate behaviour
@@ -10,7 +10,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 
 -- Others
-vim.wo.colorcolumn = "92"
+vim.wo.colorcolumn = "96"
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.linebreak = true
