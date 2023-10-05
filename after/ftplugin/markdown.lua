@@ -10,7 +10,6 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 
 -- Others
-vim.wo.colorcolumn = "96"
 vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.linebreak = true
