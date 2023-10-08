@@ -33,7 +33,6 @@ return {
       "<leader>zF",
     },
     config = function()
-      local execute = vim.cmd
       local previewers = require("telescope.previewers")
       local Job = require("plenary.job")
 
