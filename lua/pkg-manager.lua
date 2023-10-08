@@ -32,6 +32,10 @@ require("lazy").setup(
         task = "📌",
         lazy = "💤 ",
       },
+    change_detection = {
+      enabled=false,
+      notify=false,
+    }
     },
   }
 )
