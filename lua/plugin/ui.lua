@@ -242,12 +242,11 @@ return {
           }, --}}}
           { -- Root        }{{{
             function()
-              local path = vim.loop.cwd() .. "/.git"
-              local ok, _ = vim.loop.fs_stat(path)
-              if not ok then
-                return vim.fn.getcwd()
+              if vim.b.gitsigns_status_dict ~= nil then
+                return "gh repo: " .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
+              else
+                return vim.fn.pathshorten(vim.fn.getcwd(), 2)
               end
-              return vim.fs.basename(vim.b.gitsigns_status_dict["root"])
             end,
             icon = "",
             color = { fg = colors.fg.darken(30).hex },
@@ -257,12 +256,11 @@ return {
         lualine_x = {
           { -- Git branch  }{{{
             function()
-              local path = vim.loop.cwd() .. "/.git"
-              local ok, _ = vim.loop.fs_stat(path)
-              if not ok then
+              if vim.b.gitsigns_status_dict ~= nil then
+                return vim.fs.basename(vim.b.gitsigns_status_dict["head"])
+              else
                 return "n/a"
               end
-              return vim.b.gitsigns_status_dict["head"]
             end,
             icon = "⎇ ",
             padding = { left = 1, right = 1 },
