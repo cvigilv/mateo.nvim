@@ -21,7 +21,11 @@ return {
         indent = { enable = false },
       })
     end
-  }, -- }}}
+  },
+  {
+    'nvim-treesitter/playground',
+  },
+  -- }}}
   -- org {{{
   {
     'nvim-orgmode/orgmode',
