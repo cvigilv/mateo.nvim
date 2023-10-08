@@ -121,7 +121,7 @@ return {
   -- }}}
   -- overlength {{{
   {
-    dir = os.getenv("GITDIR") .. "/overlength.nvim",
+    'lcheylus/overlength.nvim',
     priority = 1000,
     config = function()
       require('overlength').setup({
@@ -129,11 +129,11 @@ return {
         colors = {
           ctermfg = "",
           ctermbg = "",
-          foreground = "#FF0000",
-          background = string.format(
+          fg = "#FF0000",
+          bg = string.format(
             '#%06x',
             vim.api.nvim_get_hl_by_name('ColorColumn', true)["background"]
-            )
+          )
         },
         textwidth_mode = 0,
         default_overlength = 96,
