@@ -1,10 +1,10 @@
-# ${year}/${month}/${day} - ${date}
+# ${year}/${month}/${day} - ${lua:vim.fn.input("Journal scope: ")}
 
 #journal #
 
 ---
-## Usefull links
+## Useful links
 
 - [Previous entry]()
 - [Next entry]()
-- [Month entries]()
+- [Month entries](moc-${year}${month}.md)
