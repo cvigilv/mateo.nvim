@@ -29,14 +29,8 @@ return {
       "<leader>fg",
       "<leader>fb",
       "<leader>fd",
-      "<leader>zn",
-      "<leader>zp",
-      "<leader>zl",
-      "<leader>zj",
-      "<leader>zN",
-      "<leader>zP",
-      "<leader>zL",
-      "<leader>zJ",
+      "<leader>zf",
+      "<leader>zF",
     },
     config = function()
       local execute = vim.cmd
