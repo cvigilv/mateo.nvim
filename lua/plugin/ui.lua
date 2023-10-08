@@ -143,6 +143,9 @@ return {
       vim.cmd("colorscheme deepwhite")
     end,
   }, --}}}
+  { -- oxocarbon {{{
+    "nyoom-engineering/oxocarbon.nvim",
+  }, -- }}}
   -- }}}
   -- statusline {{{
   {
