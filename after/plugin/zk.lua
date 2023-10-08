@@ -3,6 +3,10 @@ local zk = vim.fn.expand(os.getenv("ZETTELDIR"))
 local media = vim.fn.expand(zk .. "/meta/media")
 
 -- Telescope searchers
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+
 local zk_theme = function(opts)
   opts = opts or {}
 
@@ -36,20 +40,56 @@ local zk_theme = function(opts)
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-local find_notes = function()
-  require("telescope.builtin").find_files(zk_theme({ cwd = zk }))
-end
-
 local search_notes = function()
   require("telescope.builtin").live_grep(zk_theme({ cwd = zk }))
+end
+
+local search_headings = function()
+  -- Get all the title headings in Zettelkasten
+  local notes = vim.split(vim.fn.glob(zk .. "/*.md"), "\n", { trimempty = true })
+  table.sort(notes)
+  local titles = {}
+
+  for _, note in ipairs(notes) do
+    local contents = io.open(note, "r"):read("*a")
+
+    if contents ~= nil then
+      for _, line in ipairs(vim.split(contents, "\n", { trimempty = true })) do
+        -- If line is a level 1 heading, store and continue to next note
+        if line ~= "" and string.find(line, "^# ") ~= nil then
+          table.insert(titles, { note, line:gsub("^# ", "") })
+          break
+        end
+      end
+    end
+  end
+
+  -- Setup Telescope picker
+  local opts = zk_theme({
+    finder = finders.new_table({
+      results = titles,
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = entry[2],
+          ordinal = entry[2],
+          path = entry[1],
+          lnum = 0,
+        }
+      end,
+    }),
+    sorter = conf.file_sorter({}),
+    previewer = conf.file_previewer({}),
+  })
+  pickers.new({}, opts):find()
 end
 
 local opts = { noremap = true, silent = false }
 vim.keymap.set(
   "n",
   "<leader>zf",
-  find_notes,
-  vim.tbl_extend("keep", opts, { desc = "Search notes" })
+  search_headings,
+  vim.tbl_extend("keep", opts, { desc = "Search notes by headings" })
 )
 vim.keymap.set(
   "n",
@@ -117,34 +157,23 @@ local function nextnotepath(dir, date, lut)
 end
 
 -- Bind ,zc to new today note
-vim.keymap.set(
-  "n",
-  "<leader>zc",
-  function()
-    local currentdate = os.date("%Y%m%d", os.time())
-    local note_media = media .. "/" .. nextnotename(currentdate, getdatelut(zk))
+vim.keymap.set("n", "<leader>zc", function()
+  local currentdate = os.date("%Y%m%d", os.time())
+  local note_media = media .. "/" .. nextnotename(currentdate, getdatelut(zk))
 
-    os.execute("rm -r " .. note_media .. "; mkdir " .. note_media)
-    vim.cmd("e " .. nextnotepath(zk, currentdate, getdatelut(zk)))
-  end,
-  vim.tbl_extend("keep", opts, { desc = "Create new note for today" })
-)
+  os.execute("rm -r " .. note_media .. "; mkdir " .. note_media)
+  vim.cmd("e " .. nextnotepath(zk, currentdate, getdatelut(zk)))
+end, vim.tbl_extend("keep", opts, { desc = "Create new note for today" }))
 
 -- Bind ,zC to new dated note
-vim.keymap.set(
-  "n",
-  "<leader>zC",
-  function()
-    local date = vim.fn.input("Date in YYYYMMDD format:")
-    if string.find(date, "[0-9][0-9][0-9][0-9][0,1][0-9][0-3][0-9]") ~= nil then
-      local note_media = media .. "/" .. nextnotename(date, getdatelut(zk))
+vim.keymap.set("n", "<leader>zC", function()
+  local date = vim.fn.input("Date in YYYYMMDD format:")
+  if string.find(date, "[0-9][0-9][0-9][0-9][0,1][0-9][0-3][0-9]") ~= nil then
+    local note_media = media .. "/" .. nextnotename(date, getdatelut(zk))
 
-      os.execute("rm -r " .. note_media .. "; mkdir " .. note_media)
-      vim.cmd("e " .. nextnotepath(zk, date, getdatelut(zk)))
-    else
-      error("Date is in incorrect format!", 1)
-    end
-  end,
-  vim.tbl_extend("keep", opts, { desc = "Create new note for given date" })
-)
-
+    os.execute("rm -r " .. note_media .. "; mkdir " .. note_media)
+    vim.cmd("e " .. nextnotepath(zk, date, getdatelut(zk)))
+  else
+    error("Date is in incorrect format!", 1)
+  end
+end, vim.tbl_extend("keep", opts, { desc = "Create new note for given date" }))
