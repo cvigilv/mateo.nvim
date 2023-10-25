@@ -30,7 +30,7 @@ return {
   {
     'nvim-orgmode/orgmode',
     ft = 'org',
-    keys = {',oa', ',oc'},
+    keys = { ',oa', ',oc' },
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = function()
       -- Treesitter configuration
@@ -157,5 +157,20 @@ return {
       vim.g.vimtex_view_automatic        = 1
       vim.g.vimtex_quickfix_mode         = 0
     end
+  }, -- }}}
+  -- nvim-colorizer.lua {{{
+  {
+    "NvChad/nvim-colorizer.lua",
+    key = { ",mh" },
+    config = function()
+      require("colorizer").setup(
+        {
+          user_default_options = {
+            mode = "virtualtext",
+            virtualtext = "⬤ ",
+          },
+        }
+      )
+    end,
   }, -- }}}
 }
