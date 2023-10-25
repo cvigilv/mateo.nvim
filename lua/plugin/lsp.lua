@@ -30,30 +30,14 @@ return {
       -- Ensure language servers, DAPs, formatters, and linters are installed
       require("mason").setup()
       require("mason-lspconfig").setup({
-          ensure_installed = {
-            -- General purpose
-            -- "codespell",
-
-            -- Lua
-            "lua_ls",
-            -- "stylua",
-
-            -- Julia
-            "julials",
-
-            -- Bash
-            "bashls",
-
-            -- Markdown
-            "marksman",
-
-            -- Python
-            "pyright",
-            -- "black",
-            -- "isort",
-            -- "pylint",
-          },
-        }
+        ensure_installed = {
+          "lua_ls",
+          "julials",
+          "bashls",
+          "marksman",
+          "pyright",
+        },
+      }
       )
 
       -- Setup LSP manager
@@ -224,11 +208,6 @@ return {
 
           -- JSON
           null_ls.builtins.formatting.fixjson,
-
-          -- General
-          -- null_ls.builtins.diagnostics.codespell,
-          -- null_ls.builtins.diagnostics.proselint,
-          -- null_ls.builtins.diagnostics.write_good,
         },
         debug = true,
       })
