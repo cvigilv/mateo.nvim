@@ -122,15 +122,20 @@ return {
       })
 
       lsp.setup()
-      vim.keymap.set("n", "<leader>ca", function()
+
+      -- Set keymaps
+      vim.keymap.set("n", "<leader>la", function()
         vim.lsp.buf.code_action()
-      end, { noremap = true, silent = true })
-      vim.keymap.set("n", "<M-k>", function()
+      end, { desc = "Code action", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>ls", function()
         vim.lsp.buf.signature_help()
-      end, { noremap = true, silent = true })
+      end, { desc = "Get signature help", noremap = true, silent = true })
       vim.keymap.set("n", "<C-f>", function()
         vim.lsp.buf.format({ async = true })
-      end, { noremap = true, silent = true })
+      end, { desc = "Format code", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>lf", function()
+        vim.lsp.buf.format({ async = true })
+      end, { desc = "Format code", noremap = true, silent = true })
     end,
   }, -- }}}
   -- fidget.nvim {{{
