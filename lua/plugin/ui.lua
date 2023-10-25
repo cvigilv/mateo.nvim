@@ -490,6 +490,7 @@ return {
         [",g"] = { name = "+git" },
         [",o"] = { name = "+orgmode" },
         [",z"] = { name = "+zettelkastan" },
+        [",l"] = { name = "+lsp" },
       })
     end,
   }, -- }}}
