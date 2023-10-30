@@ -82,25 +82,69 @@ return {
         }
       )
 
-      require('mini.starter').setup(
-        {
-          -- Setup
-          autoopen = true,
-          evaluate_single = true,
-          items = {
-            require('mini.starter').sections.sessions(5, true),
-            require('mini.starter').sections.builtin_actions(),
-            require('mini.starter').sections.telescope(),
-          },
-          header = "mateo.nvim - As in \"smart guy\" (chilean slang)",
-          query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.]],
-          content_hooks = {
-            require('mini.starter').gen_hook.adding_bullet("⁞ "),
-            require('mini.starter').gen_hook.aligning("center", "center")
-          }
-        }
-      )
-    end
+      local title = 'mateo.nvim - As in "smart guy" (chilean slang)'
+      local title_length = string.len(title)
+      string.lpad = function(str, len, char)
+        if char == nil then
+          char = " "
+        end
+        if len == nil then
+          len = title_length
+        end
+        return str .. string.rep(char, len - #str)
+      end
+
+      local function map(tbl, f)
+        local t = {}
+        for k, v in pairs(tbl) do
+          t[k] = f(v)
+        end
+        return t
+      end
+
+      print(string.lpad("foo", nil, "-"))
+
+      require("mini.starter").setup({
+        -- Setup
+        autoopen = true,
+        evaluate_single = true,
+        header = table.concat(
+          map({
+            "# mateo.nvim",
+            "",
+            "> Mateo; someone who uses his head, smart guy (chilean slang)",
+            "",
+            os.date(),
+            "Loaded "
+            .. require("lazy").stats().loaded
+            .. "/"
+            .. require("lazy").stats().count
+            .. " plugins in "
+            .. require("lazy").stats().startuptime
+            .. " miliseconds",
+            -- TODO: Implement tasks finder and counter
+            "Tasks found in current directory: " .. "nil",
+            "",
+          }, string.lpad),
+          "\n"
+        ),
+        items = {
+          require("mini.starter").sections.recent_files(5, true, false),
+          { action = "normal ,zc", name = ",zc: New note",    section = "Actions" },
+          { action = "normal ,ff", name = ",ff: Find file",   section = "Actions" },
+          { action = "normal ,fg", name = ",fg: Find string", section = "Actions" },
+        },
+        footer = table.concat({
+          "---",
+          "",
+        }, "\n"),
+        query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.ABCDEFGHIJKLMNOPQRSTUVWXYZ]],
+        content_hooks = {
+          require("mini.starter").gen_hook.adding_bullet(),
+          require("mini.starter").gen_hook.aligning("center", "center"),
+        },
+      })
+    end,
   },
   -- }}}
   -- numb.nvim {{{
