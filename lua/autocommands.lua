@@ -34,8 +34,8 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       colors = {
         ctermfg = "",
         ctermbg = "",
-        fg = "#FF0000",
-        bg = string.format("#%06x", vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]),
+        foreground = "#FF0000",
+        background = string.format("#%06x", vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]),
       },
       textwidth_mode = 0,
       default_overlength = 96,
