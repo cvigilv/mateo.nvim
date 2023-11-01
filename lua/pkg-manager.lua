@@ -35,4 +35,8 @@ require("lazy").setup("plugin", {
     enabled = false,
     notify = false,
   },
+  checker = {
+    enabled = true,
+    notify =false,
+  }
 })

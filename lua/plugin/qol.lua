@@ -80,65 +80,75 @@ return {
         verbose = { read = false, write = true, delete = true },
       })
 
-      local title = 'mateo.nvim - As in "smart guy" (chilean slang)'
-      local title_length = string.len(title)
-      string.lpad = function(str, len, char)
-        if char == nil then
-          char = " "
+      local generate_footer = function()
+        local ls = require("lazy").stats()
+        local n_updates = 0
+        if require("lazy.status").has_updates() then
+          n_updates = require("lazy.status").updates():gsub("🔌", "")
         end
-        if len == nil then
-          len = title_length
-        end
-        return str .. string.rep(char, len - #str)
+        return table.concat({
+          "",
+          "## Relevant keymaps",
+          "",
+          "- ,zc (New note)",
+          "- ,zf (Search note)",
+          "- ,ff (Find file)",
+          "- ,fg (Find text)",
+          "- ,ft (Find tasks)",
+          "",
+          "",
+          "## Stats",
+          "",
+          "- Loaded "
+            .. ls.loaded
+            .. "/"
+            .. ls.count
+            .. " plugins in "
+            .. ls.startuptime
+            .. " miliseconds",
+          "- " .. n_updates .. " plugins can be updated",
+          -- TODO: Implement tasks finder and counter
+          "- Tasks found in current directory: " .. "nil",
+          "",
+        }, "\n")
       end
-
-      local function map(tbl, f)
-        local t = {}
-        for k, v in pairs(tbl) do
-          t[k] = f(v)
-        end
-        return t
-      end
-
-      print(string.lpad("foo", nil, "-"))
 
       require("mini.starter").setup({
         -- Setup
         autoopen = true,
         evaluate_single = true,
-        header = table.concat(
-          map({
-            "# mateo.nvim",
-            "",
-            "> Mateo; someone who uses his head, smart guy (chilean slang)",
-            "",
-            os.date(),
-            "Loaded "
-            .. require("lazy").stats().loaded
-            .. "/"
-            .. require("lazy").stats().count
-            .. " plugins in "
-            .. require("lazy").stats().startuptime
-            .. " miliseconds",
-            -- TODO: Implement tasks finder and counter
-            "Tasks found in current directory: " .. "nil",
-            "",
-          }, string.lpad),
-          "\n"
-        ),
-        items = {
-          require("mini.starter").sections.recent_files(5, true, false),
-          { action = "normal ,zc", name = ",zc: New note",    section = "Actions" },
-          { action = "normal ,ff", name = ",ff: Find file",   section = "Actions" },
-          { action = "normal ,fg", name = ",fg: Find string", section = "Actions" },
-        },
-        footer = table.concat({
-          "---",
+        header = table.concat({
+          "# mateo.nvim",
           "",
+          "> mateo: someone who uses his head, smart guy (chilean slang)",
+          ""
         }, "\n"),
+        items = {
+          -- Add prefix to section header
+          function()
+            local allfiles = require("mini.starter").sections.recent_files(5, true, false)()
+            for _, file in ipairs(allfiles) do
+              file.section = "## " .. file.section
+            end
+            return allfiles
+          end,
+        },
+        footer = generate_footer,
         query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.ABCDEFGHIJKLMNOPQRSTUVWXYZ]],
         content_hooks = {
-          require("mini.starter").gen_hook.adding_bullet(),
+
+          function(content)
+            local blank_content_line = { { type = "empty", string = "" } }
+
+            local section_coords = require("mini.starter").content_coords(content, "section")
+            -- Insert backwards to not affect coordinates
+            for i = #section_coords, 1, -1 do
+              table.insert(content, section_coords[i].line + 1, blank_content_line)
+            end
+
+            return content
+          end,
+          require("mini.starter").gen_hook.adding_bullet("- "),
           require("mini.starter").gen_hook.aligning("center", "center"),
         },
       })
@@ -235,6 +245,12 @@ return {
       require("todo-comments").setup({
         signs = false,
       })
+      vim.keymap.set(
+        "n",
+        "<leader>ft",
+        "TodoTelescope",
+        { desc = "Find tasks", noremap = true, silent = true }
+      )
     end,
   },
   -- }}}
