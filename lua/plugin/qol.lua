@@ -93,7 +93,7 @@ return {
           "- ,zc (New note)",
           "- ,zf (Search note)",
           "- ,ff (Find file)",
-          "- ,fg (Find text)",
+          "- ,fs (Find string)",
           "- ,ft (Find tasks)",
           "",
           "",
@@ -172,9 +172,10 @@ return {
         })
 
         -- Keymaps
-        vim.keymap.set("n", "<Leader>lD", function()
+        vim.keymap.set("n", "<Leader>ld", function()
           neogen.generate({ type = "func" })
         end, { desc = "Generate function docstring", noremap = true, silent = true })
+
         vim.keymap.set("n", "<Leader>lD",
           function()
             vim.ui.select(
