@@ -279,7 +279,7 @@ return {
       vim.keymap.set(
         "n",
         "<leader>ft",
-        "TodoTelescope",
+        ":TodoTelescope<CR>",
         { desc = "Find tasks", noremap = true, silent = true }
       )
     end,
