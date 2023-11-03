@@ -80,19 +80,75 @@ return {
         verbose = { read = false, write = true, delete = true },
       })
 
+      local generate_footer = function()
+        local ls = require("lazy").stats()
+        local n_updates = 0
+        if require("lazy.status").has_updates() then
+          n_updates = require("lazy.status").updates():gsub("🔌", "")
+        end
+        return table.concat({
+          "",
+          "## Relevant keymaps",
+          "",
+          "- ,zc (New note)",
+          "- ,zf (Search note)",
+          "- ,ff (Find file)",
+          "- ,fg (Find text)",
+          "- ,ft (Find tasks)",
+          "",
+          "",
+          "## Stats",
+          "",
+          "- Loaded "
+            .. ls.loaded
+            .. "/"
+            .. ls.count
+            .. " plugins in "
+            .. ls.startuptime
+            .. " miliseconds",
+          "- " .. n_updates .. " plugins can be updated",
+          -- TODO: Implement tasks finder and counter
+          "- Tasks found in current directory: " .. "nil",
+          "",
+        }, "\n")
+      end
+
       require("mini.starter").setup({
         -- Setup
         autoopen = true,
         evaluate_single = true,
+        header = table.concat({
+          "# mateo.nvim",
+          "",
+          "> mateo: someone who uses his head, smart guy (chilean slang)",
+          ""
+        }, "\n"),
         items = {
-          require("mini.starter").sections.recent_files(5, false),
-          require("mini.starter").sections.builtin_actions(),
-          require("mini.starter").sections.telescope(),
+          -- Add prefix to section header
+          function()
+            local allfiles = require("mini.starter").sections.recent_files(5, true, false)()
+            for _, file in ipairs(allfiles) do
+              file.section = "## " .. file.section
+            end
+            return allfiles
+          end,
         },
-        header = 'mateo.nvim - As in "smart guy" (chilean slang)',
-        query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.]],
+        footer = generate_footer,
+        query_updaters = [[abcdefghijklmnopqrstuvwxyz0123456789_-.ABCDEFGHIJKLMNOPQRSTUVWXYZ]],
         content_hooks = {
-          require("mini.starter").gen_hook.adding_bullet("⁞ "),
+
+          function(content)
+            local blank_content_line = { { type = "empty", string = "" } }
+
+            local section_coords = require("mini.starter").content_coords(content, "section")
+            -- Insert backwards to not affect coordinates
+            for i = #section_coords, 1, -1 do
+              table.insert(content, section_coords[i].line + 1, blank_content_line)
+            end
+
+            return content
+          end,
+          require("mini.starter").gen_hook.adding_bullet("- "),
           require("mini.starter").gen_hook.aligning("center", "center"),
         },
       })
@@ -155,7 +211,10 @@ return {
           ctermfg = "",
           ctermbg = "",
           fg = "#FF0000",
-          bg = string.format("#%06x", vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]),
+          bg = string.format(
+            "#%06x",
+            vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]
+          ),
         },
         textwidth_mode = 0,
         default_overlength = 96,
@@ -217,6 +276,12 @@ return {
       require("todo-comments").setup({
         signs = false,
       })
+      vim.keymap.set(
+        "n",
+        "<leader>ft",
+        "TodoTelescope",
+        { desc = "Find tasks", noremap = true, silent = true }
+      )
     end,
   },
   -- }}}
@@ -243,7 +308,12 @@ return {
     cmd = "ZenMode",
     keys = "<leader>Z",
     config = function()
-      vim.keymap.set("n", "<leader>Z", ":ZenMode<CR>", { silent = true, noremap = true, desc = "Zen Mode" })
+      vim.keymap.set(
+        "n",
+        "<leader>Z",
+        ":ZenMode<CR>",
+        { silent = true, noremap = true, desc = "Zen Mode" }
+      )
     end,
   },
   -- }}}

@@ -134,6 +134,9 @@ return {
             local links = {}
             links.EndOfBuffer = "ColorColumn"
             links.Folded = "@keyword.function"
+            links.MiniStarterHeader = "Normal"
+            links.MiniStarterFooter = "Normal"
+            links.MiniStarterSection = "Normal"
 
             for k, v in pairs(links) do
               vim.cmd("hi! link " .. k .. " " .. v)

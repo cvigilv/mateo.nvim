@@ -26,7 +26,7 @@ return {
     cmd = "Telescope",
     keys = {
       "<leader>ff",
-      "<leader>fg",
+      "<leader>fs",
       "<leader>fb",
       "<leader>fd",
       "<leader>zf",
@@ -100,9 +100,9 @@ return {
       vim.keymap.set("n", ",ff", M.project_files, { silent = true, noremap = true, desc = "Find files" })
       vim.keymap.set(
         "n",
-        ",fg",
+        ",fs",
         "<CMD>Telescope live_grep<CR>",
-        { silent = true, noremap = true, desc = "Live grep" }
+        { silent = true, noremap = true, desc = "Find string using live grep" }
       )
       vim.keymap.set(
         "n",

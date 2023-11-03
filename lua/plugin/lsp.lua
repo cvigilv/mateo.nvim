@@ -166,6 +166,7 @@ return {
   -- lsp-lines {{{
   {
     "Maan2003/lsp_lines.nvim",
+    enabled=false,
     config = function()
       -- Diagnostics configuration
       require("lsp_lines").setup()
