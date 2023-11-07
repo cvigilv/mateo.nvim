@@ -239,6 +239,17 @@ return {
     end,
   },
   -- }}}
+  -- pqf {{{
+  {
+    'yorickpeterse/nvim-pqf',
+    init = function()
+    require('pqf').setup({
+      signs= { error = "x", warn = "!", info = "?", hint = "*" },
+      show_multiple_lines = false,
+      max_filename_length = 0,
+    })
+    end
+  }, -- }}}
   -- quickscope {{{
   {
     "unblevable/quick-scope",
