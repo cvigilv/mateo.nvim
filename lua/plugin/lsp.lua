@@ -35,7 +35,7 @@ return {
           "julials",
           "bashls",
           "marksman",
-          "pyright",
+          "ruff_lsp",
         },
       }
       )
@@ -86,17 +86,7 @@ return {
       })
 
       -- language specific customization
-      lsp.configure("pyright", {
-        settings = {
-          python = {
-            analysis = {
-              autoSearchPaths = false,
-              useLibraryCodeForTypes = false,
-              diagnosticMode = "openFilesOnly",
-            },
-          },
-        },
-      })
+      lsp.configure("ruff_lsp", {})
       lsp.configure("lua_ls", {
         settings = {
           Lua = {
@@ -197,10 +187,6 @@ return {
 
       null_ls.setup({
         sources = {
-          -- Python
-          null_ls.builtins.formatting.isort,
-          null_ls.builtins.formatting.black,
-
           -- Lua
           null_ls.builtins.formatting.stylua,
 
