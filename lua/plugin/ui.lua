@@ -502,9 +502,9 @@ return {
       wk.register({
         [",f"] = { name = "+finder" },
         [",g"] = { name = "+git" },
-        [",o"] = { name = "+orgmode" },
-        [",z"] = { name = "+zettelkastan" },
+        [",z"] = { name = "+zettelkasten" },
         [",l"] = { name = "+lsp" },
+        [",d"] = { name = "+diagnostics" },
       })
     end,
   }, -- }}}

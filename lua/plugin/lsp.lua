@@ -126,6 +126,16 @@ return {
       vim.keymap.set("n", "<leader>lf", function()
         vim.lsp.buf.format({ async = true })
       end, { desc = "Format code", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>dl", function()
+        vim.diagnostic.setloclist()
+      end, { desc = "Loclist", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>dq", function()
+        vim.diagnostic.setqflist()
+      end, { desc = "Quickfix", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>dd", function()
+        vim.diagnostic.open_float()
+      end, { desc = "Open float", noremap = true, silent = true })
+
     end,
   }, -- }}}
   -- fidget.nvim {{{
