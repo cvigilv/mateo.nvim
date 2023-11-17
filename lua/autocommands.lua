@@ -31,33 +31,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     end
 
     -- Reinitialize OverLength
-    require("overlength").setup({
-      enabled = true,
-      colors = {
-        ctermfg = "",
-        ctermbg = "",
-        foreground = "#FF0000",
-        background = string.format("#%06x", vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]),
-      },
-      textwidth_mode = 0,
-      default_overlength = 96,
-      grace_length = 0,
-      highlight_to_eol = true,
-      disable_ft = {
-        "NvimTree",
-        "Telescope",
-        "WhichKey",
-        "MiniStarter",
-        "esqueleto.ivy.selection",
-        "help",
-        "loclist",
-        "orgagenda",
-        "packer",
-        "qf",
-        "starter",
-        "terminal",
-      },
-    })
+    require("overlength").setup(vim.g.plugin_overlength)
   end,
 })
 
@@ -67,5 +41,24 @@ vim.api.nvim_create_autocmd({ "User" }, {
   callback = function()
     vim.cmd("ColorizerToggle")
     require("mini.starter").refresh()
-  end
+  end,
+})
+
+-- Highlight out-of-bounds region
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*" },
+  callback = function()
+    -- Add colorcolumn to line overlength
+    local cols2blur = {}
+
+    local min_col = 96
+    if vim.bo.textwidth ~= 0 then
+      min_col = vim.bo.textwidth
+    end
+    for col = min_col, 288 do
+      table.insert(cols2blur, col)
+    end
+
+    vim.opt.colorcolumn = table.concat(cols2blur, ",")
+  end,
 })

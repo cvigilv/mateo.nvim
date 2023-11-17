@@ -204,9 +204,8 @@ return {
   -- overlength {{{
   {
     "lcheylus/overlength.nvim",
-    priority = 1000,
     config = function()
-      require("overlength").setup({
+      vim.g.plugin_overlength = {
         enabled = true,
         colors = {
           ctermfg = "",
@@ -217,7 +216,7 @@ return {
             vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]
           ),
         },
-        textwidth_mode = 0,
+        textwidth_mode = 1,
         default_overlength = 96,
         grace_length = 0,
         highlight_to_eol = true,
@@ -235,7 +234,8 @@ return {
           "starter",
           "terminal",
         },
-      })
+      }
+      require("overlength").setup(vim.g.plugin_overlength)
     end,
   },
   -- }}}

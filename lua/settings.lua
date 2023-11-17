@@ -10,6 +10,7 @@ vim.opt.cursorline           = true -- Highlight current line
 vim.opt.fileencoding         = 'UTF-8' -- Character encoding for the file in the buffer
 vim.opt.fillchars            = "fold:┈" -- This fill characters have an specific marker
 vim.opt.foldmethod           = 'marker' -- Automatically fold text in markers
+vim.opt.formatoptions:remove('t') -- Remove inserting new line at `textwidth`
 vim.opt.laststatus           = 2 -- Local statusline
 vim.opt.list                 = true -- See whitespaces in current buffer
 vim.opt.listchars            = "trail:∘,nbsp:‼,tab:│ " -- This whitespaces have an specific marker
