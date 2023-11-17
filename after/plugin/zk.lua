@@ -5,6 +5,7 @@ local media = vim.fn.expand(zk .. "/meta/media")
 -- Telescope searchers
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
+local actions = require("telescope.actions")
 local conf = require("telescope.config").values
 
 local zk_theme = function(opts)
@@ -44,7 +45,7 @@ local search_notes = function()
   require("telescope.builtin").live_grep(zk_theme({ cwd = zk }))
 end
 
-local search_headings = function()
+local search_headings = function(user_opts)
   -- Get all the title headings in Zettelkasten
   local notes = vim.split(vim.fn.glob(zk .. "/*.md"), "\n", { trimempty = true })
   table.sort(notes)
@@ -81,6 +82,13 @@ local search_headings = function()
     sorter = conf.file_sorter({}),
     previewer = conf.file_previewer({}),
   })
+
+  -- Add user options
+  if user_opts ~= nil then
+    opts = vim.tbl_extend("force", user_opts, opts)
+  end
+
+  -- Launch picker
   pickers.new({}, opts):find()
 end
 
@@ -177,3 +185,51 @@ vim.keymap.set("n", "<leader>zC", function()
     error("Date is in incorrect format!", 1)
   end
 end, vim.tbl_extend("keep", opts, { desc = "Create new note for given date" }))
+
+-- Bind ,z to new link whenever in visual mode
+local function replace_date(string)
+  -- Use unpack to give tuple values a name otherwise you can only use indexing.
+  -- We are getting line, column, buffer nr etc based on the visual markers here.
+  local s_buf, s_row, s_col, _ = unpack(vim.fn.getpos("'<"))
+  local _, e_row, e_col, _ = unpack(vim.fn.getpos("'>"))
+  -- Indexing into buffer row needs - 1 because lua indexing starts from 1.
+  -- Column subtracts are just to account for start and end scenarios.
+  -- We use the positions to fully clear all selected text of a v-block.
+  vim.api.nvim_buf_set_text(s_buf, e_row - 1, s_col - 1, e_row - 1, e_col, {})
+  -- Place date.
+  vim.api.nvim_buf_set_text(s_buf, s_row - 1, s_col, s_row - 1, s_col, { string })
+  -- Exit visual mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
+end
+
+vim.keymap.set("v", "<leader>z", function()
+  local picker_opts = {
+    attach_mappings = function(prompt_bufnr, _)
+      local state = require("telescope.actions.state")
+      actions.select_default:replace(function()
+        -- Close Telescope picker
+        actions.close(prompt_bufnr) -- closing picker
+
+        -- Get path of selected item in picker
+        local link_path = state.get_selected_entry()["path"]
+
+      -- Use unpack to give tuple values a name otherwise you can only use indexing.
+      -- We are getting line, column, buffer nr etc based on the visual markers here.
+      local s_buf, s_row, s_col, _ = unpack(vim.fn.getpos("'<"))
+      local _, e_row, e_col, _ = unpack(vim.fn.getpos("'>"))
+      -- Indexing into buffer row needs - 1 because lua indexing starts from 1.
+      -- Column subtracts are just to account for start and end scenarios.
+      -- We use the positions to fully clear all selected text of a v-block.
+      vim.api.nvim_buf_set_text(s_buf, e_row - 1, s_col - 1 , e_row - 1, e_col, {})
+      -- Place date.
+      vim.api.nvim_buf_set_text(s_buf, s_row - 1, s_col, s_row - 1, s_col, { link_path })
+      -- Exit visual mode
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<esc>', true, false, true), 'x', false)
+
+
+      end)
+      return true
+    end,
+  }
+  search_headings(picker_opts)
+end, vim.tbl_extend("keep", opts, { desc = "Link to file" }))
