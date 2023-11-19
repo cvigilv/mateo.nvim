@@ -39,8 +39,19 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "LazyVimStarted" },
   callback = function()
-    vim.cmd("ColorizerToggle")
-    require("mini.starter").refresh()
+    if vim.bo.filetype == "starter" then
+      vim.cmd("ColorizerDetachFromBuffer")
+      require("mini.starter").refresh()
+      vim.notify_once("Refreshed MiniStarter dashboard", 3)
+    end
+  end,
+})
+
+-- Override from behaviour from Lazy
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "lazy" },
+  callback = function()
+    vim.cmd("ColorizerDetachFromBuffer")
   end,
 })
 
@@ -53,6 +64,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
     local min_col = 96
     if vim.bo.textwidth ~= 0 then
+      vim.notify_once("Setting out-of-bounds region to filetype `textwidth`", 3)
       min_col = vim.bo.textwidth
     end
     for col = min_col, 288 do

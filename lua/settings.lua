@@ -30,6 +30,7 @@ vim.opt.splitright           = true -- Vertical splitting will be automatically 
 vim.opt.swapfile             = false -- Don't create swap files
 vim.opt.tabstop              = 4 -- Tab of size equal to 4 spaces
 vim.opt.termguicolors        = true -- Use GUI colors
+vim.opt.textwidth            = 0 -- Infinite text width by default
 vim.opt.timeoutlen           = 250 -- Amount of time to wait for mapped sequence to complete
 vim.opt.undodir              = os.getenv("HOME") .. "/.config/nvim/undodir" -- Store undo files here
 vim.opt.undofile             = true -- Create undo files for undo-tree
