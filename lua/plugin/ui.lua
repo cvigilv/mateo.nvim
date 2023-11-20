@@ -90,57 +90,56 @@ return {
       vim.api.nvim_create_autocmd({ "ColorScheme" }, {
         pattern = { "deepwhite" },
         callback = function()
+          local utils = require("utils")
+
           -- Highlight group override
           local lush = require("lush")
           local hsl = lush.hsl
 
-          local ok, hl = pcall(vim.api.nvim_get_hl_by_name, "Normal", true)
-          if ok then
-            local fg = hsl(string.format("#%06x", hl["foreground"])).hex
-            local bg = hsl(string.format("#%06x", hl["background"])).hex
+          local fg = hsl(utils.get_hl_group_hex("Normal", "foreground")).hex
+          local bg = hsl(utils.get_hl_group_hex("Normal", "background")).hex
 
-            local added_fg = hsl("#1b492b").hex
-            local changed_fg = hsl("#4e460c").hex
-            local deleted_fg = hsl("#65161b").hex
-            local added_bg = hsl("#80e080").li(50).sa(25).hex
-            local changed_bg = hsl("#c0b05f").li(50).sa(25).hex
-            local deleted_bg = hsl("#ff9095").li(50).sa(25).hex
+          local added_fg = hsl("#1b492b").hex
+          local changed_fg = hsl("#4e460c").hex
+          local deleted_fg = hsl("#65161b").hex
+          local added_bg = hsl("#80e080").li(50).sa(25).hex
+          local changed_bg = hsl("#c0b05f").li(50).sa(25).hex
+          local deleted_bg = hsl("#ff9095").li(50).sa(25).hex
 
-            -- Assign highlights
-            local _diff_added = { guibg = added_bg, guifg = added_fg }
-            local _diff_changed = { guibg = changed_bg, guifg = changed_fg }
-            local _diff_deleted = { guibg = deleted_bg, guifg = deleted_fg }
+          -- Assign highlights
+          local _diff_added = { guibg = added_bg, guifg = added_fg }
+          local _diff_changed = { guibg = changed_bg, guifg = changed_fg }
+          local _diff_deleted = { guibg = deleted_bg, guifg = deleted_fg }
 
-            -- Setup highlight
-            local highlights = {}
-            highlights.DiffAdd = _diff_added
-            highlights.DiffChange = _diff_changed
-            highlights.DiffDelete = _diff_deleted
-            highlights.GitSignsAdd = _diff_added
-            highlights.GitSignsChange = _diff_changed
-            highlights.GitSignsDelete = _diff_deleted
-            highlights.WinBorder = { guifg = fg, guibg = bg }
-            highlights.WinSeparator = { guifg = fg, guibg = bg }
+          -- Setup highlight
+          local highlights = {}
+          highlights.DiffAdd = _diff_added
+          highlights.DiffChange = _diff_changed
+          highlights.DiffDelete = _diff_deleted
+          highlights.GitSignsAdd = _diff_added
+          highlights.GitSignsChange = _diff_changed
+          highlights.GitSignsDelete = _diff_deleted
+          highlights.WinBorder = { guifg = fg, guibg = bg }
+          highlights.WinSeparator = { guifg = fg, guibg = bg }
 
-            for k, v in pairs(highlights) do
-              local hlstr = {}
-              for g, hex in pairs(v) do
-                table.insert(hlstr, g .. "=" .. hex)
-              end
-              hlstr = "hi! " .. k .. " " .. table.concat(hlstr, " ")
-              vim.cmd(hlstr)
+          for k, v in pairs(highlights) do
+            local hlstr = {}
+            for g, hex in pairs(v) do
+              table.insert(hlstr, g .. "=" .. hex)
             end
+            hlstr = "hi! " .. k .. " " .. table.concat(hlstr, " ")
+            vim.cmd(hlstr)
+          end
 
-            local links = {}
-            links.EndOfBuffer = "ColorColumn"
-            links.Folded = "@keyword.function"
-            links.MiniStarterHeader = "Normal"
-            links.MiniStarterFooter = "Normal"
-            links.MiniStarterSection = "Normal"
+          local links = {}
+          links.EndOfBuffer = "ColorColumn"
+          links.Folded = "@keyword.function"
+          links.MiniStarterHeader = "Normal"
+          links.MiniStarterFooter = "Normal"
+          links.MiniStarterSection = "Normal"
 
-            for k, v in pairs(links) do
-              vim.cmd("hi! link " .. k .. " " .. v)
-            end
+          for k, v in pairs(links) do
+            vim.cmd("hi! link " .. k .. " " .. v)
           end
         end,
       })
@@ -159,16 +158,12 @@ return {
       local lualine = require("lualine")
       local lush = require("lush")
       local hsl = lush.hsluv
+      local utils = require("utils")
 
       local setup_statusline = function()
         -- General configuration
-        local ok, hl = pcall(vim.api.nvim_get_hl_by_name, "Normal", true)
-        local fg = hsl("#F5F5F5")
-        local bg = hsl("#09090C")
-        if ok and vim.o.background == "light" then
-          fg = hsl(string.format("#%06x", hl["foreground"]))
-          bg = hsl(string.format("#%06x", hl["background"]))
-        end
+        local fg = hsl(utils.get_hl_group_hex("Normal", "foreground"))
+        local bg = hsl(utils.get_hl_group_hex("Normal", "background"))
 
         local colors = {
           fg = fg,

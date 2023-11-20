@@ -205,16 +205,14 @@ return {
   {
     "lcheylus/overlength.nvim",
     config = function()
+      local utils = require("utils")
       vim.g.plugin_overlength = {
         enabled = true,
         colors = {
           ctermfg = "",
           ctermbg = "",
           fg = "#FF0000",
-          bg = string.format(
-            "#%06x",
-            vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]
-          ),
+          bg = utils.get_hl_group_hex("ColorColumn", "background")
         },
         textwidth_mode = 1,
         default_overlength = 96,
