@@ -1,3 +1,4 @@
+require("defaults")
 require("settings")
 require("pkg-manager")
 require("keymaps")

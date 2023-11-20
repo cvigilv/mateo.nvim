@@ -46,13 +46,13 @@ return {
 
       -- Better sign symbols
       lsp.set_preferences({
-        float_border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+        float_border = vim.g.defaults.border.floating,
         set_lsp_keymaps = { omit = { "<C-k>" } },
         sign_icons = {
-          error = "x",
-          warn = "!",
-          hint = "*",
-          info = "?",
+          error = vim.g.defaults.signs.error,
+          warn = vim.g.defaults.signs.warn,
+          hint = vim.g.defaults.signs.hint,
+          info = vim.g.defaults.signs.info
         },
       })
 
@@ -62,11 +62,11 @@ return {
 
       lsp.setup_nvim_cmp({
         completion = {
-          border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+          border = vim.g.defaults.border.floating,
           scrollbar = true,
         },
         documentation = {
-          border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+          border = vim.g.defaults.border.floating,
         },
         mappings = {
           ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),

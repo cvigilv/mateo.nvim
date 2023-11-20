@@ -210,7 +210,7 @@ return {
         colors = {
           ctermfg = "",
           ctermbg = "",
-          fg = "#FF0000",
+          fg = vim.g.defaults.colors.Critical.fg,
           bg = string.format(
             "#%06x",
             vim.api.nvim_get_hl_by_name("ColorColumn", true)["background"]
@@ -248,7 +248,12 @@ return {
     'yorickpeterse/nvim-pqf',
     init = function()
     require('pqf').setup({
-      signs= { error = "x", warn = "!", info = "?", hint = "*" },
+      signs = {
+        error = vim.g.defaults.signs.error,
+        warn = vim.g.defaults.signs.warn,
+        info = vim.g.defaults.signs.info,
+        hint = vim.g.defaults.signs.hint
+      },
       show_multiple_lines = false,
       max_filename_length = 0,
     })

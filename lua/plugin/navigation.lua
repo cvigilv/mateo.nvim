@@ -85,7 +85,7 @@ return {
           },
           winblend = 0,
           border = true,
-          borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+          borderchars = vim.g.defaults.border.telescope.ivy,
           buffer_previewer_maker = intelligent_previewer,
         },
         pickers = {

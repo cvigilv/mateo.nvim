@@ -34,7 +34,7 @@ local zk_theme = function(opts)
     path_display = { "truncate" },
     winblend = 0,
     border = {},
-    borderchars = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+    borderchars = vim.g.defaults.border.telescope.ivy
   }
 
   return vim.tbl_deep_extend("force", theme_opts, opts)
