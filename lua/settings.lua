@@ -13,7 +13,7 @@ vim.opt.foldmethod           = 'marker' -- Automatically fold text in markers
 vim.opt.formatoptions:remove('t') -- Remove inserting new line at `textwidth`
 vim.opt.laststatus           = 2 -- Local statusline
 vim.opt.list                 = true -- See whitespaces in current buffer
-vim.opt.listchars            = "trail:∘,nbsp:‼,tab:│ " -- This whitespaces have an specific marker
+vim.opt.listchars            = "trail:∘,nbsp:‼,tab:│ ,multispace:┊ ,leadmultispace:┊ " -- This whitespaces have an specific marker
 vim.opt.mouse                = "a" -- Activate mouse
 vim.opt.number               = true -- Add line numbering
 vim.opt.relativenumber       = true -- Add relative numbering, this is a must in my opinion

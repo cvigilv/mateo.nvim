@@ -49,17 +49,11 @@ return {
           -- Assign colors
           local fg = hsl("#F5F5F5")
           local bg = hsl("#09090C")
-          local added_fg = "#80e080"
-          local added_bg = "#1B492B"
-          local changed_fg = "#c0b05f"
-          local changed_bg = "#4E460C"
-          local deleted_fg = "#ff9095"
-          local deleted_bg = "#65161B"
 
           -- Assign highlights
-          local _diff_added = { bg = added_bg, fg = added_fg }
-          local _diff_changed = { bg = changed_bg, fg = changed_fg }
-          local _diff_deleted = { bg = deleted_bg, fg = deleted_fg }
+          local _diff_added = vim.g.defaults.colors.GitAdd
+          local _diff_changed = vim.g.defaults.colors.GitChange
+          local _diff_deleted = vim.g.defaults.colors.GitDelete
 
           -- Setup highlight
           highlights.ColorColumn = { fg = fg.hex, bg = bg.li(5).sa(15).hex }
@@ -99,12 +93,12 @@ return {
           local fg = hsl(utils.get_hl_group_hex("Normal", "foreground")).hex
           local bg = hsl(utils.get_hl_group_hex("Normal", "background")).hex
 
-          local added_fg = hsl("#1b492b").hex
-          local changed_fg = hsl("#4e460c").hex
-          local deleted_fg = hsl("#65161b").hex
-          local added_bg = hsl("#80e080").li(50).sa(25).hex
-          local changed_bg = hsl("#c0b05f").li(50).sa(25).hex
-          local deleted_bg = hsl("#ff9095").li(50).sa(25).hex
+          local added_fg = vim.g.defaults.colors.GitAdd.bg
+          local changed_fg = vim.g.defaults.colors.GitChange.bg
+          local deleted_fg = vim.g.defaults.colors.GitDelete.bg
+          local added_bg = hsl(vim.g.defaults.colors.GitAdd.fg).li(50).sa(25).hex
+          local changed_bg = hsl(vim.g.defaults.colors.GitChange.fg).li(50).sa(25).hex
+          local deleted_bg = hsl(vim.g.defaults.colors.GitDelete.fg).li(50).sa(25).hex
 
           -- Assign highlights
           local _diff_added = { guibg = added_bg, guifg = added_fg }
@@ -235,12 +229,15 @@ return {
           lualine_a = {},
           lualine_b = {},
           lualine_c = {
-            {   -- Filename    }{{{
+            { -- Filename    }{{{
               "filename",
-              color = { bg = hsl(colors.yellow).hex },
+              color = {
+                fg=bg.hex,
+                bg=fg.hex
+              },
               padding = { left = 2, right = 2 },
             },   --}}}
-            {    -- Root        }{{{
+            {  -- Root        }{{{
               function()
                 if vim.b.gitsigns_status_dict ~= nil then
                   return "repo: " .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
@@ -254,7 +251,7 @@ return {
             },
           },    --}}}
           lualine_x = {
-            {   -- Git branch  }{{{
+            { -- Git branch  }{{{
               function()
                 if vim.b.gitsigns_status_dict ~= nil then
                   return vim.fs.basename(vim.b.gitsigns_status_dict["head"])
@@ -272,7 +269,10 @@ return {
                 return "+" .. vim.b.gitsigns_status_dict["added"]
               end,
               padding = { left = 1, right = 1 },
-              color = { bg = colors.green },
+              color = {
+                fg = vim.g.defaults.colors.GitAdd.bg,
+                bg = vim.g.defaults.colors.GitAdd.fg
+              },
               cond = condition,
             },   --}}}
             {    -- Git changed } {{{
@@ -280,7 +280,10 @@ return {
                 return "~" .. vim.b.gitsigns_status_dict["changed"]
               end,
               padding = { left = 1, right = 1 },
-              color = { bg = colors.orange },
+              color = {
+                fg = vim.g.defaults.colors.GitChange.bg,
+                bg = vim.g.defaults.colors.GitChange.fg
+              },
               cond = condition,
             },   --}}}
             {    -- Git removed } {{{
@@ -292,7 +295,10 @@ return {
                 end
               end,
               padding = { left = 1, right = 1 },
-              color = { bg = colors.red },
+              color = {
+                fg = vim.g.defaults.colors.GitDelete.bg,
+                bg = vim.g.defaults.colors.GitDelete.fg
+              },
               cond = condition,
             },   --}}}
             {    -- Spacer      }{{{
@@ -462,7 +468,7 @@ return {
           scroll_up = "<c-u>",   -- binding to scroll up inside the popup
         },
         window = {
-          border = "none",          -- none, single, double, shadow
+          border = vim.g.defaults.border.normal,
           position = "bottom",      -- bottom, top
           margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
           padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]

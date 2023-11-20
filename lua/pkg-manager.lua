@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Load packages
 require("lazy").setup("plugin", {
   ui = {
-    border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+    border = vim.g.defaults.border.normal,
     icons = {
       cmd = "⌘",
       config = "🛠",
