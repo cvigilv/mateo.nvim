@@ -173,7 +173,6 @@ return {
         -- General configuration
         local fg = utils.get_hl_group_hex("Normal", "foreground")
         local bg = utils.get_hl_group_hex("Normal", "background")
-        vim.print("fg:" .. fg .. " - bg:" .. bg)
         local fg_dim = nil
         local bg_dim = nil
         if vim.o.background == "light" then
@@ -407,7 +406,7 @@ return {
             },
             {
               function()
-                return "  "
+                return " "
               end,
               padding = { left = 0, right = 0 },
               cond = condition,
@@ -416,33 +415,15 @@ return {
               function()
                 return string.upper(vim.fn.mode())
               end,
-              color = function()
-                -- auto change color according to neovims mode
-                local mode_color = {
-                  n = colors.red,
-                  i = colors.green,
-                  v = colors.blue,
-                  [""] = colors.blue,
-                  V = colors.blue,
-                  c = colors.magenta,
-                  no = colors.red,
-                  s = colors.orange,
-                  S = colors.orange,
-                  [""] = colors.orange,
-                  ic = colors.yellow,
-                  R = colors.violet,
-                  Rv = colors.violet,
-                  cv = colors.red,
-                  ce = colors.red,
-                  r = colors.cyan,
-                  rm = colors.cyan,
-                  ["r?"] = colors.cyan,
-                  ["!"] = colors.red,
-                  t = colors.red,
-                }
-                return { fg = colors.bg, bg = mode_color[vim.fn.mode()] }
-              end,
+              color =  { fg = colors.bg, bg = colors.fg },
               padding = { left = 1, right = 1 },
+            },
+            {
+              function()
+                return " "
+              end,
+              padding = { left = 0, right = 0 },
+              cond = condition,
             },
           },
           lualine_y = {},
