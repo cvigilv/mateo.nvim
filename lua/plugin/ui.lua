@@ -353,19 +353,15 @@ return {
                   return msg .. "n/a"
                 end
 
-                -- return non-"null-ls" servers
+                -- Return non-"null-ls" servers
                 for _, client in ipairs(clients) do
                   if client.name ~= "null-ls" then
                     local filetypes = client.config.filetypes
                     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                      msg = msg .. client.name
+                      return msg .. client.name:gsub("_", "-")
                     end
                   end
                 end
-                if vim.tbl_count(clients) > 0 then
-                  msg = msg .. "+" .. vim.tbl_count(clients) - 1
-                end
-                return msg
               end,
               color = { fg = colors.fg },
               padding = { left = 0, right = 1 },
