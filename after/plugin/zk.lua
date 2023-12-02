@@ -3,8 +3,8 @@ local zk = vim.fn.expand(os.getenv("ZETTELDIR"))
 local media = vim.fn.expand(zk .. "/meta/media")
 
 -- Telescope searchers
-local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
+local pickers = require("telescope.pickers")
 local conf = require("telescope.config").values
 
 local zk_theme = function(opts)
@@ -34,15 +34,13 @@ local zk_theme = function(opts)
     path_display = { "truncate" },
     winblend = 0,
     border = {},
-    borderchars = vim.g.defaults.border.telescope.ivy
+    borderchars = vim.g.defaults.border.telescope.ivy,
   }
 
   return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-local search_notes = function()
-  require("telescope.builtin").live_grep(zk_theme({ cwd = zk }))
-end
+local search_notes = function() require("telescope.builtin").live_grep(zk_theme({ cwd = zk })) end
 
 local search_headings = function()
   -- Get all the title headings in Zettelkasten
@@ -115,9 +113,7 @@ local function getdatelut(directory)
     if not vim.tbl_contains(lut_dates, date) then
       lut_dates[date] = id
     else
-      if id > lut_dates[date] then
-        lut_dates[date] = id
-      end
+      if id > lut_dates[date] then lut_dates[date] = id end
     end
   end
 
@@ -147,9 +143,7 @@ local function nextnoteid(date, lut)
 end
 
 -- Return file name of a note given a date and list of known notes
-local function nextnotename(date, lut)
-  return date .. nextnoteid(date, lut)
-end
+local function nextnotename(date, lut) return date .. nextnoteid(date, lut) end
 
 -- Return file path for the next note given a directory, date and list of known notes
 local function nextnotepath(dir, date, lut)

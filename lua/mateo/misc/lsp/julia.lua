@@ -43,16 +43,12 @@ local function formatstruct(argstruct)
   local fargs = "- `" .. argstruct["name"]
 
   -- Add argument type
-  if argstruct["type"] then
-    fargs = fargs .. "::" .. argstruct["type"]
-  end
+  if argstruct["type"] then fargs = fargs .. "::" .. argstruct["type"] end
 
   fargs = fargs .. "`: "
 
   -- Add argument default value
-  if argstruct["default"] then
-    fargs = fargs .. "(default = " .. argstruct["default"] .. ")"
-  end
+  if argstruct["default"] then fargs = fargs .. "(default = " .. argstruct["default"] .. ")" end
 
   argstruct["formatted"] = fargs
 end
@@ -72,7 +68,7 @@ end
 
 local function formatfuncstruct(funcstruct)
   local docstring = {
-    '"""',
+    "\"\"\"",
     "    " .. funcstruct.string,
     "",
     "! Single one-line sentence in imperative form describing what the function does or what",
@@ -93,7 +89,7 @@ local function formatfuncstruct(funcstruct)
     "# References",
     "! Provide hints to related functions, e.g., See also [`bar!`](@ref).",
     "",
-    '"""',
+    "\"\"\"",
   }
   for i, farg in ipairs(funcstruct.args) do
     table.insert(docstring, 10 + i, farg.formatted)
@@ -127,9 +123,7 @@ M.generate_jldocstring = {
 
       for i, argstr in ipairs(vim.split(kv[2], "[,;] ")) do
         local argstruct = parsearg(argstr)
-        if typemapper then
-          maptype(argstruct, typemapper)
-        end
+        if typemapper then maptype(argstruct, typemapper) end
         formatstruct(argstruct)
         funcstruct["args"][i] = argstruct
       end

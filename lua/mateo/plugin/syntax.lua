@@ -1,112 +1,114 @@
 return {
   -- treesitter {{{
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     config = function()
-      require('nvim-treesitter.configs').setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          'julia',
-          'python',
-          'org',
-          'bash',
-          'lua',
-          'markdown',
-          'markdown_inline',
+          "julia",
+          "python",
+          "org",
+          "bash",
+          "lua",
+          "markdown",
+          "markdown_inline",
         },
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = { 'markdown' },
+          additional_vim_regex_highlighting = { "markdown" },
         },
         incremental_selection = { enable = false },
         indent = { enable = false },
       })
-    end
+    end,
   },
   {
-    'nvim-treesitter/playground',
+    "nvim-treesitter/playground",
   },
   -- }}}
   -- org {{{
   {
-    'nvim-orgmode/orgmode',
-    ft = 'org',
-    keys = { ',oa', ',oc' },
-    dependencies = 'nvim-treesitter/nvim-treesitter',
+    "nvim-orgmode/orgmode",
+    ft = "org",
+    keys = { ",oa", ",oc" },
+    dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       -- Treesitter configuration
-      require('orgmode').setup_ts_grammar()
-      require('nvim-treesitter.configs').setup {
+      require("orgmode").setup_ts_grammar()
+      require("nvim-treesitter.configs").setup({
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = { 'org' },
+          additional_vim_regex_highlighting = { "org" },
         },
-        ensure_installed = { 'org' },
-      }
+        ensure_installed = { "org" },
+      })
 
       -- Orgmode configuration
-      require('orgmode').setup(
-        {
-          -- Sources
-          org_agenda_files = {
-            os.getenv("ORGDIR") .. 'agenda.org',
-            os.getenv("ORGDIR") .. 'refile.org',
-            os.getenv("ORGDIR") .. 'journal.org',
-            os.getenv("ORGDIR") .. 'calendar/*',
+      require("orgmode").setup({
+        -- Sources
+        org_agenda_files = {
+          os.getenv("ORGDIR") .. "agenda.org",
+          os.getenv("ORGDIR") .. "refile.org",
+          os.getenv("ORGDIR") .. "journal.org",
+          os.getenv("ORGDIR") .. "calendar/*",
+        },
+        org_default_notes_file = os.getenv("ORGDIR") .. "refile.org",
+        -- Quality-of-life
+        org_agenda_templates = {
+          c = {
+            description = "Capture",
+            template = "* %?\n%u",
+            target = os.getenv("ORGDIR") .. "refile.org",
           },
-          org_default_notes_file = os.getenv("ORGDIR") .. 'refile.org',
-          -- Quality-of-life
-          org_agenda_templates = {
-            c = {
-              description = 'Capture',
-              template = '* %?\n%u',
-              target = os.getenv("ORGDIR") .. 'refile.org',
-            },
-            a = {
-              description = 'Agenda',
-              template = '* %?\n%t',
-              target = os.getenv("ORGDIR") .. 'agenda.org',
-            },
-            j = {
-              description = 'Journal',
-              template = '** %?',
-              target = os.getenv("ORGDIR") .. 'journal.org',
-            },
+          a = {
+            description = "Agenda",
+            template = "* %?\n%t",
+            target = os.getenv("ORGDIR") .. "agenda.org",
           },
-          org_indent_mode = 'noindent',
-          org_blank_before_new_entry = { heading = false, plain_list_item = false },
-          org_hide_emphasis_markers = true,
-          org_hide_leading_stars = true,
-          -- Agenda
-          org_agenda_skip_scheduled_if_done = true,
-          org_agenda_skip_deadline_if_done = true,
-          org_agenda_span = 'month',
-          win_split_mode = 'auto',
-          org_todo_keywords = {
-            'TODO(t)', 'DOING(.)', 'WAITING(w)',
-            '|',
-            'DELEGATED(e)', 'DONE(d)', 'CANCELED(x)'
+          j = {
+            description = "Journal",
+            template = "** %?",
+            target = os.getenv("ORGDIR") .. "journal.org",
           },
-          org_todo_keyword_faces = {
-            TODO = ':foreground #ec5f67',
-            DOING = ':foreground #ECBE7B',
-            DONE = ':foreground #98be65',
-            WAITING = ':foreground #008080',
-            DELEGATED = ':foreground #464d72',
-            CANCELED = ':foreground #464d72'
+        },
+        org_indent_mode = "noindent",
+        org_blank_before_new_entry = { heading = false, plain_list_item = false },
+        org_hide_emphasis_markers = true,
+        org_hide_leading_stars = true,
+        -- Agenda
+        org_agenda_skip_scheduled_if_done = true,
+        org_agenda_skip_deadline_if_done = true,
+        org_agenda_span = "month",
+        win_split_mode = "auto",
+        org_todo_keywords = {
+          "TODO(t)",
+          "DOING(.)",
+          "WAITING(w)",
+          "|",
+          "DELEGATED(e)",
+          "DONE(d)",
+          "CANCELED(x)",
+        },
+        org_todo_keyword_faces = {
+          TODO = ":foreground #ec5f67",
+          DOING = ":foreground #ECBE7B",
+          DONE = ":foreground #98be65",
+          WAITING = ":foreground #008080",
+          DELEGATED = ":foreground #464d72",
+          CANCELED = ":foreground #464d72",
+        },
+        -- Notifications
+        notifications = { enabled = true },
+        -- Settings
+        mappings = {
+          org = {
+            org_meta_return = "<S-CR>",
           },
-          -- Notifications
-          notifications = { enabled = true },
-          -- Settings
-          mappings = {
-            org = {
-              org_meta_return = "<S-CR>",
-            },
-          }
-        }
-      )
+        },
+      })
 
       -- Colors
-      vim.cmd [[
+      vim.cmd([[
           function! s:orgmode_colors() abort
           hi link OrgTSTimestampActive OrgTSComment
           hi link OrgTSTimestampInactive OrgTSComment
@@ -135,42 +137,40 @@ return {
           hi link OrgAgendaScheduledPast SpecialChar
           endfunction
           autocmd ColorScheme * call s:orgmode_colors()
-      ]]
-    end
+      ]])
+    end,
   }, -- }}}
   -- vimtex {{{
   {
-    'lervag/vimtex',
+    "lervag/vimtex",
     init = function()
-      vim.g.vimtex_enabled               = 1
-      vim.g.vimtex_complete_enabled      = 1
+      vim.g.vimtex_enabled = 1
+      vim.g.vimtex_complete_enabled = 1
       vim.g.vimtex_complete_close_braces = 0
-      vim.g.vimtex_parser_bib_backend    = 'bibtex'
-      vim.g.vimtex_complete_bib          = {
+      vim.g.vimtex_parser_bib_backend = "bibtex"
+      vim.g.vimtex_complete_bib = {
         simple = true,
-        menu_fmt = '@author_short (@year), "@title"',
-        abbr_fmt = '@key',
-        auth_len = 12
+        menu_fmt = "@author_short (@year), \"@title\"",
+        abbr_fmt = "@key",
+        auth_len = 12,
       }
-      vim.g.vimtex_view_general_viewer   = 'okular'
-      vim.g.vimtex_view_general_options  = '--unique file:@pdf#src:@line@tex'
-      vim.g.vimtex_view_automatic        = 1
-      vim.g.vimtex_quickfix_mode         = 0
-    end
+      vim.g.vimtex_view_general_viewer = "okular"
+      vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
+      vim.g.vimtex_view_automatic = 1
+      vim.g.vimtex_quickfix_mode = 0
+    end,
   }, -- }}}
   -- nvim-colorizer.lua {{{
   {
     "NvChad/nvim-colorizer.lua",
     key = { ",mh" },
     config = function()
-      require("colorizer").setup(
-        {
-          user_default_options = {
-            mode = "virtualtext",
-            virtualtext = "⬤ ",
-          },
-        }
-      )
+      require("colorizer").setup({
+        user_default_options = {
+          mode = "virtualtext",
+          virtualtext = "⬤ ",
+        },
+      })
     end,
   }, -- }}}
 }

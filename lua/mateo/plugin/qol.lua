@@ -121,7 +121,7 @@ return {
           "# mateo.nvim",
           "",
           "> mateo: someone who uses his head, smart guy (chilean slang)",
-          ""
+          "",
         }, "\n"),
         items = {
           -- Add prefix to section header
@@ -155,38 +155,39 @@ return {
     end,
   },
   -- }}}
-      -- neogen {{{
-    {
-      "danymat/neogen",
-      dependencies = "nvim-treesitter/nvim-treesitter",
-      config = function()
-        local neogen = require("neogen")
+  -- neogen {{{
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      local neogen = require("neogen")
 
-        -- Setup package
-        neogen.setup({
-          enabled = true,
-          languages = {
-            lua = { template = { annotation_convention = "emmylua" } },
-            python = { template = { annotation_convention = "numpydoc" } },
-          }
-        })
+      -- Setup package
+      neogen.setup({
+        enabled = true,
+        languages = {
+          lua = { template = { annotation_convention = "emmylua" } },
+          python = { template = { annotation_convention = "numpydoc" } },
+        },
+      })
 
-        -- Keymaps
-        vim.keymap.set("n", "<Leader>ld", function()
-          neogen.generate({ type = "func" })
-        end, { desc = "Generate function docstring", noremap = true, silent = true })
+      -- Keymaps
+      vim.keymap.set(
+        "n",
+        "<Leader>ld",
+        function() neogen.generate({ type = "func" }) end,
+        { desc = "Generate function docstring", noremap = true, silent = true }
+      )
 
-        vim.keymap.set("n", "<Leader>lD",
-          function()
-            vim.ui.select(
-              {"class", "func", "type", "file"},
-              { prompt = "Select docstring to generate:" },
-              function(choice) neogen.generate({ type = choice }) end
-            )
-          end,
-          { desc = "Pick docstring to generate", noremap = true, silent = true })
-      end,
-    }, -- }}}
+      vim.keymap.set("n", "<Leader>lD", function()
+        vim.ui.select(
+          { "class", "func", "type", "file" },
+          { prompt = "Select docstring to generate:" },
+          function(choice) neogen.generate({ type = choice }) end
+        )
+      end, { desc = "Pick docstring to generate", noremap = true, silent = true })
+    end,
+  }, -- }}}
   -- numb.nvim {{{
   {
     "nacro90/numb.nvim",
@@ -212,7 +213,7 @@ return {
           ctermfg = "",
           ctermbg = "",
           fg = vim.g.defaults.colors.Critical.fg,
-          bg = utils.get_hl_group_hex("ColorColumn", "background")
+          bg = utils.get_hl_group_hex("ColorColumn", "background"),
         },
         textwidth_mode = 1,
         default_overlength = 96,
@@ -243,19 +244,19 @@ return {
   -- }}}
   -- pqf {{{
   {
-    'yorickpeterse/nvim-pqf',
+    "yorickpeterse/nvim-pqf",
     init = function()
-    require('pqf').setup({
-      signs = {
-        error = vim.g.defaults.signs.error,
-        warn = vim.g.defaults.signs.warn,
-        info = vim.g.defaults.signs.info,
-        hint = vim.g.defaults.signs.hint
-      },
-      show_multiple_lines = false,
-      max_filename_length = 0,
-    })
-    end
+      require("pqf").setup({
+        signs = {
+          error = vim.g.defaults.signs.error,
+          warn = vim.g.defaults.signs.warn,
+          info = vim.g.defaults.signs.info,
+          hint = vim.g.defaults.signs.hint,
+        },
+        show_multiple_lines = false,
+        max_filename_length = 0,
+      })
+    end,
   }, -- }}}
   -- quickscope {{{
   {

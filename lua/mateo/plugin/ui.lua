@@ -74,15 +74,11 @@ return {
       -- Create autocommands to properly setup the customized highlight groups
       vim.api.nvim_create_autocmd({ "ColorScheme" }, {
         pattern = { "tokyonight-day" },
-        callback = function()
-          vim.o.background = "light"
-        end,
+        callback = function() vim.o.background = "light" end,
       })
       vim.api.nvim_create_autocmd({ "ColorScheme" }, {
         pattern = { "tokyonight-night", "tokyonight-storm", "tokyonight-moon" },
-        callback = function()
-          vim.o.background = "dark"
-        end,
+        callback = function() vim.o.background = "dark" end,
       })
     end,
   }, -- }}}
@@ -155,7 +151,7 @@ return {
       vim.cmd("colorscheme deepwhite")
     end,
   }, --}}}
-  {  -- oxocarbon {{{
+  { -- oxocarbon {{{
     "nyoom-engineering/oxocarbon.nvim",
   }, -- }}}
   -- }}}
@@ -209,15 +205,11 @@ return {
           local current_filetype = vim.bo.filetype
 
           -- Window width
-          if vim.fn.winwidth(0) < 70 then
-            return false
-          end
+          if vim.fn.winwidth(0) < 70 then return false end
 
           -- File type
           for _, ignored in pairs(ignore_filetype) do
-            if current_filetype == ignored then
-              return false
-            end
+            if current_filetype == ignored then return false end
           end
 
           return true
@@ -256,9 +248,7 @@ return {
               padding = { left = 2, right = 2 },
             },
             {
-              function()
-                return "+" .. vim.b.gitsigns_status_dict["added"]
-              end,
+              function() return "+" .. vim.b.gitsigns_status_dict["added"] end,
               padding = { left = 1, right = 1 },
               color = function()
                 if vim.o.background == "light" then
@@ -276,9 +266,7 @@ return {
               cond = condition,
             },
             {
-              function()
-                return "~" .. vim.b.gitsigns_status_dict["changed"]
-              end,
+              function() return "~" .. vim.b.gitsigns_status_dict["changed"] end,
               padding = { left = 1, right = 1 },
               color = function()
                 if vim.o.background == "light" then
@@ -323,10 +311,10 @@ return {
               function() -- Root
                 if vim.b.gitsigns_status_dict ~= nil then
                   local fmt_str = "repo: "
-                      .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
-                      .. "("
-                      .. vim.fs.basename(vim.b.gitsigns_status_dict["head"])
-                      .. ")"
+                    .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
+                    .. "("
+                    .. vim.fs.basename(vim.b.gitsigns_status_dict["head"])
+                    .. ")"
                   if string.len(fmt_str) > 44 then
                     fmt_str = string.sub(fmt_str, 1, 44) .. "...)"
                   end
@@ -349,9 +337,7 @@ return {
                 local clients = vim.lsp.get_active_clients()
 
                 -- Return nothing if no LSP server
-                if next(clients) == nil then
-                  return msg .. "n/a"
-                end
+                if next(clients) == nil then return msg .. "n/a" end
 
                 -- Return non-"null-ls" servers
                 for _, client in ipairs(clients) do
@@ -401,23 +387,17 @@ return {
               end,
             },
             {
-              function()
-                return " "
-              end,
+              function() return " " end,
               padding = { left = 0, right = 0 },
               cond = condition,
             },
             {
-              function()
-                return string.upper(vim.fn.mode())
-              end,
-              color =  { fg = colors.bg, bg = colors.fg },
+              function() return string.upper(vim.fn.mode()) end,
+              color = { fg = colors.bg, bg = colors.fg },
               padding = { left = 1, right = 1 },
             },
             {
-              function()
-                return " "
-              end,
+              function() return " " end,
               padding = { left = 0, right = 0 },
               cond = condition,
             },
@@ -451,22 +431,22 @@ return {
       local wk = require("which-key")
       wk.setup({
         plugins = {
-          marks = true,       -- shows a list of your marks on ' and `
-          registers = true,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          marks = true, -- shows a list of your marks on ' and `
+          registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
           spelling = {
-            enabled = false,  -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
           },
           -- the presets plugin, adds help for a bunch of default keybindings in Neovim
           -- No actual key bindings are created
           presets = {
-            operators = false,   -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = false,     -- adds help for motions
+            operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            motions = false, -- adds help for motions
             text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true,      -- default bindings on <c-w>
-            nav = true,          -- misc bindings to work with windows
-            z = true,            -- bindings for folds, spelling and others prefixed with z
-            g = true,            -- bindings for prefixed with g
+            windows = true, -- default bindings on <c-w>
+            nav = true, -- misc bindings to work with windows
+            z = true, -- bindings for folds, spelling and others prefixed with z
+            g = true, -- bindings for prefixed with g
           },
         },
         -- add operators that will trigger motion and text object completion
@@ -484,30 +464,30 @@ return {
         icons = {
           breadcrumb = "!", -- symbol used in the command line area that shows your active key combo
           separator = "→", -- symbol used between a key and it's label
-          group = "+",      -- symbol prepended to a group
+          group = "+", -- symbol prepended to a group
         },
         popup_mappings = {
           scroll_down = "<c-d>", -- binding to scroll down inside the popup
-          scroll_up = "<c-u>",   -- binding to scroll up inside the popup
+          scroll_up = "<c-u>", -- binding to scroll up inside the popup
         },
         window = {
           border = vim.g.defaults.border.normal,
-          position = "bottom",      -- bottom, top
-          margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
+          position = "bottom", -- bottom, top
+          margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
           padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
           winblend = 0,
         },
         layout = {
-          height = { min = 4, max = 25 },                                             -- min and max height of the columns
-          width = { min = 20, max = 50 },                                             -- min and max width of the columns
-          spacing = 3,                                                                -- spacing between columns
-          align = "center",                                                           -- align columns left, center or right
+          height = { min = 4, max = 25 }, -- min and max height of the columns
+          width = { min = 20, max = 50 }, -- min and max width of the columns
+          spacing = 3, -- spacing between columns
+          align = "center", -- align columns left, center or right
         },
-        ignore_missing = false,                                                       -- enable this to hide mappings for which you didn't specify a label
+        ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
         hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-        show_help = true,                                                             -- show help message on the command line when the popup is visible
-        show_keys = true,                                                             -- show the currently pressed key and its label as a message in the command line
-        triggers = "auto",                                                            -- automatically setup triggers
+        show_help = true, -- show help message on the command line when the popup is visible
+        show_keys = true, -- show the currently pressed key and its label as a message in the command line
+        triggers = "auto", -- automatically setup triggers
         triggers_blacklist = {
           -- list of mode / prefixes that should never be hooked by WhichKey
           -- this is mostly relevant for key maps that start with a native binding
