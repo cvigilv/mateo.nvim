@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 --- Get the hexadecimal value for a given highlight group and entry.
 ---@param hl_group string NeoVim highlight group name
