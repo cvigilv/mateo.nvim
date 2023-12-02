@@ -99,7 +99,7 @@ return {
       vim.api.nvim_create_autocmd({ "ColorScheme" }, {
         pattern = { "deepwhite" },
         callback = function()
-          local utils = require("utils")
+          local utils = require("mateo.utils")
 
           -- Highlight group override
           local lush = require("lush")
@@ -164,7 +164,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "rktjmp/lush.nvim", "lewis6991/gitsigns.nvim" },
     config = function()
-      local utils = require("utils")
+      local utils = require("mateo.utils")
       local lualine = require("lualine")
       local lush = require("lush")
       local hsl = lush.hsluv

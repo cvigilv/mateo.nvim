@@ -206,7 +206,7 @@ return {
           null_ls.builtins.code_actions.shellcheck,
 
           -- Julia
-          require("misc.lsp.julia").generate_jldocstring,
+          require("mateo.misc.lsp.julia").generate_jldocstring,
 
           -- JSON
           null_ls.builtins.formatting.fixjson,

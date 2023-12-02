@@ -205,7 +205,7 @@ return {
   {
     "lcheylus/overlength.nvim",
     config = function()
-      local utils = require("utils")
+      local utils = require("mateo.utils")
       vim.g.plugin_overlength = {
         enabled = true,
         colors = {

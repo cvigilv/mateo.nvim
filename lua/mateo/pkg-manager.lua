@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load packages
-require("lazy").setup("plugin", {
+require("lazy").setup("mateo.plugin", {
   ui = {
     border = vim.g.defaults.border.normal,
     icons = {
@@ -37,6 +37,6 @@ require("lazy").setup("plugin", {
   },
   checker = {
     enabled = true,
-    notify =false,
-  }
+    notify = false,
+  },
 })
