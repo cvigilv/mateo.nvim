@@ -1,6 +1,7 @@
 return {
   -- colorscheme {{{
-  { -- tokyonight {{{
+  {
+    -- tokyonight {{{
     "folke/tokyonight.nvim",
     dependencies = "rktjmp/lush.nvim",
     priority = 10000,
@@ -45,7 +46,7 @@ return {
           colors.bg_sidebar = "#020207"
           colors.bg_statusline = "#09090C"
         end,
-        on_highlights = function(highlights, colors)
+        on_highlights = function(highlights, _)
           -- Assign colors
           local fg = hsl("#F5F5F5")
           local bg = hsl("#09090C")
@@ -69,10 +70,24 @@ return {
           highlights.WinSeparator = { fg = fg.hex, bg = bg.hex }
         end,
       })
-      -- vim.cmd("colorscheme tokyonight-night")
+
+      -- Create autocommands to properly setup the customized highlight groups
+      vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+        pattern = { "tokyonight-day" },
+        callback = function()
+          vim.o.background = "light"
+        end,
+      })
+      vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+        pattern = { "tokyonight-night", "tokyonight-storm", "tokyonight-moon" },
+        callback = function()
+          vim.o.background = "dark"
+        end,
+      })
     end,
   }, -- }}}
-  {  -- deepwhite {{{
+  {
+    -- deepwhite {{{
     "Verf/deepwhite.nvim",
     priority = 10000,
     dependencies = "rktjmp/lush.nvim",
@@ -149,28 +164,34 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "rktjmp/lush.nvim", "lewis6991/gitsigns.nvim" },
     config = function()
+      local utils = require("utils")
       local lualine = require("lualine")
       local lush = require("lush")
       local hsl = lush.hsluv
-      local utils = require("utils")
 
       local setup_statusline = function()
         -- General configuration
-        local fg = hsl(utils.get_hl_group_hex("Normal", "foreground"))
-        local bg = hsl(utils.get_hl_group_hex("Normal", "background"))
+        local fg = utils.get_hl_group_hex("Normal", "foreground")
+        local bg = utils.get_hl_group_hex("Normal", "background")
+        local fg_dim = nil
+        local bg_dim = nil
+        if vim.o.background == "light" then
+          fg = hsl(fg).hex
+          bg = hsl(bg).darken(5).hex
+          fg_dim = hsl(bg).darken(50).hex
+          bg_dim = hsl(fg).lighten(50).hex
+        elseif vim.o.background == "dark" then
+          fg = hsl(fg).hex
+          bg = hsl(bg).lighten(5).hex
+          fg_dim = hsl(bg).lighten(50).hex
+          bg_dim = hsl(fg).darken(50).hex
+        end
 
         local colors = {
           fg = fg,
           bg = bg,
-          yellow = "#ECBE7B",
-          cyan = "#008080",
-          darkblue = "#081633",
-          green = "#98BE65",
-          orange = "#FF8800",
-          violet = "#A9A1E1",
-          magenta = "#C678DD",
-          blue = "#51AFEF",
-          red = "#EC5F67",
+          fg_dim = fg_dim,
+          bg_dim = bg_dim,
         }
 
         local ignore_filetype = {
@@ -214,8 +235,8 @@ return {
 
             -- Configure theme
             theme = {
-              normal = { c = { fg = colors.fg.hex, bg = colors.bg.darken(5).hex } },
-              inactive = { c = { fg = colors.fg.hex, bg = colors.bg.hex } },
+              normal = { c = { fg = colors.fg, bg = colors.bg } },
+              inactive = { c = { fg = colors.fg, bg = colors.bg } },
             },
           },
 
@@ -229,64 +250,52 @@ return {
           lualine_a = {},
           lualine_b = {},
           lualine_c = {
-            { -- Filename    }{{{
+            {
               "filename",
-              color = {
-                fg=bg.hex,
-                bg=fg.hex
-              },
+              color = { fg = bg, bg = fg },
               padding = { left = 2, right = 2 },
-            },   --}}}
-            {  -- Root        }{{{
-              function()
-                if vim.b.gitsigns_status_dict ~= nil then
-                  return "repo: " .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
-                else
-                  return vim.fn.pathshorten(vim.fn.getcwd(), 2)
-                end
-              end,
-              icon = "",
-              color = { fg = colors.fg.darken(30).hex },
-              padding = { left = 0, right = 0 },
             },
-          },    --}}}
-          lualine_x = {
-            { -- Git branch  }{{{
-              function()
-                if vim.b.gitsigns_status_dict ~= nil then
-                  return vim.fs.basename(vim.b.gitsigns_status_dict["head"])
-                else
-                  return "n/a"
-                end
-              end,
-              icon = "⎇ ",
-              padding = { left = 1, right = 1 },
-              color = { fg = colors.fg.darken(20).hex },
-              cond = condition,
-            },   --}}}
-            {    -- Git added   } {{{
+            {
               function()
                 return "+" .. vim.b.gitsigns_status_dict["added"]
               end,
               padding = { left = 1, right = 1 },
-              color = {
-                fg = vim.g.defaults.colors.GitAdd.bg,
-                bg = vim.g.defaults.colors.GitAdd.fg
-              },
+              color = function()
+                if vim.o.background == "light" then
+                  return {
+                    fg = vim.g.defaults.colors.GitAdd.bg,
+                    bg = vim.g.defaults.colors.GitAdd.fg,
+                  }
+                elseif vim.o.background == "dark" then
+                  return {
+                    fg = vim.g.defaults.colors.GitAdd.fg,
+                    bg = vim.g.defaults.colors.GitAdd.bg,
+                  }
+                end
+              end,
               cond = condition,
-            },   --}}}
-            {    -- Git changed } {{{
+            },
+            {
               function()
                 return "~" .. vim.b.gitsigns_status_dict["changed"]
               end,
               padding = { left = 1, right = 1 },
-              color = {
-                fg = vim.g.defaults.colors.GitChange.bg,
-                bg = vim.g.defaults.colors.GitChange.fg
-              },
+              color = function()
+                if vim.o.background == "light" then
+                  return {
+                    fg = vim.g.defaults.colors.GitChange.bg,
+                    bg = vim.g.defaults.colors.GitChange.fg,
+                  }
+                elseif vim.o.background == "dark" then
+                  return {
+                    fg = vim.g.defaults.colors.GitChange.fg,
+                    bg = vim.g.defaults.colors.GitChange.bg,
+                  }
+                end
+              end,
               cond = condition,
-            },   --}}}
-            {    -- Git removed } {{{
+            },
+            {
               function()
                 if vim.b.gitsigns_status_dict["removed"] then
                   return "-" .. vim.b.gitsigns_status_dict["removed"]
@@ -295,20 +304,45 @@ return {
                 end
               end,
               padding = { left = 1, right = 1 },
-              color = {
-                fg = vim.g.defaults.colors.GitDelete.bg,
-                bg = vim.g.defaults.colors.GitDelete.fg
-              },
-              cond = condition,
-            },   --}}}
-            {    -- Spacer      }{{{
-              function()
-                return " "
+              color = function()
+                if vim.o.background == "light" then
+                  return {
+                    fg = vim.g.defaults.colors.GitDelete.bg,
+                    bg = vim.g.defaults.colors.GitDelete.fg,
+                  }
+                elseif vim.o.background == "dark" then
+                  return {
+                    fg = vim.g.defaults.colors.GitDelete.fg,
+                    bg = vim.g.defaults.colors.GitDelete.bg,
+                  }
+                end
               end,
-              padding = { left = 1, right = 1 },
               cond = condition,
-            },   --}}}
-            {    -- LSP         }{{{
+            },
+            {
+              function() -- Root
+                if vim.b.gitsigns_status_dict ~= nil then
+                  local fmt_str = "repo: "
+                      .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
+                      .. "("
+                      .. vim.fs.basename(vim.b.gitsigns_status_dict["head"])
+                      .. ")"
+                  if string.len(fmt_str) > 44 then
+                    fmt_str = string.sub(fmt_str, 1, 44) .. "...)"
+                  end
+                  return fmt_str
+                else
+                  return vim.fn.pathshorten(vim.fn.getcwd(), 2)
+                end
+              end,
+              icon = "",
+              color = { fg = colors.fg_dim },
+              padding = { left = 0, right = 0 },
+            },
+          },
+
+          lualine_x = {
+            {
               function()
                 local msg = "⚙ "
                 local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -319,33 +353,41 @@ return {
                   return msg .. "n/a"
                 end
 
-                -- return non-"null-ls" servers
+                -- Return non-"null-ls" servers
                 for _, client in ipairs(clients) do
                   if client.name ~= "null-ls" then
                     local filetypes = client.config.filetypes
                     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                      msg = msg .. client.name
+                      return msg .. client.name:gsub("_", "-")
                     end
                   end
                 end
-                if vim.tbl_count(clients) > 0 then
-                  msg = msg .. "+" .. vim.tbl_count(clients) - 1
-                end
-                return msg
               end,
-              color = { fg = colors.fg.darken(20).hex },
+              color = { fg = colors.fg },
               padding = { left = 0, right = 1 },
               cond = condition,
-            },   --}}}
-            {    -- Diagnostics }{{{
+            },
+            {
               "diagnostics",
               sources = { "nvim_lsp", "nvim_diagnostic" },
               symbols = { error = "x", warn = "!", info = "?", hint = "*" },
               diagnostics_color = {
-                error = { fg = colors.bg.hex, bg = colors.red },
-                warn  = { fg = colors.bg.hex, bg = colors.yellow },
-                info  = { fg = colors.bg.hex, bg = colors.cyan },
-                hint  = { fg = colors.bg.hex, bg = colors.green },
+                error = {
+                  fg = colors.bg,
+                  bg = utils.get_hl_group_hex("DiagnosticError", "foreground"),
+                },
+                warn = {
+                  fg = colors.bg,
+                  bg = utils.get_hl_group_hex("DiagnosticWarn", "foreground"),
+                },
+                info = {
+                  fg = colors.bg,
+                  bg = utils.get_hl_group_hex("DiagnosticInfo", "foreground"),
+                },
+                hint = {
+                  fg = colors.bg,
+                  bg = utils.get_hl_group_hex("DiagnosticHint", "foreground"),
+                },
               },
               always_visible = true,
               update_in_insert = true,
@@ -353,50 +395,32 @@ return {
               cond = function()
                 if condition() then
                   return condition()
-                elseif vim.tbl_count(vim.lsp.get_active_clients()) > 0 then
+                elseif vim.tbl_count(vim.lsp.get_active_clients()) > 1 then
                   return false
                 end
               end,
-            },   --}}}
-            {    -- Spacer      }{{{
+            },
+            {
               function()
-                return "  "
+                return " "
               end,
               padding = { left = 0, right = 0 },
               cond = condition,
-            },   --}}}
-            {    -- Mode        }{{{
+            },
+            {
               function()
                 return string.upper(vim.fn.mode())
               end,
-              color = function()
-                -- auto change color according to neovims mode
-                local mode_color = {
-                  n = colors.red,
-                  i = colors.green,
-                  v = colors.blue,
-                  [""] = colors.blue,
-                  V = colors.blue,
-                  c = colors.magenta,
-                  no = colors.red,
-                  s = colors.orange,
-                  S = colors.orange,
-                  [""] = colors.orange,
-                  ic = colors.yellow,
-                  R = colors.violet,
-                  Rv = colors.violet,
-                  cv = colors.red,
-                  ce = colors.red,
-                  r = colors.cyan,
-                  rm = colors.cyan,
-                  ["r?"] = colors.cyan,
-                  ["!"] = colors.red,
-                  t = colors.red,
-                }
-                return { fg = colors.bg.hex, bg = mode_color[vim.fn.mode()] }
-              end,
+              color =  { fg = colors.bg, bg = colors.fg },
               padding = { left = 1, right = 1 },
-            },   --}}}
+            },
+            {
+              function()
+                return " "
+              end,
+              padding = { left = 0, right = 0 },
+              cond = condition,
+            },
           },
           lualine_y = {},
           lualine_z = {},
@@ -405,7 +429,7 @@ return {
         config.sections = sections
         config.inactive_sections = vim.deepcopy(sections)
 
-        config.inactive_sections.lualine_c[1].color = { fg = colors.fg.hex }
+        config.inactive_sections.lualine_c[1].color = { fg = colors.fg_dim }
 
         lualine.setup(config)
       end
@@ -413,10 +437,9 @@ return {
       setup_statusline()
 
       vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-          pattern = { "*" },
-          callback = setup_statusline
-        }
-      )
+        pattern = { "*" },
+        callback = setup_statusline,
+      })
     end,
   },
   -- }}}
@@ -461,7 +484,7 @@ return {
         icons = {
           breadcrumb = "!", -- symbol used in the command line area that shows your active key combo
           separator = "→", -- symbol used between a key and it's label
-          group = "+", -- symbol prepended to a group
+          group = "+",      -- symbol prepended to a group
         },
         popup_mappings = {
           scroll_down = "<c-d>", -- binding to scroll down inside the popup
