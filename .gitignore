@@ -33,3 +33,5 @@ undodir/
 # End of https://www.toptal.com/developers/gitignore/api/vim
 
 *.so
+
+.DS_Store
