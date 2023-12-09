@@ -41,9 +41,7 @@ return {
       -- Intelligent find files
       M.project_files = function(opts)
         local ok = pcall(require("telescope.builtin").git_files, opts)
-        if not ok then
-          require("telescope.builtin").find_files(opts)
-        end
+        if not ok then require("telescope.builtin").find_files(opts) end
       end
 
       -- Intelligent previewer
@@ -57,9 +55,17 @@ return {
             if mime_type == "text" then
               previewers.buffer_previewer_maker(filepath, bufnr, opts)
             else
-              vim.schedule(function()
-                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "Binary file - Can't preview..." })
-              end)
+              vim.schedule(
+                function()
+                  vim.api.nvim_buf_set_lines(
+                    bufnr,
+                    0,
+                    -1,
+                    false,
+                    { "Binary file - Can't preview..." }
+                  )
+                end
+              )
             end
           end,
         }):sync()
@@ -97,7 +103,12 @@ return {
       })
 
       -- Keymaps
-      vim.keymap.set("n", ",ff", M.project_files, { silent = true, noremap = true, desc = "Find files" })
+      vim.keymap.set(
+        "n",
+        ",ff",
+        M.project_files,
+        { silent = true, noremap = true, desc = "Find files" }
+      )
       vim.keymap.set(
         "n",
         ",fs",

@@ -1,9 +1,7 @@
 -- Highlight yanked text
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = { "*" },
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000 })
-  end,
+  callback = function() vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000 }) end,
 })
 
 -- Terminal behaviour
@@ -50,9 +48,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 -- Override from behaviour from Lazy
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "lazy" },
-  callback = function()
-    vim.cmd("ColorizerDetachFromBuffer")
-  end,
+  callback = function() vim.cmd("ColorizerDetachFromBuffer") end,
 })
 
 -- Highlight out-of-bounds region

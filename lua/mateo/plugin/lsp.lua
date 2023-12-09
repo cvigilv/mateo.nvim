@@ -37,8 +37,7 @@ return {
           "marksman",
           "ruff_lsp",
         },
-      }
-      )
+      })
 
       -- Setup LSP manager
       local lsp = require("lsp-zero")
@@ -52,7 +51,7 @@ return {
           error = vim.g.defaults.signs.error,
           warn = vim.g.defaults.signs.warn,
           hint = vim.g.defaults.signs.hint,
-          info = vim.g.defaults.signs.info
+          info = vim.g.defaults.signs.info,
         },
       })
 
@@ -99,43 +98,61 @@ return {
       lsp.configure("julials", {
         on_new_config = function(new_config, _)
           local julia = vim.fn.expand("~/.julia/environments/nvim-lspconfig/bin/julia")
-          if require("lspconfig").util.path.is_file(julia) then
-            new_config.cmd[1] = julia
-          end
+          if require("lspconfig").util.path.is_file(julia) then new_config.cmd[1] = julia end
         end,
         root_dir = function(fname)
           local util = require("lspconfig.util")
           return util.root_pattern("Project.toml")(fname)
-              or util.find_git_ancestor(fname)
-              or util.path.dirname(fname)
+            or util.find_git_ancestor(fname)
+            or util.path.dirname(fname)
         end,
       })
 
       lsp.setup()
 
       -- Set keymaps
-      vim.keymap.set("n", "<leader>la", function()
-        vim.lsp.buf.code_action()
-      end, { desc = "Code action", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>ls", function()
-        vim.lsp.buf.signature_help()
-      end, { desc = "Get signature help", noremap = true, silent = true })
-      vim.keymap.set("n", "<C-f>", function()
-        vim.lsp.buf.format({ async = true })
-      end, { desc = "Format code", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>lf", function()
-        vim.lsp.buf.format({ async = true })
-      end, { desc = "Format code", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>dl", function()
-        vim.diagnostic.setloclist()
-      end, { desc = "Loclist", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>dq", function()
-        vim.diagnostic.setqflist()
-      end, { desc = "Quickfix", noremap = true, silent = true })
-      vim.keymap.set("n", "<leader>dd", function()
-        vim.diagnostic.open_float()
-      end, { desc = "Open float", noremap = true, silent = true })
-
+      vim.keymap.set(
+        "n",
+        "<leader>la",
+        function() vim.lsp.buf.code_action() end,
+        { desc = "Code action", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>ls",
+        function() vim.lsp.buf.signature_help() end,
+        { desc = "Get signature help", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<C-f>",
+        function() vim.lsp.buf.format({ async = true }) end,
+        { desc = "Format code", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>lf",
+        function() vim.lsp.buf.format({ async = true }) end,
+        { desc = "Format code", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>dl",
+        function() vim.diagnostic.setloclist() end,
+        { desc = "Loclist", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>dq",
+        function() vim.diagnostic.setqflist() end,
+        { desc = "Quickfix", noremap = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>dd",
+        function() vim.diagnostic.open_float() end,
+        { desc = "Open float", noremap = true, silent = true }
+      )
     end,
   }, -- }}}
   -- fidget.nvim {{{
@@ -166,7 +183,7 @@ return {
   -- lsp-lines {{{
   {
     "Maan2003/lsp_lines.nvim",
-    enabled=false,
+    enabled = false,
     config = function()
       -- Diagnostics configuration
       require("lsp_lines").setup()
@@ -185,7 +202,12 @@ return {
           prefix = "",
         },
       })
-      vim.keymap.set("n", "<Leader>d", require("lsp_lines").toggle, { desc = "Toggle diagnostics" })
+      vim.keymap.set(
+        "n",
+        "<Leader>d",
+        require("lsp_lines").toggle,
+        { desc = "Toggle diagnostics" }
+      )
     end,
   }, -- }}}
   -- null-ls {{{
@@ -199,6 +221,7 @@ return {
         sources = {
           -- Lua
           null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.luacheck,
 
           -- Shell
           null_ls.builtins.formatting.shfmt,
@@ -206,7 +229,7 @@ return {
           null_ls.builtins.code_actions.shellcheck,
 
           -- Julia
-          require("misc.lsp.julia").generate_jldocstring,
+          require("mateo.misc.lsp.julia").generate_jldocstring,
 
           -- JSON
           null_ls.builtins.formatting.fixjson,

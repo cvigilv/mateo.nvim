@@ -1,3 +1,3 @@
 -- Conceal
 vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'c'
+vim.opt.concealcursor = "c"

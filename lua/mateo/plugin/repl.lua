@@ -1,11 +1,11 @@
 return {
   -- nvim-luapad {{{
   {
-    'rafcamlet/nvim-luapad',
+    "rafcamlet/nvim-luapad",
   }, -- }}}
   -- vim-slime {{{
   {
-    'jpalardy/vim-slime',
+    "jpalardy/vim-slime",
     lazy = true,
     event = "VeryLazy",
     cmd = {
@@ -16,13 +16,13 @@ return {
       "SlimeSendCurrentLine",
     },
     init = function()
-      vim.g.slime_target = 'tmux'
-      vim.g.slime_paste_file = vim.api.nvim_eval('tempname()')
+      vim.g.slime_target = "tmux"
+      vim.g.slime_paste_file = vim.api.nvim_eval("tempname()")
       vim.g.slime_default_config = {
         socket_name = "default",
-        target_pane = "{right-of}"
+        target_pane = "{right-of}",
       }
       vim.g.slime_bracketed_paste = true
-    end
+    end,
   }, -- }}}
 }

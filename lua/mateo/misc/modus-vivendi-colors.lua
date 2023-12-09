@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 M.colors = {
   ["bg-main"] = "#000000",
