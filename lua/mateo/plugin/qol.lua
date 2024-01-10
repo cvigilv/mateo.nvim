@@ -29,21 +29,28 @@ return {
     config = function()
       require("esqueleto").setup({
         autouse = false,
-        prompt = "ivy",
-        patterns = {
-          -- File
-          "README.md",
-          "LICENSE",
-          -- Filetype
-          "julia",
-          "sh",
-          "markdown",
-          "python",
-          "latex",
-          "tex",
-        },
-        directories = {
-          os.getenv("GITDIR") .. "/mateo.nvim/skeletons",
+        directories = { os.getenv("GITDIR") .. "/mateo.nvim/skeletons" },
+        patterns = vim.fn.readdir(vim.fn.stdpath("config") .. "/skeletons"),
+        -- patterns = {
+        --   -- File
+        --   "README.md",
+        --   "LICENSE",
+        --   -- Filetype
+        --   "julia",
+        --   "sh",
+        --   "markdown",
+        --   "python",
+        --   "latex",
+        --   "tex",
+        -- },
+        wildcards = {
+          expand = true,
+          lookup = {
+            ["gh-username"] = "cvigilv",
+            ["zk-year"] = function() return string.sub(vim.fn.expand("%:t:r"),1,4) end,
+            ["zk-month"] = function() return string.sub(vim.fn.expand("%:t:r"),5,6) end,
+            ["zk-day"] = function() return string.sub(vim.fn.expand("%:t:r"),7,8) end,
+          },
         },
       })
     end,
