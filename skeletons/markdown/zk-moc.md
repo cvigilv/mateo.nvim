@@ -1,4 +1,4 @@
-#  - MOC
+# ${cursor} - MOC
 
 #moc
 

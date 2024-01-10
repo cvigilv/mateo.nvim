@@ -1,8 +1,6 @@
-# 
+# ${cursor}
 
 #literature
-
-
 
 ---
 

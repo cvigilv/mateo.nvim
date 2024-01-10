@@ -1,4 +1,4 @@
-# 
+#  ${cursor}
 
 #idea 
 
