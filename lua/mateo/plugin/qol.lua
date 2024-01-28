@@ -47,9 +47,9 @@ return {
           expand = true,
           lookup = {
             ["gh-username"] = "cvigilv",
-            ["zk-year"] = function() return string.sub(vim.fn.expand("%:t:r"),1,4) end,
-            ["zk-month"] = function() return string.sub(vim.fn.expand("%:t:r"),5,6) end,
-            ["zk-day"] = function() return string.sub(vim.fn.expand("%:t:r"),7,8) end,
+            ["zk-year"] = function() return string.sub(vim.fn.expand("%:t:r"), 1, 4) end,
+            ["zk-month"] = function() return string.sub(vim.fn.expand("%:t:r"), 5, 6) end,
+            ["zk-day"] = function() return string.sub(vim.fn.expand("%:t:r"), 7, 8) end,
           },
         },
       })
