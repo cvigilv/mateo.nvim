@@ -28,7 +28,11 @@ return {
     },
     config = function()
       -- Ensure language servers, DAPs, formatters, and linters are installed
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          border = vim.g.defaults.border.normal,
+        },
+      })
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
@@ -158,24 +162,15 @@ return {
   -- fidget.nvim {{{
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
+    -- tag = "legacy",
+    tag = "v1.4.0",
     config = function()
       require("fidget").setup({
-        text = {
-          spinner = { "◐", "◓", "◑", "◒" },
-          done = "●",
-          commenced = "Started",
-          completed = "Done!",
-        },
-        timer = {
-          spinner_rate = 50,
-          fidget_decay = 100,
-          task_decay = 1000,
-        },
-        window = {
-          relative = "win",
-          blend = 0,
-          zindex = nil,
+        progress = {
+          display = {
+            progress_icon = { pattern = "circle_halves", period = 1 },
+            done_icon = "⏺",
+          },
         },
       })
     end,

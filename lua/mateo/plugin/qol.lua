@@ -241,6 +241,7 @@ return {
           "orgagenda",
           "packer",
           "qf",
+          "quickfix",
           "starter",
           "terminal",
         },
