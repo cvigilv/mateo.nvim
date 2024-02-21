@@ -38,9 +38,9 @@ vim.g.defaults = {
       borders.left,
     },
     normal = {
-      borders.top_right,
-      borders.top,
       borders.top_left,
+      borders.top,
+      borders.top_right,
       borders.right,
       borders.bottom_right,
       borders.bottom,
