@@ -10,8 +10,8 @@
 
 import argparse
 
-__VERSION__ = ${data}a
-__AUTHOR__ = ${gh-user}
+__VERSION__ = "${date}a"
+__AUTHOR__ = "${gh-user}"
 __TITLE__ = ""
 
 def main(parser=argparse.ArgumentParser()):
