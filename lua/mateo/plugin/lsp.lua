@@ -221,7 +221,7 @@ return {
         sources = {
           -- Lua
           null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.luacheck,
+          null_ls.builtins.diagnostics.luacheck,
 
           -- Shell
           null_ls.builtins.formatting.shfmt,
