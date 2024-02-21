@@ -151,7 +151,8 @@ return {
       vim.cmd("colorscheme deepwhite")
     end,
   }, --}}}
-  { -- oxocarbon {{{
+  {
+    -- oxocarbon {{{
     "nyoom-engineering/oxocarbon.nvim",
   }, -- }}}
   -- }}}
@@ -195,10 +196,12 @@ return {
           "NvimTree",
           "orgagenda",
           "quickfix",
+          "qf",
           "loclist",
           "packer",
           "starter",
           "esqueleto.ivy.selection",
+          "MiniStarter",
         }
 
         local condition = function()
@@ -222,7 +225,7 @@ return {
             disabled_filetypes = ignore_filetype,
 
             -- Disable sections and component separators
-            component_separators = "",
+            component_separators = "·",
             section_separators = "",
 
             -- Configure theme
@@ -248,66 +251,7 @@ return {
               padding = { left = 2, right = 2 },
             },
             {
-              function() return "+" .. vim.b.gitsigns_status_dict["added"] end,
-              padding = { left = 1, right = 1 },
-              color = function()
-                if vim.o.background == "light" then
-                  return {
-                    fg = vim.g.defaults.colors.GitAdd.bg,
-                    bg = vim.g.defaults.colors.GitAdd.fg,
-                  }
-                elseif vim.o.background == "dark" then
-                  return {
-                    fg = vim.g.defaults.colors.GitAdd.fg,
-                    bg = vim.g.defaults.colors.GitAdd.bg,
-                  }
-                end
-              end,
-              cond = condition,
-            },
-            {
-              function() return "~" .. vim.b.gitsigns_status_dict["changed"] end,
-              padding = { left = 1, right = 1 },
-              color = function()
-                if vim.o.background == "light" then
-                  return {
-                    fg = vim.g.defaults.colors.GitChange.bg,
-                    bg = vim.g.defaults.colors.GitChange.fg,
-                  }
-                elseif vim.o.background == "dark" then
-                  return {
-                    fg = vim.g.defaults.colors.GitChange.fg,
-                    bg = vim.g.defaults.colors.GitChange.bg,
-                  }
-                end
-              end,
-              cond = condition,
-            },
-            {
-              function()
-                if vim.b.gitsigns_status_dict["removed"] then
-                  return "-" .. vim.b.gitsigns_status_dict["removed"]
-                else
-                  return "(not tracked)"
-                end
-              end,
-              padding = { left = 1, right = 1 },
-              color = function()
-                if vim.o.background == "light" then
-                  return {
-                    fg = vim.g.defaults.colors.GitDelete.bg,
-                    bg = vim.g.defaults.colors.GitDelete.fg,
-                  }
-                elseif vim.o.background == "dark" then
-                  return {
-                    fg = vim.g.defaults.colors.GitDelete.fg,
-                    bg = vim.g.defaults.colors.GitDelete.bg,
-                  }
-                end
-              end,
-              cond = condition,
-            },
-            {
+              -- Location {{{
               function() -- Root
                 if vim.b.gitsigns_status_dict ~= nil then
                   local fmt_str = "repo: "
@@ -327,12 +271,48 @@ return {
               color = { fg = colors.fg_dim },
               padding = { left = 0, right = 0 },
             },
+            -- }}}
           },
-
           lualine_x = {
+            -- {{{ Git
+            {
+              "diff",
+              diff_color = {
+                added = { fg = vim.g.defaults.colors.GitAdd.fg },
+                modified = { fg = vim.g.defaults.colors.GitChange.fg },
+                removed = { fg = vim.g.defaults.colors.GitDelete.fg },
+              },
+            },
+            -- }}}
+            -- Diagnostics {{{
+            {
+              "diagnostics",
+              sources = { "nvim_lsp", "nvim_diagnostic" },
+              symbols = { error = "x", warn = "!", info = "?", hint = "*" },
+              diagnostics_color = {
+                error = { fg = utils.get_hl_group_hex("DiagnosticError", "foreground") },
+                warn = { fg = utils.get_hl_group_hex("DiagnosticWarn", "foreground") },
+                info = { fg = utils.get_hl_group_hex("DiagnosticInfo", "foreground") },
+                hint = {
+                  fg = utils.get_hl_group_hex("DiagnosticHint", "foreground"),
+                },
+              },
+              always_visible = true,
+              update_in_insert = true,
+              padding = { left = 1, right = 1 },
+              cond = function()
+                if condition() then
+                  return condition()
+                elseif vim.tbl_count(vim.lsp.get_active_clients()) > 1 then
+                  return false
+                end
+              end,
+            },
+            -- }}}
+            -- LSP {{{
             {
               function()
-                local msg = "⚙ "
+                local msg = "⚒ "
                 local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
                 local clients = vim.lsp.get_active_clients()
 
@@ -349,58 +329,11 @@ return {
                   end
                 end
               end,
-              color = { fg = colors.fg },
-              padding = { left = 0, right = 1 },
-              cond = condition,
-            },
-            {
-              "diagnostics",
-              sources = { "nvim_lsp", "nvim_diagnostic" },
-              symbols = { error = "x", warn = "!", info = "?", hint = "*" },
-              diagnostics_color = {
-                error = {
-                  fg = colors.bg,
-                  bg = utils.get_hl_group_hex("DiagnosticError", "foreground"),
-                },
-                warn = {
-                  fg = colors.bg,
-                  bg = utils.get_hl_group_hex("DiagnosticWarn", "foreground"),
-                },
-                info = {
-                  fg = colors.bg,
-                  bg = utils.get_hl_group_hex("DiagnosticInfo", "foreground"),
-                },
-                hint = {
-                  fg = colors.bg,
-                  bg = utils.get_hl_group_hex("DiagnosticHint", "foreground"),
-                },
-              },
-              always_visible = true,
-              update_in_insert = true,
-              padding = { left = 1, right = 1 },
-              cond = function()
-                if condition() then
-                  return condition()
-                elseif vim.tbl_count(vim.lsp.get_active_clients()) > 1 then
-                  return false
-                end
-              end,
-            },
-            {
-              function() return " " end,
-              padding = { left = 0, right = 0 },
-              cond = condition,
-            },
-            {
-              function() return string.upper(vim.fn.mode()) end,
               color = { fg = colors.bg, bg = colors.fg },
-              padding = { left = 1, right = 1 },
-            },
-            {
-              function() return " " end,
-              padding = { left = 0, right = 0 },
+              padding = { left = 2, right = 2 },
               cond = condition,
             },
+            -- }}}
           },
           lualine_y = {},
           lualine_z = {},
@@ -408,8 +341,9 @@ return {
 
         config.sections = sections
         config.inactive_sections = vim.deepcopy(sections)
-
         config.inactive_sections.lualine_c[1].color = { fg = colors.fg_dim }
+        config.inactive_sections.lualine_x[#config.inactive_sections.lualine_x].color =
+          { fg = colors.fg_dim }
 
         lualine.setup(config)
       end
