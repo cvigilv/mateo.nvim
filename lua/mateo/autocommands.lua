@@ -80,7 +80,6 @@ local function update_lead()
   for i = 1, vim.bo.tabstop - 1 do
     lead[#lead + 1] = space[i % #space + 1]
   end
-  vim.print("\"" .. vim.fn.list2str(lead) .. "\"")
   vim.opt_local.listchars:append({ leadmultispace = vim.fn.list2str(lead) })
 end
 
