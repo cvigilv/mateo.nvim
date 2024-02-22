@@ -60,4 +60,19 @@ vim.g.defaults = {
       },
     },
   }, --}}}
+  ignored_fts = { -- {{{
+    ui = {
+      "MiniStarter",
+      "NvimTree",
+      "esqueleto.ivy.selection",
+      "help",
+      "loclist",
+      "orgagenda",
+      "packer",
+      "qf",
+      "quickfix",
+      "starter",
+      "terminal",
+    },
+  }, -- }}}
 }

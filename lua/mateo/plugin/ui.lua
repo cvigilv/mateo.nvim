@@ -1,7 +1,7 @@
 return {
-  -- colorscheme {{{
+  -- colorscheme
   {
-    -- tokyonight {{{
+    -- tokyonight
     "folke/tokyonight.nvim",
     dependencies = "rktjmp/lush.nvim",
     priority = 10000,
@@ -22,17 +22,7 @@ return {
           sidebars = "dark",
           floats = "dark",
         },
-        sidebars = {
-          "qf",
-          "help",
-          "packer",
-          "terminal",
-          "NvimTree",
-          "loclist",
-          "starter",
-          "orgagenda",
-          "esqueleto.ivy.selection",
-        },
+        sidebars = vim.g.defaults.ignored_fts.ui,
         day_brightness = 0.1,
         hide_inactive_statusline = false,
         dim_inactive = false,
@@ -81,9 +71,9 @@ return {
         callback = function() vim.o.background = "dark" end,
       })
     end,
-  }, -- }}}
+  }, --
   {
-    -- deepwhite {{{
+    -- deepwhite
     "Verf/deepwhite.nvim",
     priority = 10000,
     dependencies = "rktjmp/lush.nvim",
@@ -118,6 +108,7 @@ return {
 
           -- Setup highlight
           local highlights = {}
+          highlights.CodeBlock = { guibg = hsl(bg).darken(5).hex }
           highlights.DiffAdd = _diff_added
           highlights.DiffChange = _diff_changed
           highlights.DiffDelete = _diff_deleted
@@ -150,24 +141,103 @@ return {
       })
       vim.cmd("colorscheme deepwhite")
     end,
-  }, --}}}
+  }, --
   {
-    -- oxocarbon {{{
+    -- oxocarbon
     "nyoom-engineering/oxocarbon.nvim",
-  }, -- }}}
-  -- }}}
-  -- statusline {{{
+  }, --
+  --
+  -- statusline
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "rktjmp/lush.nvim", "lewis6991/gitsigns.nvim" },
+    dependencies = {
+      "rktjmp/lush.nvim",
+      "lewis6991/gitsigns.nvim",
+      "SmiteshP/nvim-navic",
+    },
     config = function()
+      local navic = require("nvim-navic")
       local utils = require("mateo.utils")
       local lualine = require("lualine")
       local lush = require("lush")
       local hsl = lush.hsluv
 
+      -- Setup navic
+      navic.setup({
+        icons = {
+          File = "@",
+          Module = "{} ",
+          Namespace = "{} ",
+          Package = "⚗ ",
+          Class = "⛬ ",
+          Method = "⛬ ",
+          Property = "∘ ",
+          Field = "⛬ ",
+          Constructor = "⛬ ",
+          Enum = "⛬ ",
+          Interface = "⛬ ",
+          Function = "ƒ ",
+          Variable = "𝑥 ",
+          Constant = "C ",
+          String = "⁋ ",
+          Number = "# ",
+          Boolean = "◐ ",
+          Array = "[] ",
+          Object = "{} ",
+          Key = "∘ ",
+          Null = "∅ ",
+          EnumMember = "∘ ",
+          Struct = "⛬ ",
+          Event = "⚡ ",
+          Operator = "≅ ",
+          TypeParameter = "{T} ",
+        },
+        lsp = { auto_attach = true },
+        depth_limit = 5,
+        highlight = true,
+        safe_output = false,
+      })
+
+      vim.api.nvim_create_autocmd({ "VimEnter", "ColorSchemePre", "ColorScheme" }, {
+        callback = function()
+          local links = {}
+          links.NavicIconsFile = "Directory"
+          links.NavicIconsModule = "@include"
+          links.NavicIconsNamespace = "@namespace"
+          links.NavicIconsPackage = "@include"
+          links.NavicIconsClass = "@structure"
+          links.NavicIconsMethod = "@method"
+          links.NavicIconsProperty = "@property"
+          links.NavicIconsField = "@field"
+          links.NavicIconsConstructor = "@constructor"
+          links.NavicIconsEnum = "@field"
+          links.NavicIconsInterface = "@type"
+          links.NavicIconsFunction = "@function"
+          links.NavicIconsVariable = "@variable"
+          links.NavicIconsConstant = "@constant"
+          links.NavicIconsString = "@string"
+          links.NavicIconsNumber = "@number"
+          links.NavicIconsBoolean = "@boolean"
+          links.NavicIconsArray = "@field"
+          links.NavicIconsObject = "@type"
+          links.NavicIconsKey = "@keyword"
+          links.NavicIconsNull = "@comment"
+          links.NavicIconsEnumMember = "@field"
+          links.NavicIconsStruct = "@structure"
+          links.NavicIconsEvent = "@keyword"
+          links.NavicIconsOperator = "@operator"
+          links.NavicIconsTypeParameter = "@type"
+          links.NavicSeparator = "Type"
+
+          for k, v in pairs(links) do
+            vim.cmd("hi! link " .. k .. " " .. v)
+          end
+        end,
+      })
+
+      -- Setup statusline
       local setup_statusline = function()
-        -- General configuration
+        -- Colors
         local fg = utils.get_hl_group_hex("Normal", "foreground")
         local bg = utils.get_hl_group_hex("Normal", "background")
         local fg_dim = nil
@@ -191,67 +261,47 @@ return {
           bg_dim = bg_dim,
         }
 
-        local ignore_filetype = {
-          "help",
-          "NvimTree",
-          "orgagenda",
-          "quickfix",
-          "qf",
-          "loclist",
-          "packer",
-          "starter",
-          "esqueleto.ivy.selection",
-          "MiniStarter",
-        }
-
-        local condition = function()
-          local current_filetype = vim.bo.filetype
-
-          -- Window width
-          if vim.fn.winwidth(0) < 70 then return false end
-
-          -- File type
-          for _, ignored in pairs(ignore_filetype) do
-            if current_filetype == ignored then return false end
-          end
-
-          return true
-        end
-
-        -- Config
+        -- Configuration
         local config = {
           options = {
-            -- Disable lualine in certain filetypes
-            disabled_filetypes = ignore_filetype,
-
-            -- Disable sections and component separators
+            disabled_filetypes = vim.g.defaults.ignored_fts.ui,
             component_separators = "·",
             section_separators = "",
-
-            -- Configure theme
             theme = {
               normal = { c = { fg = colors.fg, bg = colors.bg } },
               inactive = { c = { fg = colors.fg, bg = colors.bg } },
             },
           },
-
-          -- Initialize empty sections
           sections = nil,
           inactive_sections = nil,
+          winbar = nil,
         }
 
-        -- Setup lualine sections
+        -- Populate statusline
+        --- Hide section if certain conditions are met
+        ---@return boolean
+        local function hide_section()
+          if vim.fn.winwidth(0) < 70 then return false end
+
+          local current_filetype = vim.bo.filetype
+          for _, ignored in pairs(vim.g.defaults.ignored_fts.ui) do
+            if current_filetype == ignored then return false end
+          end
+          return true
+        end
+
         local sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {
+          lualine_c = { --
+            --{{{ Filename
             {
               "filename",
               color = { fg = bg, bg = fg },
               padding = { left = 2, right = 2 },
-            },
+            }, --}}}
+            -- Location {{{
             {
-              -- Location {{{
               function() -- Root
                 if vim.b.gitsigns_status_dict ~= nil then
                   local fmt_str = "repo: "
@@ -272,8 +322,8 @@ return {
               padding = { left = 0, right = 0 },
             },
             -- }}}
-          },
-          lualine_x = {
+          }, --
+          lualine_x = { --
             -- {{{ Git
             {
               "diff",
@@ -301,8 +351,8 @@ return {
               update_in_insert = true,
               padding = { left = 1, right = 1 },
               cond = function()
-                if condition() then
-                  return condition()
+                if hide_section() then
+                  return hide_section()
                 elseif vim.tbl_count(vim.lsp.get_active_clients()) > 1 then
                   return false
                 end
@@ -331,33 +381,45 @@ return {
               end,
               color = { fg = colors.bg, bg = colors.fg },
               padding = { left = 2, right = 2 },
-              cond = condition,
+              cond = hide_section,
             },
             -- }}}
-          },
+          }, --
           lualine_y = {},
           lualine_z = {},
         }
 
         config.sections = sections
         config.inactive_sections = vim.deepcopy(sections)
+        ---@diagnostic disable-next-line: undefined-field
         config.inactive_sections.lualine_c[1].color = { fg = colors.fg_dim }
+        ---@diagnostic disable-next-line: undefined-field
         config.inactive_sections.lualine_x[#config.inactive_sections.lualine_x].color =
           { fg = colors.fg_dim }
+
+        config.winbar = {
+          lualine_c = {
+            {
+              function() return navic.get_location() end,
+              cond = function() return navic.is_available() end,
+              color = { fg = colors.fg_dim, bg = colors.bg },
+              icon = "⌕",
+            },
+          },
+        }
 
         lualine.setup(config)
       end
 
-      setup_statusline()
-
-      vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+      -- Launch statusline
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
         pattern = { "*" },
         callback = setup_statusline,
       })
     end,
   },
-  -- }}}
-  -- which-key {{{
+  --
+  -- which-key
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -434,5 +496,5 @@ return {
         [",d"] = { name = "+diagnostics" },
       })
     end,
-  }, -- }}}
+  }, --
 }
