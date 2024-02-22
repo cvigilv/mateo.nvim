@@ -226,25 +226,7 @@ return {
         default_overlength = 96,
         grace_length = 0,
         highlight_to_eol = true,
-        disable_ft = {
-          "Lazy",
-          "lazy",
-          "NvimTree",
-          "Telescope",
-          "WhichKey",
-          "MiniStarter",
-          "starter",
-          "Starter",
-          "esqueleto.ivy.selection",
-          "help",
-          "loclist",
-          "orgagenda",
-          "packer",
-          "qf",
-          "quickfix",
-          "starter",
-          "terminal",
-        },
+        disable_ft = vim.g.defaults.ignored_fts.ui,
       }
       require("overlength").setup(vim.g.plugin_overlength)
     end,
@@ -282,7 +264,7 @@ return {
         "Telescope",
         "telescope",
       }
-      vim.g.qs_filetype_blacklist = {}
+      vim.g.qs_filetype_blacklist = vim.g.defaults.ignored_fts.ui
 
       -- Highlight groups overrides
       vim.cmd([[
@@ -294,22 +276,6 @@ return {
           autocmd ColorScheme * highlight link QuickScopeSecondary Search
         augroup END
       ]])
-    end,
-  },
-  -- }}}
-  -- todo-comments {{{
-  {
-    "folke/todo-comments.nvim",
-    config = function()
-      require("todo-comments").setup({
-        signs = false,
-      })
-      vim.keymap.set(
-        "n",
-        "<leader>ft",
-        ":TodoTelescope<CR>",
-        { desc = "Find tasks", noremap = true, silent = true }
-      )
     end,
   },
   -- }}}
@@ -325,22 +291,6 @@ return {
         "<leader>u",
         ":UndotreeToggle<CR>",
         { silent = true, noremap = true, desc = "Undo tree" }
-      )
-    end,
-  },
-  -- }}}
-  -- zenmode {{{
-  {
-    "folke/zen-mode.nvim",
-    event = "VeryLazy",
-    cmd = "ZenMode",
-    keys = "<leader>Z",
-    config = function()
-      vim.keymap.set(
-        "n",
-        "<leader>Z",
-        ":ZenMode<CR>",
-        { silent = true, noremap = true, desc = "Zen Mode" }
       )
     end,
   },

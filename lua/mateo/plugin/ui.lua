@@ -117,6 +117,9 @@ return {
           highlights.GitSignsDelete = _diff_deleted
           highlights.WinBorder = { guifg = fg, guibg = bg }
           highlights.WinSeparator = { guifg = fg, guibg = bg }
+          highlights.TabLine = { guifg = fg, guibg = bg }
+          highlights.TabLinSel = { guifg = fg, guibg = fg }
+          highlights.TabLineFill = { guifg = bg, guibg = fg }
 
           for k, v in pairs(highlights) do
             local hlstr = {}

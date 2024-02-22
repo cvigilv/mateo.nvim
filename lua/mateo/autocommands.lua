@@ -38,17 +38,10 @@ vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "LazyVimStarted" },
   callback = function()
     if vim.bo.filetype == "starter" then
-      vim.cmd("ColorizerDetachFromBuffer")
       require("mini.starter").refresh()
       vim.notify_once("Refreshed MiniStarter dashboard", 3)
     end
   end,
-})
-
--- Override from behaviour from Lazy
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lazy" },
-  callback = function() vim.cmd("ColorizerDetachFromBuffer") end,
 })
 
 -- Highlight out-of-bounds region

@@ -15,7 +15,7 @@ vim.g.defaults = {
     GitChange = { fg = "#c0b05f", bg = "#4E460C" },
     GitDelete = { fg = "#ff9095", bg = "#65161B" },
     Critical = { fg = "#ff0000" },
-  }, --}}}
+  },        --}}}
   signs = { --{{{
     add = "+",
     change = "~",
@@ -24,7 +24,7 @@ vim.g.defaults = {
     warn = "!",
     info = "?",
     hint = "*",
-  }, --}}}
+  },         --}}}
   border = { --{{{
     named = borders,
     floating = {
@@ -59,13 +59,18 @@ vim.g.defaults = {
         borders.bottom_left,
       },
     },
-  }, --}}}
+  },              --}}}
   ignored_fts = { -- {{{
     ui = {
+      "Lazy",
       "MiniStarter",
       "NvimTree",
+      "Starter",
+      "Telescope",
+      "WhichKey",
       "esqueleto.ivy.selection",
       "help",
+      "lazy",
       "loclist",
       "orgagenda",
       "packer",
