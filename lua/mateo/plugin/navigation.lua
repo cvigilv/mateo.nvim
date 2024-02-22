@@ -27,8 +27,11 @@ return {
     keys = {
       "<leader>ff",
       "<leader>fs",
+      "<leader>fw",
+      "<leader>fW",
       "<leader>fb",
       "<leader>fd",
+      "<leader>f?",
       "<leader>zf",
       "<leader>zF",
     },
@@ -103,6 +106,7 @@ return {
       })
 
       -- Keymaps
+      local builtin = require("telescope.builtin")
       vim.keymap.set(
         "n",
         ",ff",
@@ -113,7 +117,19 @@ return {
         "n",
         ",fs",
         "<CMD>Telescope live_grep<CR>",
-        { silent = true, noremap = true, desc = "Find string using live grep" }
+        { silent = true, noremap = true, desc = "[F]ind [s]tring with Grep" }
+      )
+      vim.keymap.set(
+        "n",
+        ",fw",
+        function() builtin.grep_string({ search = vim.fn.expand("<cword>") }) end,
+        { silent = true, noremap = true, desc = "Find word under cursor" }
+      )
+      vim.keymap.set(
+        "n",
+        ",fW",
+        function() builtin.grep_string({ search = vim.fn.expand("<cWORD>") }) end,
+        { silent = true, noremap = true, desc = "Find WORD under cursor" }
       )
       vim.keymap.set(
         "n",
@@ -123,9 +139,15 @@ return {
       )
       vim.keymap.set(
         "n",
-        ",fd",
+        ",df",
         "<CMD>Telescope diagnostics<CR>",
         { silent = true, noremap = true, desc = "LSP diagnostics" }
+      )
+      vim.keymap.set(
+        "n",
+        ",f?",
+        "<CMD>Telescope pickers<CR>",
+        { silent = true, noremap = true, desc = "Pickers" }
       )
     end,
   }, -- }}}
