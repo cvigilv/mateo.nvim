@@ -97,6 +97,9 @@ vim.keymap.set(
 )
 
 -- Note generator
+--- Get look-up table of dates found in notes
+---@param directory string|string[]
+---@return table
 local function getdatelut(directory)
   -- Get files associated to journal notes
   local pattern = directory .. "/[0-9][0-9][0-9][0-9][0,1][0-9][0-3][0-9][a-zA-Z].md"
@@ -120,7 +123,10 @@ local function getdatelut(directory)
   return lut_dates
 end
 
--- Return identifier of note given a date and list of known notes
+--- Get the identifier of a note given a date and list of known notes
+---@param date string|osdate
+---@param lut table
+---@return string
 local function nextnoteid(date, lut)
   if vim.tbl_contains(vim.tbl_keys(lut), date) then
     -- Get byte number of current last note ID
@@ -142,15 +148,23 @@ local function nextnoteid(date, lut)
   end
 end
 
--- Return file name of a note given a date and list of known notes
+--- Return file name of a note given a date and list of known notes
+---@param date string|osdate
+---@param lut table
+---@return string
 local function nextnotename(date, lut) return date .. nextnoteid(date, lut) end
 
--- Return file path for the next note given a directory, date and list of known notes
+--- Return file path for the next note given a directory, date and list of known notes
+---@param dir any
+---@param date string|osdate
+---@param lut table
+---@return string
 local function nextnotepath(dir, date, lut)
   return dir .. "/" .. nextnotename(date, lut) .. ".md"
 end
 
--- Bind ,zc to new today note
+-- Keymaps
+--- Bind ,zc to new today note
 vim.keymap.set("n", "<leader>zc", function()
   local currentdate = os.date("%Y%m%d", os.time())
   local note_media = media .. "/" .. nextnotename(currentdate, getdatelut(zk))
@@ -159,7 +173,7 @@ vim.keymap.set("n", "<leader>zc", function()
   vim.cmd("e " .. nextnotepath(zk, currentdate, getdatelut(zk)))
 end, vim.tbl_extend("keep", opts, { desc = "Create new note for today" }))
 
--- Bind ,zC to new dated note
+--- Bind ,zC to new dated note
 vim.keymap.set("n", "<leader>zC", function()
   local date = vim.fn.input("Date in YYYYMMDD format:")
   if string.find(date, "[0-9][0-9][0-9][0-9][0,1][0-9][0-3][0-9]") ~= nil then
@@ -171,3 +185,8 @@ vim.keymap.set("n", "<leader>zC", function()
     error("Date is in incorrect format!", 1)
   end
 end, vim.tbl_extend("keep", opts, { desc = "Create new note for given date" }))
+
+--- Bind ,zl to create a link from current visual selection
+--- TODO: Add second step where a Telescope prompt appears and I can easily select a note from
+--- its title.
+vim.keymap.set({ "x", "v" }, "<leader>zl", [[c[<C-r>"]()<C-c>i]])
