@@ -185,3 +185,8 @@ vim.keymap.set("n", "<leader>zC", function()
     error("Date is in incorrect format!", 1)
   end
 end, vim.tbl_extend("keep", opts, { desc = "Create new note for given date" }))
+
+--- Bind ,zl to create a link from current visual selection
+--- TODO: Add second step where a Telescope prompt appears and I can easily select a note from
+--- its title.
+vim.keymap.set({ "x", "v" }, "<leader>zl", [[c[<C-r>"]()<C-c>i]])
