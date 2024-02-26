@@ -26,6 +26,7 @@ return {
   -- esqueleto {{{
   {
     dir = os.getenv("GITDIR") .. "/esqueleto.nvim",
+    enabled = true,
     config = function()
       require("esqueleto").setup({
         autouse = false,
@@ -89,7 +90,7 @@ return {
 
       local generate_footer = function()
         local ls = require("lazy").stats()
-        local n_updates = 0
+        local n_updates = "0"
         if require("lazy.status").has_updates() then
           n_updates = require("lazy.status").updates():gsub("🔌", "")
         end
@@ -177,23 +178,22 @@ return {
           python = { template = { annotation_convention = "numpydoc" } },
         },
       })
-
-      -- Keymaps
+    end,
+    keymaps = {
       vim.keymap.set(
         "n",
         "<Leader>ld",
-        function() neogen.generate({ type = "func" }) end,
+        function() require("neogen").generate({ type = "func" }) end,
         { desc = "Generate function docstring", noremap = true, silent = true }
-      )
-
+      ),
       vim.keymap.set("n", "<Leader>lD", function()
         vim.ui.select(
           { "class", "func", "type", "file" },
           { prompt = "Select docstring to generate:" },
-          function(choice) neogen.generate({ type = choice }) end
+          function(choice) require("neogen").generate({ type = choice }) end
         )
-      end, { desc = "Pick docstring to generate", noremap = true, silent = true })
-    end,
+      end, { desc = "Pick docstring to generate", noremap = true, silent = true }),
+    },
   }, -- }}}
   -- numb.nvim {{{
   {
@@ -233,6 +233,8 @@ return {
           "Telescope",
           "WhichKey",
           "MiniStarter",
+          "Mason",
+          "mason",
           "starter",
           "Starter",
           "esqueleto.ivy.selection",
