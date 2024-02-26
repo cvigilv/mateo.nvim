@@ -8,8 +8,8 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   pattern = { "*" },
   callback = function()
-    vim.api.nvim_win_set_option(0, "relativenumber", false)
-    vim.api.nvim_win_set_option(0, "number", false)
+    vim.o.relativenumber = false
+    vim.o.number = false
   end,
 })
 
