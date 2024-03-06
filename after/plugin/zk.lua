@@ -14,7 +14,7 @@ local zk_theme = function(opts)
     prompt_title = "",
     preview_title = "Zettelkasten",
     results_title = "",
-    prompt_prefix = "⌕ ",
+    prompt_prefix = "? ",
     selection_caret = "> ",
     entry_prefix = "  ",
     initial_mode = "insert",
@@ -85,13 +85,13 @@ end
 local opts = { noremap = true, silent = false }
 vim.keymap.set(
   "n",
-  "<leader>zf",
+  "<leader>fz",
   search_headings,
   vim.tbl_extend("keep", opts, { desc = "Search notes by headings" })
 )
 vim.keymap.set(
   "n",
-  "<leader>zF",
+  "<leader>fZ",
   search_notes,
   vim.tbl_extend("keep", opts, { desc = "Search notes by content" })
 )
