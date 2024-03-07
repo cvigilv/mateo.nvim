@@ -330,9 +330,9 @@ return {
             {
               "diff",
               diff_color = {
-                added = { fg = vim.g.defaults.colors.GitAdd.fg },
-                modified = { fg = vim.g.defaults.colors.GitChange.fg },
-                removed = { fg = vim.g.defaults.colors.GitDelete.fg },
+                added = { fg = vim.g.defaults.colors.GitAdd.bg },
+                modified = { fg = vim.g.defaults.colors.GitChange.bg },
+                removed = { fg = vim.g.defaults.colors.GitDelete.bg },
               },
             },
             -- }}}
