@@ -139,7 +139,7 @@ return {
       )
       vim.keymap.set(
         "n",
-        ",df",
+        ",fd",
         "<CMD>Telescope diagnostics<CR>",
         { silent = true, noremap = true, desc = "LSP diagnostics" }
       )
