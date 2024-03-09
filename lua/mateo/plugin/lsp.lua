@@ -206,7 +206,7 @@ return {
     local lint = require("lint")
     lint.linters_by_ft = {
       shell = { "shellcheck" },
-      lua = { "luacheck" },
+      -- lua = { "luacheck" },
       markdown = { "proselint" },
     }
     require("mason-nvim-lint").setup()
