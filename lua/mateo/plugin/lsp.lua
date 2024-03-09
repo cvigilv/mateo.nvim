@@ -218,17 +218,12 @@ return {
 
     -- UI
     require("fidget").setup({
-      tag = "v1.4.x",
-      config = function()
-        require("fidget").setup({
-          progress = {
-            display = {
-              progress_icon = { pattern = "circle_halves", period = 1 },
-              done_icon = "⏺ ",
-            },
-          },
-        })
-      end,
+      progress = {
+        display = {
+          progress_icon = { pattern = "circle_halves", period = 1 },
+          done_icon = "⏺ ",
+        },
+      },
     })
 
     --- Borders
