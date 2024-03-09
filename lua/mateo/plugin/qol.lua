@@ -32,18 +32,6 @@ return {
         autouse = false,
         directories = { os.getenv("GITDIR") .. "/mateo.nvim/skeletons" },
         patterns = vim.fn.readdir(vim.fn.stdpath("config") .. "/skeletons"),
-        -- patterns = {
-        --   -- File
-        --   "README.md",
-        --   "LICENSE",
-        --   -- Filetype
-        --   "julia",
-        --   "sh",
-        --   "markdown",
-        --   "python",
-        --   "latex",
-        --   "tex",
-        -- },
         wildcards = {
           expand = true,
           lookup = {
