@@ -245,7 +245,7 @@ return {
   -- pqf {{{
   {
     "yorickpeterse/nvim-pqf",
-    init = function()
+    config = function()
       require("pqf").setup({
         signs = {
           error = vim.g.defaults.signs.error,
