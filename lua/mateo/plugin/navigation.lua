@@ -4,18 +4,18 @@ return {
     "numToStr/Navigator.nvim",
     config = function()
       require("Navigator").setup({
-        auto_save = "nil",
+        auto_save = nil,
         disable_on_zoom = true,
       })
 
       -- Keybindings
       local opts = { noremap = true, silent = true }
 
-      vim.keymap.set("n", "<C-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
-      vim.keymap.set("n", "<C-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
-      vim.keymap.set("n", "<C-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
-      vim.keymap.set("n", "<C-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
-      vim.keymap.set("n", "<C-p>", "<CMD>lua require('Navigator').previous()<CR>", opts)
+      vim.keymap.set({ "t", "n" }, "<C-h>", require("Navigator").left, opts)
+      vim.keymap.set({ "t", "n" }, "<C-k>", require("Navigator").up, opts)
+      vim.keymap.set({ "t", "n" }, "<C-l>", require("Navigator").right, opts)
+      vim.keymap.set({ "t", "n" }, "<C-j>", require("Navigator").down, opts)
+      vim.keymap.set({ "t", "n" }, "<C-p>", require("Navigator").previous, opts)
     end,
   },
   -- }}}
