@@ -192,6 +192,7 @@ return {
   {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
+    keymaps = { "<Leader>ld", "<Leader>lD" },
     config = function()
       local neogen = require("neogen")
 
@@ -203,22 +204,23 @@ return {
           python = { template = { annotation_convention = "numpydoc" } },
         },
       })
-    end,
-    keymaps = {
+
+      -- Keymaps
       vim.keymap.set(
         "n",
         "<Leader>ld",
         function() require("neogen").generate({ type = "func" }) end,
         { desc = "Generate function docstring", noremap = true, silent = true }
-      ),
+      )
+
       vim.keymap.set("n", "<Leader>lD", function()
         vim.ui.select(
           { "class", "func", "type", "file" },
           { prompt = "Select docstring to generate:" },
           function(choice) require("neogen").generate({ type = choice }) end
         )
-      end, { desc = "Pick docstring to generate", noremap = true, silent = true }),
-    },
+      end, { desc = "Pick docstring to generate", noremap = true, silent = true })
+    end,
   }, -- }}}
   -- numb.nvim {{{
   {
