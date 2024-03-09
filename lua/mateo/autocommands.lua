@@ -13,26 +13,6 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
   end,
 })
 
--- Colorscheme overrides
-vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-  pattern = { "*" },
-  callback = function()
-    -- Link some highlight groups
-    local links = {}
-    links.EndOfBuffer = "ColorColumn"
-    links.MiniStarterHeader = "Normal"
-    links.MiniStarterFooter = "Normal"
-    links.MiniStarterSection = "Normal"
-
-    for k, v in pairs(links) do
-      vim.cmd("hi! link " .. k .. " " .. v)
-    end
-
-    -- Reinitialize OverLength
-    require("overlength").setup(vim.g.plugin_overlength)
-  end,
-})
-
 -- Refresh MiniStarter after calculating `lazy.nvim` stats
 vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "LazyVimStarted" },
