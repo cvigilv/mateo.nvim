@@ -15,7 +15,7 @@ vim.g.defaults = {
     GitChange = { fg = "#c0b05f", bg = "#4E460C" },
     GitDelete = { fg = "#ff9095", bg = "#65161B" },
     Critical = { fg = "#ff0000" },
-  },        --}}}
+  }, --}}}
   signs = { --{{{
     add = "+",
     change = "~",
@@ -24,7 +24,7 @@ vim.g.defaults = {
     warn = "!",
     info = "?",
     hint = "*",
-  },         --}}}
+  }, --}}}
   border = { --{{{
     named = borders,
     floating = {
@@ -59,7 +59,7 @@ vim.g.defaults = {
         borders.bottom_left,
       },
     },
-  },              --}}}
+  }, --}}}
   ignored_fts = { -- {{{
     ui = {
       "Lazy",
@@ -67,6 +67,7 @@ vim.g.defaults = {
       "NvimTree",
       "Starter",
       "Telescope",
+      "TelescopePrompt",
       "WhichKey",
       "esqueleto.ivy.selection",
       "help",
@@ -80,4 +81,26 @@ vim.g.defaults = {
       "terminal",
     },
   }, -- }}}
+}
+
+vim.g.plugins = {
+  overlength = function()
+    -- TODO: Add diagnostics generation for lines that are too long
+    local utils = require("mateo.utils")
+    local config = {
+      enabled = true,
+      colors = {
+        ctermfg = "",
+        ctermbg = "",
+        fg = vim.g.defaults.colors.Critical.fg,
+        bg = utils.get_hl_group_hex("ColorColumn", "background"),
+      },
+      textwidth_mode = 1,
+      default_overlength = 96,
+      grace_length = 0,
+      highlight_to_eol = true,
+      disable_ft = vim.g.defaults.ignored_fts.ui,
+    }
+    return config
+  end,
 }
