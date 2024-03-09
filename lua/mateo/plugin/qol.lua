@@ -45,35 +45,72 @@ return {
     end,
   },
   -- }}}
-  -- mini TODO: change to single release modules {{{
+  -- mini {{{
   {
     "echasnovski/mini.nvim",
     config = function()
       -- Disable unused modules
-      vim.g.minibase16_disable = true
-      vim.g.minibufremove_disable = true
-      vim.g.minicompletion_disable = true
-      vim.g.minicursorword_disable = true
-      vim.g.minifuzzy_disable = true
-      vim.g.miniindentscope_disable = true
-      vim.g.minijump_disable = true
-      vim.g.minimisc_disable = true
-      vim.g.minipairs_disable = true
-      vim.g.ministatusline_disable = true
-      vim.g.minisurround_disable = true
-      vim.g.minitabline_disable = true
-      vim.g.minitrailspace_disable = true
+      vim.g.miniai_disabled = false
+      vim.g.minialign_disabled = false
+      vim.g.minianimate_disabled = true
+      vim.g.minibase16_disabled = false
+      vim.g.minibasics_disabled = true
+      vim.g.minibracketed_disabled = true
+      vim.g.minibufremove_disabled = true
+      vim.g.miniclue_disabled = true
+      vim.g.minicolors_disabled = false
+      vim.g.minicomment_disabled = false
+      vim.g.minicompletion_disabled = true
+      vim.g.minicursorword_disabled = true
+      vim.g.minideps_disabled = true
+      vim.g.minidoc_disabled = true
+      vim.g.miniextra_disabled = true
+      vim.g.minifiles_disabled = true
+      vim.g.minifuzzy_disabled = true
+      vim.g.minihipatterns_disabled = false
+      vim.g.minihues_disabled = true
+      vim.g.miniindentscope_disabled = true
+      vim.g.minijump_disabled = true
+      vim.g.minijump2d_disabled = true
+      vim.g.minimap_disabled = true
+      vim.g.minimisc_disabled = true
+      vim.g.minimove_disabled = true
+      vim.g.mininotify_disabled = true
+      vim.g.mininvim_disabled = true
+      vim.g.minioperators_disabled = true
+      vim.g.minipairs_disabled = true
+      vim.g.minipick_disabled = true
+      vim.g.minisessions_disabled = true
+      vim.g.minisplitjoin_disabled = false
+      vim.g.ministarter_disabled = false
+      vim.g.ministatusline_disabled = true
+      vim.g.minisurround_disabled = false
+      vim.g.minitabline_disabled = true
+      vim.g.minitest_disabled = true
+      vim.g.minitrailspace_disabled = false
+      vim.g.minivisits_disabled = true
 
-      -- Setup ´mini.nvim´ modules
+      -- Setup ´mini.nvim´ modules using default behaviour
       require("mini.ai").setup()
       require("mini.align").setup()
       require("mini.comment").setup()
-      require("mini.sessions").setup({
-        -- Setup
-        autoread = false,
-        autowrite = true,
-        force = { read = false, write = true, delete = false },
-        verbose = { read = false, write = true, delete = true },
+      require("mini.surround").setup()
+      require("mini.splitjoin").setup()
+      require("mini.trailspace").setup()
+
+      -- Setup ´mini.nvim´ modules using custom behaviour
+      -- TODO: Replace with folke/todo.comments (more powerful)
+      local hipatterns = require("mini.hipatterns")
+      hipatterns.setup({
+        highlighters = {
+          fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+          hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+          todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+          note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+          -- Highlight hex color strings (`#rrggbb`) using that color
+          hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
       })
 
       local generate_footer = function()
