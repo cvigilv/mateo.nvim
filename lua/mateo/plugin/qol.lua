@@ -212,24 +212,7 @@ return {
   -- overlength {{{
   {
     "lcheylus/overlength.nvim",
-    config = function()
-      local utils = require("mateo.utils")
-      vim.g.plugin_overlength = {
-        enabled = true,
-        colors = {
-          ctermfg = "",
-          ctermbg = "",
-          fg = vim.g.defaults.colors.Critical.fg,
-          bg = utils.get_hl_group_hex("ColorColumn", "background"),
-        },
-        textwidth_mode = 1,
-        default_overlength = 96,
-        grace_length = 0,
-        highlight_to_eol = true,
-        disable_ft = vim.g.defaults.ignored_fts.ui,
-      }
-      require("overlength").setup(vim.g.plugin_overlength)
-    end,
+    config = function() require("overlength").setup(vim.g.plugins.overlength()) end,
   },
   -- }}}
   -- pqf {{{
