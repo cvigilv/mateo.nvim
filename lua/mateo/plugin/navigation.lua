@@ -32,8 +32,8 @@ return {
       "<leader>fb",
       "<leader>fd",
       "<leader>f?",
-      "<leader>zf",
-      "<leader>zF",
+      "<leader>fz",
+      "<leader>fZ",
     },
     config = function()
       local previewers = require("telescope.previewers")
@@ -117,7 +117,7 @@ return {
         "n",
         ",fs",
         "<CMD>Telescope live_grep<CR>",
-        { silent = true, noremap = true, desc = "[F]ind [s]tring with Grep" }
+        { silent = true, noremap = true, desc = "Find string with Grep" }
       )
       vim.keymap.set(
         "n",
