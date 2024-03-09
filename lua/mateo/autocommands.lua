@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 })
 
 -- Highlight out-of-bounds region
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufNew" }, {
   pattern = { "*" },
   callback = function()
     -- Add colorcolumn to line overlength
@@ -41,6 +41,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end
 
     vim.opt.colorcolumn = table.concat(cols2blur, ",")
+
+    if vim.tbl_contains(vim.g.defaults.ignored_fts.ui, vim.bo.filetype) then
+      vim.opt.colorcolumn = ""
+    end
   end,
 })
 
