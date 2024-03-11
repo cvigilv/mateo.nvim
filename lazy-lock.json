@@ -14,6 +14,7 @@
   "fidget.nvim": { "branch": "main", "commit": "4e854f3299e21d1c18279add340428a97520fc44" },
   "gitsigns.nvim": { "branch": "main", "commit": "2c2463dbd82eddd7dbab881c3a62cfbfbe3c67ae" },
   "img-clip.nvim": { "branch": "main", "commit": "c93f0d67db424e9e83fe55730aa42dfafa847d8f" },
+  "incline.nvim": { "branch": "main", "commit": "a3df527789289016b561c4ad3c891490169d1d6b" },
   "lazy.nvim": { "branch": "main", "commit": "aedcd79811d491b60d0a6577a9c1701063c2a609" },
   "lualine.nvim": { "branch": "master", "commit": "7d131a8d3ba5016229e8a1d08bf8782acea98852" },
   "lush.nvim": { "branch": "main", "commit": "2e8d34e748642621d761a65e3c2a198154b914e8" },

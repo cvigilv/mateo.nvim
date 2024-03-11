@@ -149,7 +149,7 @@ return {
   -- modus
   "miikanissi/modus-themes.nvim",
   --
-  -- statusline
+  -- statusline {{{
   {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -158,84 +158,10 @@ return {
       "SmiteshP/nvim-navic",
     },
     config = function()
-      local navic = require("nvim-navic")
       local utils = require("mateo.utils")
       local lualine = require("lualine")
       local lush = require("lush")
       local hsl = lush.hsluv
-
-      -- Setup navic
-      navic.setup({
-        icons = {
-          File = "@",
-          Module = "{} ",
-          Namespace = "{} ",
-          Package = "⚗ ",
-          Class = "⛬ ",
-          Method = "⛬ ",
-          Property = "∘ ",
-          Field = "⛬ ",
-          Constructor = "⛬ ",
-          Enum = "⛬ ",
-          Interface = "⛬ ",
-          Function = "ƒ ",
-          Variable = "𝑥 ",
-          Constant = "C ",
-          String = "⁋ ",
-          Number = "# ",
-          Boolean = "◐ ",
-          Array = "[] ",
-          Object = "{} ",
-          Key = "∘ ",
-          Null = "∅ ",
-          EnumMember = "∘ ",
-          Struct = "⛬ ",
-          Event = "⚡ ",
-          Operator = "≅ ",
-          TypeParameter = "{T} ",
-        },
-        lsp = { auto_attach = true },
-        depth_limit = 5,
-        highlight = true,
-        safe_output = false,
-      })
-
-      vim.api.nvim_create_autocmd({ "VimEnter", "ColorSchemePre", "ColorScheme" }, {
-        callback = function()
-          local links = {}
-          links.NavicIconsFile = "Directory"
-          links.NavicIconsModule = "@include"
-          links.NavicIconsNamespace = "@namespace"
-          links.NavicIconsPackage = "@include"
-          links.NavicIconsClass = "@structure"
-          links.NavicIconsMethod = "@method"
-          links.NavicIconsProperty = "@property"
-          links.NavicIconsField = "@field"
-          links.NavicIconsConstructor = "@constructor"
-          links.NavicIconsEnum = "@field"
-          links.NavicIconsInterface = "@type"
-          links.NavicIconsFunction = "@function"
-          links.NavicIconsVariable = "@variable"
-          links.NavicIconsConstant = "@constant"
-          links.NavicIconsString = "@string"
-          links.NavicIconsNumber = "@number"
-          links.NavicIconsBoolean = "@boolean"
-          links.NavicIconsArray = "@field"
-          links.NavicIconsObject = "@type"
-          links.NavicIconsKey = "@keyword"
-          links.NavicIconsNull = "@comment"
-          links.NavicIconsEnumMember = "@field"
-          links.NavicIconsStruct = "@structure"
-          links.NavicIconsEvent = "@keyword"
-          links.NavicIconsOperator = "@operator"
-          links.NavicIconsTypeParameter = "@type"
-          links.NavicSeparator = "Type"
-
-          for k, v in pairs(links) do
-            vim.cmd("hi! link " .. k .. " " .. v)
-          end
-        end,
-      })
 
       -- Setup statusline
       local setup_statusline = function()
@@ -245,15 +171,11 @@ return {
         local fg_dim = nil
         local bg_dim = nil
         if vim.o.background == "light" then
-          fg = hsl(fg).hex
-          bg = hsl(bg).darken(5).hex
-          fg_dim = hsl(bg).darken(50).hex
-          bg_dim = hsl(fg).lighten(50).hex
+          fg_dim = hsl(fg).lighten(5).hex
+          bg_dim = hsl(bg).darken(5).hex
         elseif vim.o.background == "dark" then
-          fg = hsl(fg).hex
-          bg = hsl(bg).lighten(5).hex
-          fg_dim = hsl(bg).lighten(50).hex
-          bg_dim = hsl(fg).darken(50).hex
+          fg_dim = hsl(bg).lighten(5).hex
+          bg_dim = hsl(fg).darken(5).hex
         end
 
         local colors = {
@@ -267,7 +189,7 @@ return {
         local config = {
           options = {
             disabled_filetypes = vim.g.defaults.ignored_fts.ui,
-            component_separators = "·",
+            component_separators = "",
             section_separators = "",
             theme = {
               normal = { c = { fg = colors.fg, bg = colors.bg } },
@@ -292,41 +214,53 @@ return {
           return true
         end
 
+        local function set_option_safe(name, setter)
+          for _, scope in ipairs({ "local", "global" }) do
+            setter(vim["opt_" .. scope][name])
+          end
+        end
+
+        set_option_safe(
+          "fillchars",
+          function(opt) opt:append({ stl = "─", stlnc = "─" }) end
+        )
+
         local sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { --
-            --{{{ Filename
-            {
-              "filename",
-              color = { fg = bg, bg = fg },
-              padding = { left = 2, right = 2 },
-            }, --}}}
+          lualine_c = { --{{{
             -- Location {{{
+            {
+              function() return "" end,
+              color = { fg = colors.bg_dim, bg = colors.bg },
+              padding = { left = 1, right = 0 },
+            },
             {
               function() -- Root
                 if vim.b.gitsigns_status_dict ~= nil then
-                  local fmt_str = "repo: "
+                  local fmt_str = "gh: "
                     .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
-                    .. "("
+                    .. " @ "
                     .. vim.fs.basename(vim.b.gitsigns_status_dict["head"])
-                    .. ")"
                   if string.len(fmt_str) > 44 then
-                    fmt_str = string.sub(fmt_str, 1, 44) .. "...)"
+                    fmt_str = string.sub(fmt_str, 1, 32) .. "...)"
                   end
                   return fmt_str
                 else
-                  return vim.fn.pathshorten(vim.fn.getcwd(), 2)
+                  return "dir: " .. vim.fn.pathshorten(vim.fn.getcwd(), 3)
                 end
               end,
-              icon = "",
-              color = { fg = colors.fg_dim },
-              padding = { left = 0, right = 0 },
+              padding = { left = 1, right = 1 },
+              color = { fg = colors.fg, bg = colors.bg_dim, gui = "bold" },
             },
             -- }}}
-          }, --
-          lualine_x = { --
             -- {{{ Git
+            {
+              function() return "·" end,
+              padding = { left = 0, right = 0 },
+              color = { fg = colors.fg, bg = colors.bg_dim },
+              cond = function() return vim.b.gitsigns_status_dict ~= nil end,
+            },
             {
               "diff",
               diff_color = {
@@ -334,9 +268,25 @@ return {
                 modified = { fg = vim.g.defaults.colors.GitChange.bg },
                 removed = { fg = vim.g.defaults.colors.GitDelete.bg },
               },
+              padding = { left = 1, right = 1 },
+              color = { fg = colors.fg, bg = colors.bg_dim },
             },
+            {
+              function() return "" end,
+              padding = { left = 0, right = 1 },
+              color = { fg = colors.bg_dim, bg = colors.bg },
+            },
+
             -- }}}
+          },
+          --}}}
+          lualine_x = { ---{{{
             -- Diagnostics {{{
+            {
+              function() return "" end,
+              color = { fg = colors.bg_dim, bg = colors.bg },
+              padding = { left = 1, right = 0 },
+            },
             {
               "diagnostics",
               sources = { "nvim_lsp", "nvim_diagnostic" },
@@ -351,7 +301,6 @@ return {
               },
               always_visible = true,
               update_in_insert = true,
-              padding = { left = 1, right = 1 },
               cond = function()
                 if hide_section() then
                   return hide_section()
@@ -359,12 +308,19 @@ return {
                   return false
                 end
               end,
+              padding = { left = 1, right = 1 },
+              color = { fg = colors.fg, bg = colors.bg_dim },
+            },
+            {
+              function() return "·" end,
+              padding = { left = 0, right = 0 },
+              color = { fg = colors.fg, bg = colors.bg_dim },
             },
             -- }}}
             -- LSP {{{
             {
               function()
-                local msg = "⚒ "
+                local msg = "LSP: "
                 local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
                 local clients = vim.lsp.get_active_clients()
 
@@ -381,34 +337,23 @@ return {
                   end
                 end
               end,
-              color = { fg = colors.bg, bg = colors.fg },
-              padding = { left = 2, right = 2 },
+              color = { fg = colors.fg, bg = colors.bg_dim, gui = "bold" },
               cond = hide_section,
             },
+            {
+              function() return "" end,
+              padding = { left = 0, right = 1 },
+              color = { fg = colors.bg_dim, bg = colors.bg },
+            },
             -- }}}
-          }, --
+          },
+          --}}}
           lualine_y = {},
           lualine_z = {},
         }
 
         config.sections = sections
         config.inactive_sections = vim.deepcopy(sections)
-        ---@diagnostic disable-next-line: undefined-field
-        config.inactive_sections.lualine_c[1].color = { fg = colors.fg_dim }
-        ---@diagnostic disable-next-line: undefined-field
-        config.inactive_sections.lualine_x[#config.inactive_sections.lualine_x].color =
-          { fg = colors.fg_dim }
-
-        config.winbar = {
-          lualine_c = {
-            {
-              function() return navic.get_location() end,
-              cond = function() return navic.is_available() end,
-              color = { fg = colors.fg_dim, bg = colors.bg },
-              icon = "⌕",
-            },
-          },
-        }
 
         lualine.setup(config)
       end
@@ -420,8 +365,57 @@ return {
       })
     end,
   },
-  --
-  -- which-key
+  -- }}}
+  --incline {{{
+  {
+    "b0o/incline.nvim",
+    dependencies = "rktjmp/lush.nvim",
+    config = function()
+      --- Setup incline filename statusbar
+      ---@return nil
+      local setup_incline = function()
+        -- Get current colorscheme `Normal` highlight group
+        local utils = require("mateo.utils")
+        local hsl = require("lush.hsl")
+        local fg = utils.get_hl_group_hex("Normal", "foreground")
+        local bg = utils.get_hl_group_hex("Normal", "background")
+
+        -- Setup `incline`
+        local incline = require("incline")
+        incline.setup({
+          window = {
+            padding = 0,
+            placement = {
+              horizontal = "center",
+              vertical = "bottom",
+            },
+          },
+          render = function(props)
+            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+            return {
+              "",
+              {
+                filename,
+                guifg = fg,
+                guibg = hsl(bg).darken(10).hex,
+                gui = "bold",
+              },
+              "",
+              guifg = hsl(bg).darken(10).hex,
+              guibg = "none",
+            }
+          end,
+          hide = { cursorline = true },
+        })
+      end
+
+      -- Launch statusline
+      vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        pattern = { "*" },
+        callback = setup_incline,
+      })
+    end,
+  }, --}}}
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
