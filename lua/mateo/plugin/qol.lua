@@ -296,6 +296,29 @@ return {
     cmd = "UndotreeToggle",
     keys = "<leader>u",
     config = function()
+      -- Configuration
+      vim.g.undotree_SetFocusWhenToggle = 1
+      vim.g.undotree_SplitWidth = 48
+      vim.g.undotree_DiffpanelHeight = 16
+      vim.g.undotree_ShortIndicators = 1
+      -- TODO: Improve glyphs used
+      vim.g.undotree_TreeNodeShape = "*"
+      vim.g.undotree_TreeReturnShape = "╲"
+      vim.g.undotree_TreeVertShape = "│"
+      vim.g.undotree_TreeSplitShape = "╱"
+      -- TODO: Replicate git's diff output format and use that for undotree
+      -- vim.g.undotree_DiffCommand = "diff -y -w --color='always' --suppress-common-lines"
+
+      -- TODO: Implement function to enhance the use of undotree as follows:
+      --       1. If multiple windows, maximize the on where we are running undotree
+      --       2. Clearer diff window
+      --       local function undotree() end
+
+      -- TODO: Modify highlight groups in order to make (1) tree pane buffer darker and (2)
+      --       diff pane darker
+
+      -- TODO: Disable Out-of-bounds region highlight inside undotree panes
+
       vim.keymap.set(
         "n",
         "<leader>u",
