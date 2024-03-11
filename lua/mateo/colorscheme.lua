@@ -75,6 +75,8 @@ for k, v in pairs(all_links) do
   vim.cmd("hi! link " .. k .. " " .. v)
 end
 
+vim.cmd("colo deepwhite")
+
 -- Run Overlength
 local _, overlength = pcall(require, "overlength")
 if overlength ~= nil then overlength.setup(vim.g.plugins.overlength()) end
