@@ -1,7 +1,7 @@
 return {
-  -- colorscheme
+  -- colorscheme {{{
   {
-    -- tokyonight
+    -- tokyonight {{{
     "folke/tokyonight.nvim",
     dependencies = "rktjmp/lush.nvim",
     priority = 10000,
@@ -71,9 +71,9 @@ return {
         callback = function() vim.o.background = "dark" end,
       })
     end,
-  }, --
+  }, --}}}
   {
-    -- deepwhite
+    -- deepwhite {{{
     "Verf/deepwhite.nvim",
     priority = 10000,
     dependencies = "rktjmp/lush.nvim",
@@ -143,12 +143,12 @@ return {
         end,
       })
     end,
-  }, --
+  }, --}}}
   -- oxocarbon
   "nyoom-engineering/oxocarbon.nvim",
   -- modus
   "miikanissi/modus-themes.nvim",
-  --
+  -- }}}
   -- statusline {{{
   {
     "nvim-lualine/lualine.nvim",
@@ -416,6 +416,7 @@ return {
       })
     end,
   }, --}}}
+  -- which-key {{{
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -492,5 +493,5 @@ return {
         [",d"] = { name = "+diagnostics" },
       })
     end,
-  }, --
+  }, --}}}
 }
