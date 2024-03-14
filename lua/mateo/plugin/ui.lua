@@ -120,6 +120,11 @@ return {
           highlights.TabLine = { guifg = fg, guibg = bg }
           highlights.TabLinSel = { guifg = fg, guibg = fg }
           highlights.TabLineFill = { guifg = bg, guibg = fg }
+          highlights.DiagnosticOk = { gui = "reverse", guibg = bg }
+          highlights.DiagnosticInfo = { gui = "reverse", guibg = bg }
+          highlights.DiagnosticHint = { gui = "reverse", guibg = bg }
+          highlights.DiagnosticWarn = { gui = "reverse", guibg = bg }
+          highlights.DiagnosticError = { gui = "reverse", guibg = bg }
 
           for k, v in pairs(highlights) do
             local hlstr = {}
@@ -140,6 +145,7 @@ return {
           for k, v in pairs(links) do
             vim.cmd("hi! link " .. k .. " " .. v)
           end
+          vim.cmd.colorscheme("deepwhite")
         end,
       })
     end,
@@ -391,11 +397,15 @@ return {
             },
           },
           render = function(props)
-            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+            local bufname = vim.api.nvim_buf_get_name(props.buf)
+            local res = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or bufname
+            if vim.bo[props.buf].modified then res = "* " .. res end
             return {
               "",
               {
-                filename,
+                utils.get_mode(),
+                " · ",
+                res,
                 guifg = fg,
                 guibg = hsl(bg).darken(10).hex,
                 gui = "bold",
@@ -407,6 +417,7 @@ return {
           end,
           hide = { cursorline = true },
         })
+        vim.on_key(incline.refresh(), 0)
       end
 
       -- Launch statusline
