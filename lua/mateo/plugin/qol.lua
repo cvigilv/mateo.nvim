@@ -236,28 +236,6 @@ return {
     end,
   },
   -- }}}
-  -- overlength {{{
-  {
-    "lcheylus/overlength.nvim",
-    config = function() require("overlength").setup(vim.g.plugins.overlength()) end,
-  },
-  -- }}}
-  -- pqf {{{
-  {
-    "yorickpeterse/nvim-pqf",
-    config = function()
-      require("pqf").setup({
-        signs = {
-          error = vim.g.defaults.signs.error,
-          warn = vim.g.defaults.signs.warn,
-          info = vim.g.defaults.signs.info,
-          hint = vim.g.defaults.signs.hint,
-        },
-        show_multiple_lines = false,
-        max_filename_length = 0,
-      })
-    end,
-  }, -- }}}
   -- quickscope {{{
   {
     "unblevable/quick-scope",
