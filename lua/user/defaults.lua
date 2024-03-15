@@ -11,10 +11,29 @@ local borders = {
 
 vim.g.defaults = {
   colors = { -- {{{
-    GitAdd = { fg = "#80e080", bg = "#1B492B" },
-    GitChange = { fg = "#c0b05f", bg = "#4E460C" },
-    GitDelete = { fg = "#ff9095", bg = "#65161B" },
-    Critical = { fg = "#ff0000" },
+    black = "#1f1f1f",
+    dark_gray = "#575756",
+    gray = "#8f8f8d",
+    light_gray = "#c6c6c3",
+    white = "#fefefa",
+  }, --}}}
+  highlights = { -- {{{
+    -- Normal
+    Normal = { fg = "#1f1f1f", bg = "#fefefa" },
+
+    -- Diagnostics
+    DiagnosticOK = { fg = "#fefefa", bg = "#c6c6c3" },
+    DiagnosticHint = { fg = "#1f1f1f", bg = "#2ec4b6" },
+    DiagnosticWarn = { fg = "#1f1f1f", bg = "#ff9f1c" },
+    DiagnosticError = { fg = "#fefefa", bg = "#7b2cbf" },
+
+    -- Git
+    DiffAdd = { fg = "#c9fdc6", bg = "#0f4f09" },
+    DiffChange = { fg = "#faf3c6", bg = "#4c4109" },
+    DiffDelete = { fg = "#f9c4d1", bg = "#4c0016" },
+
+    -- Misc
+    Critical = { fg = "#ec1313", bg = "#ffffff" },
   }, --}}}
   signs = { --{{{
     add = "+",
