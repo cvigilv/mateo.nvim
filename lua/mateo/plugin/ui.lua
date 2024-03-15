@@ -417,7 +417,6 @@ return {
           end,
           hide = { cursorline = true },
         })
-        vim.on_key(incline.refresh(), 0)
       end
 
       -- Launch statusline
