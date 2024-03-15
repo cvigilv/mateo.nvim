@@ -126,7 +126,7 @@ vim.g.defaults = {
 vim.g.plugins = {
   overlength = function()
     -- TODO: Add diagnostics generation for lines that are too long
-    local utils = require("mateo.utils")
+    local utils = require("user.utils")
     local config = {
       enabled = true,
       colors = {
