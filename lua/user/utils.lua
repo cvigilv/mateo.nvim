@@ -51,10 +51,10 @@ end
 
 --- Get current mode in a single letter format
 ---@return string current mode name
-M.get_mode = function()
-  local mode_code = vim.api.nvim_get_mode().mode
-  if vim.g.defaults.mode[mode_code] == nil then return mode_code end
-  return vim.g.defaults.mode[mode_code]
-end
+--M.get_mode = function()
+--  local mode_code = vim.api.nvim_get_mode().mode
+--  if vim.g.defaults.mode[mode_code] == nil then return mode_code end
+--  return vim.g.defaults.mode[mode_code]
+--end
 
 return M
