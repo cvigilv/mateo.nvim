@@ -77,4 +77,15 @@ return {
       })
     end,
   }, --}}}
+  -- statusline {{{
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "lewis6991/gitsigns.nvim" },
+    config = function() require("lualine").setup({}) end,
+  },
+  {
+    "b0o/incline.nvim",
+    config = function() require("incline").setup() end,
+  },
+  -- }}}
 }
