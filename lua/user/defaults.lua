@@ -8,6 +8,17 @@ local borders = {
   bottom_right = "🭿",
   bottom_left = "🭼",
 }
+local colors3 = {
+  normal_000 = "#FFFDF1",
+  normal_100 = "#E3E1D7",
+  normal_200 = "#C7C6BD",
+  normal_300 = "#ABAAA2",
+  normal_400 = "#8F8E88",
+  normal_500 = "#73726E",
+  normal_600 = "#575754",
+  normal_700 = "#3B3B39",
+  normal_800 = "#1F1F1F",
+}
 
 vim.g.defaults = {
   colors = { -- {{{
@@ -15,22 +26,31 @@ vim.g.defaults = {
     dark_gray = "#575756",
     gray = "#8f8f8d",
     light_gray = "#c6c6c3",
+    lighter_gray = "#f5f5f1",
     white = "#fefefa",
   }, --}}}
   highlights = { -- {{{
     -- Normal
-    Normal = { fg = "#1f1f1f", bg = "#fefefa" },
+    Normal = { fg = colors3.normal_800, bg = colors3.normal_000 },
+    Cursorline = { bg = colors3.normal_100 },
+    Tabline = { fg = colors3.normal_800, bg = colors3.normal_200 },
+    Folded = { bg = "#E8DBF0" },
+    ColorColumn = { bg = colors3.normal_200 },
 
     -- Diagnostics
-    DiagnosticOK = { fg = "#fefefa", bg = "#c6c6c3" },
-    DiagnosticHint = { fg = "#1f1f1f", bg = "#2ec4b6" },
-    DiagnosticWarn = { fg = "#1f1f1f", bg = "#ff9f1c" },
-    DiagnosticError = { fg = "#fefefa", bg = "#7b2cbf" },
+    DiagnosticOK = { fg = colors3.normal_000, bg = "#c6c6c3" },
+    DiagnosticHint = { fg = colors3.normal_800, bg = "#2ec4b6" },
+    DiagnosticWarn = { fg = colors3.normal_800, bg = "#ff9f1c" },
+    DiagnosticError = { fg = colors3.normal_000, bg = "#7b2cbf" },
 
     -- Git
     DiffAdd = { fg = "#c9fdc6", bg = "#0f4f09" },
     DiffChange = { fg = "#faf3c6", bg = "#4c4109" },
     DiffDelete = { fg = "#f9c4d1", bg = "#4c0016" },
+
+    UserDiffAdd = { bg = "#c9fdc6", fg = "#0f4f09" },
+    UserDiffChange = { bg = "#faf3c6", fg = "#4c4109" },
+    UserDiffDelete = { bg = "#f9c4d1", fg = "#4c0016" },
 
     -- Misc
     Critical = { fg = "#ec1313", bg = "#ffffff" },
