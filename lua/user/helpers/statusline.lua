@@ -15,17 +15,17 @@ end
 -- UI elements {{{
 M.pill_left = {
   function() return "" end,
-  color = { fg = vim.g.defaults.colors.lighter_gray, bg = vim.g.defaults.colors.white },
+  -- color = { fg = vim.g.defaults.colors.lighter_gray, bg = vim.g.defaults.colors.white },
   padding = { left = 1, right = 0 },
 }
 M.pill_right = {
   function() return "" end,
-  color = { fg = vim.g.defaults.colors.lighter_gray, bg = vim.g.defaults.colors.white },
+  -- color = { fg = vim.g.defaults.colors.lighter_gray, bg = vim.g.defaults.colors.white },
   padding = { left = 0, right = 1 },
 }
 M.separator = {
   function() return "·" end,
-  color = { fg = vim.g.defaults.colors.black, bg = vim.g.defaults.colors.lighter_gray },
+  -- color = { fg = vim.g.defaults.colors.black, bg = vim.g.defaults.colors.lighter_gray },
   padding = { left = 1, right = 1 },
 }
 -- }}}
@@ -41,7 +41,7 @@ M.parent_dir = {
         .. "󰊢 "
         .. vim.fs.basename(vim.b.gitsigns_status_dict["root"])
         -- .. "%#Conceal#"
-        .. " "
+        .. "  "
         .. vim.b.gitsigns_head
         .. ""
 
@@ -83,8 +83,8 @@ M.parent_dir = {
 
     return content
   end,
-  padding = 0,
-  color = { bg = vim.g.defaults.colors.lighter_gray },
+  padding = { left = 2, right = 0 },
+  -- color = { bg = vim.g.defaults.colors.lighter_gray },
 }
 
 M.diagnostics = {
@@ -93,8 +93,7 @@ M.diagnostics = {
   symbols = vim.g.defaults.signs,
   always_visible = true,
   colored = false,
-  color = { bg = vim.g.defaults.colors.lighter_gray },
-  padding = { left = 0, right = 0 },
+  padding = { left = 1, right = 0 },
 }
 
 M.lsp_servers = {
@@ -115,8 +114,8 @@ M.lsp_servers = {
       end
     end
   end,
-  color = { bg = vim.g.defaults.colors.lighter_gray },
-  padding = { left = 0, right = 0 },
+  -- color = { bg = vim.g.defaults.colors.lighter_gray },
+  padding = { left = 0, right = 2 },
 }
 -- }}}
 

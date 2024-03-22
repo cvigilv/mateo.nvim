@@ -101,7 +101,7 @@ return {
       -- Setup lualine
       require("lualine").setup({
         options = {
-          theme = theme,
+          -- theme = theme,
           component_separators = "",
           section_separators = "",
           disabled_filetypes = {
@@ -117,38 +117,38 @@ return {
         },
         sections = {
           lualine_a = {
-            statusline.pill_left,
+            -- statusline.pill_left,
             statusline.parent_dir,
-            statusline.pill_right,
+            -- statusline.pill_right,
           },
           lualine_b = {},
           lualine_c = {},
           lualine_x = {},
           lualine_y = {},
           lualine_z = {
-            statusline.pill_left,
+            -- statusline.pill_left,
             statusline.diagnostics,
             statusline.separator,
             statusline.lsp_servers,
-            statusline.pill_right,
+            -- statusline.pill_right,
           },
         },
         inactive_sections = {
           lualine_a = {
-            statusline.pill_left,
+            -- statusline.pill_left,
             statusline.parent_dir,
-            statusline.pill_right,
+            -- statusline.pill_right,
           },
           lualine_b = {},
           lualine_c = {},
           lualine_x = {},
           lualine_y = {},
           lualine_z = {
-            statusline.pill_left,
+            -- statusline.pill_left,
             statusline.diagnostics,
             statusline.separator,
             statusline.lsp_servers,
-            statusline.pill_right,
+            -- statusline.pill_right,
           },
         },
         extensions = { "oil", "quickfix" },
@@ -172,8 +172,8 @@ return {
       local setup_incline = function()
         -- Get current colorscheme `Normal` highlight group
         local statusline = require("user.helpers.statusline")
-        local fg = vim.g.defaults.colors["black"]
-        local bg = vim.g.defaults.colors["lighter_gray"]
+        -- local fg = vim.g.defaults.colors["black"]
+        -- local bg = vim.g.defaults.colors["lighter_gray"]
 
         -- Setup `incline`
         local incline = require("incline")
@@ -190,18 +190,18 @@ return {
             local res = bufname ~= "" and vim.fn.fnamemodify(bufname, ":t") or bufname
             if vim.bo[props.buf].modified then res = "* " .. res end
             return {
-              "",
+              -- "",
               {
                 statusline.get_mode(),
                 " · ",
                 res,
-                guifg = fg,
-                guibg = bg,
+                -- guifg = fg,
+                -- guibg = bg,
                 gui = "bold",
               },
-              "",
-              guifg = bg,
-              guibg = vim.g.defaults.colors.white,
+              -- "",
+              -- guifg = bg,
+              -- guibg = vim.g.defaults.colors.white,
             }
           end,
           hide = { cursorline = true },

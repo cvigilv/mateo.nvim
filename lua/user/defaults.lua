@@ -29,32 +29,36 @@ vim.g.defaults = {
     lighter_gray = "#f5f5f1",
     white = "#fefefa",
   }, --}}}
-  highlights = { -- {{{
-    -- Normal
-    Normal = { fg = colors3.normal_800, bg = colors3.normal_000 },
-    Cursorline = { bg = colors3.normal_100 },
-    Tabline = { fg = colors3.normal_800, bg = colors3.normal_200 },
-    Folded = { bg = "#E8DBF0" },
-    ColorColumn = { bg = colors3.normal_200 },
-
-    -- Diagnostics
-    DiagnosticOK = { fg = colors3.normal_000, bg = "#c6c6c3" },
-    DiagnosticHint = { fg = colors3.normal_800, bg = "#2ec4b6" },
-    DiagnosticWarn = { fg = colors3.normal_800, bg = "#ff9f1c" },
-    DiagnosticError = { fg = colors3.normal_000, bg = "#7b2cbf" },
-
-    -- Git
-    DiffAdd = { fg = "#c9fdc6", bg = "#0f4f09" },
-    DiffChange = { fg = "#faf3c6", bg = "#4c4109" },
-    DiffDelete = { fg = "#f9c4d1", bg = "#4c0016" },
-
-    UserDiffAdd = { bg = "#c9fdc6", fg = "#0f4f09" },
-    UserDiffChange = { bg = "#faf3c6", fg = "#4c4109" },
-    UserDiffDelete = { bg = "#f9c4d1", fg = "#4c0016" },
-
-    -- Misc
-    Critical = { fg = "#ec1313", bg = "#ffffff" },
-  }, --}}}
+  highlights = {
+    Normal = { fg = colors3.normal_800, bg = "#fefefa" },
+    markdownCodeBlock = { bg = colors3.normal_100 },
+  },
+  -- highlights = { -- {{{
+  --   -- Normal
+  --   Normal = { fg = colors3.normal_800, bg = colors3.normal_000 },
+  --   Cursorline = { bg = colors3.normal_100 },
+  --   Tabline = { fg = colors3.normal_800, bg = colors3.normal_200 },
+  --   Folded = { bg = "#E8DBF0" },
+  --   ColorColumn = { bg = colors3.normal_200 },
+  --
+  --   -- Diagnostics
+  --   DiagnosticOK = { fg = colors3.normal_000, bg = "#c6c6c3" },
+  --   DiagnosticHint = { fg = colors3.normal_800, bg = "#2ec4b6" },
+  --   DiagnosticWarn = { fg = colors3.normal_800, bg = "#ff9f1c" },
+  --   DiagnosticError = { fg = colors3.normal_000, bg = "#7b2cbf" },
+  --
+  --   -- Git
+  --   DiffAdd = { fg = "#c9fdc6", bg = "#0f4f09" },
+  --   DiffChange = { fg = "#faf3c6", bg = "#4c4109" },
+  --   DiffDelete = { fg = "#f9c4d1", bg = "#4c0016" },
+  --
+  --   UserDiffAdd = { bg = "#c9fdc6", fg = "#0f4f09" },
+  --   UserDiffChange = { bg = "#faf3c6", fg = "#4c4109" },
+  --   UserDiffDelete = { bg = "#f9c4d1", fg = "#4c0016" },
+  --
+  --   -- Misc
+  --   Critical = { fg = "#ec1313", bg = "#ffffff" },
+  -- }, --}}}
   signs = { --{{{
     add = "+",
     change = "~",
