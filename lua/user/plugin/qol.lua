@@ -30,7 +30,7 @@ return {
     config = function()
       require("esqueleto").setup({
         autouse = false,
-        directories = { os.getenv("GITDIR") .. "/mateo.nvim/skeletons" },
+        directories = { os.getenv("GITDIR") .. "/user.nvim/skeletons" },
         patterns = vim.fn.readdir(vim.fn.stdpath("config") .. "/skeletons"),
         wildcards = {
           expand = true,
@@ -234,12 +234,6 @@ return {
         centered_peeking = true,
       })
     end,
-  },
-  -- }}}
-  -- overlength {{{
-  {
-    "lcheylus/overlength.nvim",
-    config = function() require("overlength").setup(vim.g.plugins.overlength()) end,
   },
   -- }}}
   -- pqf {{{

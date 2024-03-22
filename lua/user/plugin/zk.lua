@@ -25,6 +25,18 @@ return {
               download_images = true,
             },
           },
+          [zk] = {
+            template = "![$CURSOR]($FILE_PATH)",
+            dir_path = "meta/media/" .. vim.fn.expand("%:t:r"),
+            file_name = vim.fn.expand("%:t:r") .. "-%Y%m%d%H%M%S",
+            use_absolute_path = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+              copy_images = true,
+              download_images = true,
+            },
+          },
         },
       })
     end,
